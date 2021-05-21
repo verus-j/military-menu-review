@@ -2,18 +2,24 @@ package military.menu.review.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
+@Getter
 public class Menu {
     public final String name;
     public final double calorie;
 
+    public boolean isNotEmpty() {
+        return !(name.trim().equals("") || name.trim().length() == 0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !(o instanceof Menu)) return false;
         Menu menu = (Menu) o;
         return Objects.equals(name, menu.name);
     }
