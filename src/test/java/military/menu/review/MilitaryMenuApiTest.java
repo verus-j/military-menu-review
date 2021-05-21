@@ -1,5 +1,6 @@
 package military.menu.review;
 
+import military.menu.review.model.Menu;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -40,10 +45,15 @@ class MilitaryMenuApiTest {
 		int count = api.getTotalCount();
 
 		assertThat(count, is(3));
+	}
 
-//		assertThat(menuList, is(Arrays.asList(
-//				Menu.of("쇠고기무국", 45.12), Menu.of("김치찌개", 70.45), Menu.of("돼지고기고추장찌개", 105.67),
-//				Menu.of("두부구이", 123.97), Menu.of("느타리버섯볶음", 61.83), Menu.of("오징어볶음", 184.53),
-//				Menu.of("부추나물", 19.45), Menu.of("훈제삼겹살간장조림", 309.66), Menu.of("계란찜",95.56))));
+	@Test
+	public void shouldGetTotalMenu() {
+	 	api.setTemplate(template);
+	 	List<Menu> menuList = api.getMenuList();
+
+		assertThat(menuList, containsInAnyOrder(Menu.of("쇠고기무국", 45.12), Menu.of("김치찌개", 70.45), Menu.of("돼지고기고추장찌개", 105.67),
+				Menu.of("두부구이", 123.97), Menu.of("느타리버섯볶음", 61.83), Menu.of("오징어볶음", 184.53),
+				Menu.of("부추나물", 19.45), Menu.of("훈제삼겹살간장조림", 309.66), Menu.of("계란찜",95.56)));
 	}
 }
