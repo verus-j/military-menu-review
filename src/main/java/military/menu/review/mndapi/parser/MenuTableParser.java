@@ -14,7 +14,7 @@ public class MenuTableParser extends MndApiParser<MenuTable>{
         MenuTable menuTable = new MenuTable();
         Optional<DailyMenu> dailyMenu = Optional.ofNullable(null);
 
-        for(Map<String, String> jsonMap : parseToList(parseToMap(json))) {
+        for(Map<String, String> jsonMap : destructToMenuList(json)) {
             if(hasDate(jsonMap)) {
                 dailyMenu = createDailyMenu(jsonMap);
                 menuTable.addDailyMenu(dailyMenu.get());
@@ -41,20 +41,14 @@ public class MenuTableParser extends MndApiParser<MenuTable>{
     }
 
     private void addBreakfast(DailyMenu dailyMenu, Map<String, String> jsonMap) {
-        if(BREAKFAST_CONVERTOR.convert(jsonMap).isNotEmpty()) {
-            dailyMenu.addBreakfastMenu(BREAKFAST_CONVERTOR.convert(jsonMap));
-        }
+        BREAKFAST_CONVERTOR.convert(jsonMap).ifPresent(dailyMenu::addBreakfastMenu);
     }
 
     private void addLunch(DailyMenu dailyMenu, Map<String, String> jsonMap) {
-        if(LUNCH_CONVERTOR.convert(jsonMap).isNotEmpty()) {
-            dailyMenu.addLunchMenu(LUNCH_CONVERTOR.convert(jsonMap));
-        }
+        LUNCH_CONVERTOR.convert(jsonMap).ifPresent(dailyMenu::addLunchMenu);
     }
 
     private void addDinner(DailyMenu dailyMenu, Map<String, String> jsonMap) {
-        if(DINNER_CONVERTOR.convert(jsonMap).isNotEmpty()) {
-            dailyMenu.addDinnerMenu(DINNER_CONVERTOR.convert(jsonMap));
-        }
+        DINNER_CONVERTOR.convert(jsonMap).ifPresent(dailyMenu::addDinnerMenu);
     }
 }

@@ -3,6 +3,7 @@ package military.menu.review.mndapi.parser.convertor;
 import military.menu.review.model.Menu;
 
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class JsonToMenuConvertor {
     private static final String MENU_NAME_REDUNDANT_PATTERN = "\\(.*\\)";
@@ -12,14 +13,18 @@ public abstract class JsonToMenuConvertor {
     public abstract String getMenuNameColumn();
     public abstract String getCalorieColumn();
 
-    public Menu convert(Map<String, String> jsonMap){
+    public Optional<Menu> convert(Map<String, String> jsonMap){
         String menuName = jsonMap.get(getMenuNameColumn());
         String calorie = jsonMap.get(getCalorieColumn());
         return parseMenu(menuName, calorie);
     }
 
-    private Menu parseMenu(String name, String calorie) {
-        return Menu.of(parseMenuName(name), parseCalorie(calorie));
+    private Optional<Menu> parseMenu(String name, String calorie) {
+        return isEmptyMenu(name) ? Optional.empty() : Optional.of(Menu.of(parseMenuName(name), parseCalorie(calorie)));
+    }
+
+    private boolean isEmptyMenu(String name) {
+        return (name.trim().equals("") || name.trim().length() == 0);
     }
 
     private String parseMenuName(String name) {

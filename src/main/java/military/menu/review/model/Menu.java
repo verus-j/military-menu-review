@@ -12,10 +12,6 @@ public class Menu {
     public final String name;
     public final double calorie;
 
-    public boolean isNotEmpty() {
-        return !(name.trim().equals("") || name.trim().length() == 0);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
