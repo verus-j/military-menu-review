@@ -83,9 +83,9 @@ class MndApiTest {
 	@DisplayName("메뉴들의 칼로리에는 값이 존재")
 	public void shouldMenuCalorieIsNotZero() {
 		List<Menu> menuList = menuList().getList();
-		assertThat(menuList.get(0).calorie, is(not(0.0)));
-		assertThat(menuList.get(1).calorie, is(not(0.0)));
-		assertThat(menuList.get(2).calorie, is(not(0.0)));
+		assertThat(menuList.get(0).getCalorie(), is(not(0.0)));
+		assertThat(menuList.get(1).getCalorie(), is(not(0.0)));
+		assertThat(menuList.get(2).getCalorie(), is(not(0.0)));
 	}
 
 	@Test
@@ -128,6 +128,6 @@ class MndApiTest {
 	}
 
 	private Menu menu(String name) {
-		return new Menu(name, 0.0);
+		return new Menu(name, 0.0, 0);
 	}
 }
