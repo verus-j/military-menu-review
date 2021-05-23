@@ -1,6 +1,6 @@
-package military.menu.review.mndapi.parser.convertor;
+package military.menu.review.mndapi.convertor;
 
-import military.menu.review.model.Menu;
+import military.menu.review.model.menu.Menu;
 
 import java.util.Map;
 import java.util.Optional;

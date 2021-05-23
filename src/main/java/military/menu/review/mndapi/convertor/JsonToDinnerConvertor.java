@@ -1,4 +1,4 @@
-package military.menu.review.mndapi.parser.convertor;
+package military.menu.review.mndapi.convertor;
 
 public class JsonToDinnerConvertor extends JsonToMenuConvertor{
     @Override

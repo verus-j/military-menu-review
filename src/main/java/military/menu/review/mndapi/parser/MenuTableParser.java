@@ -1,7 +1,7 @@
 package military.menu.review.mndapi.parser;
 
-import military.menu.review.model.DailyMenu;
-import military.menu.review.model.MenuTable;
+import military.menu.review.model.menu.DailyMenu;
+import military.menu.review.model.menu.MenuTable;
 
 import java.time.LocalDate;
 import java.util.Map;

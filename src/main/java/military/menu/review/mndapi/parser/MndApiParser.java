@@ -2,10 +2,10 @@ package military.menu.review.mndapi.parser;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import military.menu.review.mndapi.parser.convertor.JsonToBreakfastConvertor;
-import military.menu.review.mndapi.parser.convertor.JsonToDinnerConvertor;
-import military.menu.review.mndapi.parser.convertor.JsonToLunchConvertor;
-import military.menu.review.mndapi.parser.convertor.JsonToMenuConvertor;
+import military.menu.review.mndapi.convertor.JsonToBreakfastConvertor;
+import military.menu.review.mndapi.convertor.JsonToDinnerConvertor;
+import military.menu.review.mndapi.convertor.JsonToLunchConvertor;
+import military.menu.review.mndapi.convertor.JsonToMenuConvertor;
 import java.util.*;
 
 public abstract  class MndApiParser<T> {

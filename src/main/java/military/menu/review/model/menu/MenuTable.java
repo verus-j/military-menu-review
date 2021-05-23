@@ -1,4 +1,4 @@
-package military.menu.review.model;
+package military.menu.review.model.menu;
 
 import lombok.Getter;
 
@@ -17,7 +17,7 @@ public class MenuTable {
     public DailyMenu getDailyMenu(int year, int month, int dayOfMonth) {
         return table.stream()
             .filter(dailyMenu -> dailyMenu.getDate().equals(LocalDate.of(year, month, dayOfMonth)))
-            .findFirst().orElse(null);
+            .findFirst().orElse(new DailyMenu(LocalDate.of(year, month, dayOfMonth)));
     }
 
     public void addDailyMenu(DailyMenu dailyMenu) {
