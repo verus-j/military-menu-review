@@ -1,14 +1,9 @@
 package military.menu.review.mndapi.service;
 
-import military.menu.review.mndapi.MndApi;
 import military.menu.review.mndapi.parser.MenuListParser;
-import military.menu.review.mndapi.parser.MenuTableParser;
-import military.menu.review.model.menu.MenuList;
-import military.menu.review.model.menu.MenuTable;
-import org.springframework.beans.factory.annotation.Autowired;
+import military.menu.review.repository.MenuListRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 
@@ -17,9 +12,11 @@ public class MndMenuService {
     @Value("${mnd.baseUrl}")
     private String baseUrl;
     private MndApi api;
+    private MenuListRepository repository;
 
     public MndMenuService() {
         api = new MndApi();
+        repository = new MenuListRepository();
     }
 
     @PostConstruct
@@ -27,15 +24,15 @@ public class MndMenuService {
         api.setBaseUrl(baseUrl);
     }
 
-    public void setTemplate(RestTemplate template) {
-        api.setTemplate(template);
+    public void setApi(MndApi api) {
+        this.api = api;
     }
 
-    public MenuTable menuTable() {
-        return api.parse(new MenuTableParser());
+    public void setRepository(MenuListRepository repository) {
+        this.repository = repository;
     }
 
-    public MenuList menuList() {
-        return api.parse(new MenuListParser());
+    public void saveAllMenuList() {
+        repository.insert(api.parse(new MenuListParser()));
     }
 }

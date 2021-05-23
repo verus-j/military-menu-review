@@ -8,7 +8,7 @@ import military.menu.review.mndapi.convertor.JsonToLunchConvertor;
 import military.menu.review.mndapi.convertor.JsonToMenuConvertor;
 import java.util.*;
 
-public abstract  class MndApiDataParser<T> {
+public abstract class MndApiDataParser<T> {
     private static final String SERVICE_COLUMN = "DS_TB_MNDT_DATEBYMLSVC_ATC";
     private static final String LIST_COLUMN = "row";
     protected static final JsonToMenuConvertor BREAKFAST_CONVERTOR = new JsonToBreakfastConvertor();

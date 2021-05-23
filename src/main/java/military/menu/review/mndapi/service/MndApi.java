@@ -1,4 +1,4 @@
-package military.menu.review.mndapi;
+package military.menu.review.mndapi.service;
 
 import military.menu.review.mndapi.parser.MndApiDataParser;
 import military.menu.review.mndapi.parser.TotalCountParser;
