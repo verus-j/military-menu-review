@@ -1,9 +1,7 @@
 package military.menu.review.mndapi;
 
-import military.menu.review.mndapi.parser.MndApiParser;
+import military.menu.review.mndapi.parser.MndApiDataParser;
 import military.menu.review.mndapi.parser.TotalCountParser;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 public class MndApi {
@@ -22,7 +20,7 @@ public class MndApi {
         this.template = template;
     }
 
-    public <T> T parse(MndApiParser<T> parser) {
+    public <T> T parse(MndApiDataParser<T> parser) {
         return parser.parse(request(getTotalCount()));
     }
 

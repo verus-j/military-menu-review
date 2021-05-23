@@ -1,10 +1,14 @@
 package military.menu.review.model.menu;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
 @Getter
+@ToString
+@EqualsAndHashCode
 public class DailyMenu {
     private final LocalDate date;
     private final MenuList breakfast;
@@ -19,24 +23,14 @@ public class DailyMenu {
     }
 
     public void addBreakfastMenu(Menu menu) {
-        breakfast.addMenu(menu);
+        breakfast.add(menu);
     }
 
     public void addLunchMenu(Menu menu) {
-        lunch.addMenu(menu);
+        lunch.add(menu);
     }
 
     public void addDinnerMenu(Menu menu) {
-        dinner.addMenu(menu);
-    }
-
-    @Override
-    public String toString() {
-        return "DailyMenu{" +
-                "date=" + date +
-                ", breakfast=" + breakfast +
-                ", lunch=" + lunch +
-                ", dinner=" + dinner +
-                '}';
+        dinner.add(menu);
     }
 }

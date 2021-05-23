@@ -1,4 +1,4 @@
-package military.menu.review;
+package military.menu.review.mndapi.service;
 
 import military.menu.review.mndapi.service.MndMenuService;
 import military.menu.review.model.menu.*;
@@ -46,7 +46,7 @@ class MndMenuServiceTest {
 	@Test
 	@DisplayName("전체 메뉴 리스트 반환")
 	public void shouldGetTotalMenu() {
-	 	List<Menu> menuList = service.menuList().getMenuList();
+	 	List<Menu> menuList = service.menuList().getList();
 		assertThat(menuList, containsInAnyOrder(Menu.of("쇠고기무국", 45.12), Menu.of("김치찌개", 70.45), Menu.of("돼지고기고추장찌개", 105.67),
 				Menu.of("두부구이", 123.97), Menu.of("느타리버섯볶음", 61.83), Menu.of("오징어볶음", 184.53),
 				Menu.of("부추나물", 19.45), Menu.of("훈제삼겹살간장조림", 309.66), Menu.of("계란찜",95.56)));
@@ -58,21 +58,21 @@ class MndMenuServiceTest {
 		when(template.getForObject(baseUrl + "/1/3", String.class)).thenReturn(
 				"{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":3,\"row\":[{\"dinr_cal\":\"105.67kcal\",\"lunc\":\"김치찌개(05)(06)(10)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"70.45kcal\",\"brst\":\"쇠고기무국(05)(16)\",\"dinr\":\"돼지고기고추장찌개(05)(06)(10)\",\"brst_cal\":\"45.12kcal\"},{\"dinr_cal\":\"184.53kcal\",\"lunc\":\"김치찌개(05)(06)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"61.83kcal\",\"brst\":\"김치찌개(05)(06)\",\"dinr\":\"오징어볶음(05)(06)(17)\",\"brst_cal\":\"123.97kcal\"},{\"dinr_cal\":\"95.56kcal\",\"lunc\":\"훈제삼겹살간장조림(05)(06)(10)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"309.66kcal\",\"brst\":\"부추나물\",\"dinr\":\"계란찜(01)(09)\",\"brst_cal\":\"19.45kcal\"}]}}"
 		);
-		List<Menu> menuList = service.menuList().getMenuList();
+		List<Menu> menuList = service.menuList().getList();
 		assertThat(menuList, containsInAnyOrder(Menu.of("쇠고기무국", 45.12), Menu.of("김치찌개", 70.45), Menu.of("돼지고기고추장찌개", 105.67),
 				Menu.of("오징어볶음", 184.53), Menu.of("부추나물", 19.45), Menu.of("훈제삼겹살간장조림", 309.66), Menu.of("계란찜",95.56)));
 	}
 
 	@Test
 	@DisplayName("메뉴 데이터 중 빈 데이터는 리스트에서 제거 후 반환")
-	void shouldRemoveEmptyMenuFromApi() {
+	void shouldRemoveEmptyMenu() {
 		when(template.getForObject(baseUrl + "/1/1", String.class)).thenReturn(
 				"{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":7}}"
 		);
 		when(template.getForObject(baseUrl + "/1/7", String.class)).thenReturn(
 				"{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":7,\"row\":[{\"dinr_cal\":\"105.67kcal\",\"lunc\":\"김치찌개(05)(06)(10)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"70.45kcal\",\"brst\":\"쇠고기무국(05)(16)\",\"dinr\":\"돼지고기고추장찌개(05)(06)(10)\",\"brst_cal\":\"45.12kcal\"},{\"dinr_cal\":\"184.53kcal\",\"lunc\":\"느타리버섯볶음(05)(06)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"61.83kcal\",\"brst\":\"두부구이(05)(06)\",\"dinr\":\"오징어볶음(05)(06)(17)\",\"brst_cal\":\"123.97kcal\"},{\"dinr_cal\":\"95.56kcal\",\"lunc\":\"훈제삼겹살간장조림(05)(06)(10)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"309.66kcal\",\"brst\":\"부추나물\",\"dinr\":\"계란찜(01)(09)\",\"brst_cal\":\"19.45kcal\"},{\"dinr_cal\":\"28.75kcal\",\"lunc\":\"배추김치(3~4월)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"10.75kcal\",\"brst\":\"배추김치(3~4월)\",\"dinr\":\"깍두기(임가공)\",\"brst_cal\":\"10.75kcal\"},{\"dinr_cal\":\"\",\"lunc\":\"\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"\",\"brst\":\"농후 발효유(02)\",\"dinr\":\"\",\"brst_cal\":\"96kcal\"},{\"dinr_cal\":\"\",\"lunc\":\"\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"\",\"brst\":\"우유(백색우유(200ML,연간))(02)\",\"dinr\":\"\",\"brst_cal\":\"122kcal\"},{\"dinr_cal\":\"\",\"lunc\":\"\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"\",\"brst\":\"용기면,쌀국수,얼큰한맛,92g(다수공급자)\",\"dinr\":\"\",\"brst_cal\":\"\"}]}}"
 		);
-		List<Menu> menuList = service.menuList().getMenuList();
+		List<Menu> menuList = service.menuList().getList();
 		assertThat(menuList, containsInAnyOrder(Menu.of("쇠고기무국", 45.12), Menu.of("김치찌개", 70.45), Menu.of("돼지고기고추장찌개", 105.67),
 				Menu.of("두부구이", 123.97), Menu.of("느타리버섯볶음", 61.83), Menu.of("오징어볶음", 184.53),
 				Menu.of("부추나물", 19.45), Menu.of("훈제삼겹살간장조림", 309.66), Menu.of("계란찜",95.56),
@@ -83,15 +83,15 @@ class MndMenuServiceTest {
 	@Test
 	@DisplayName("메뉴들의 칼로리에는 값이 존재")
 	public void shouldMenuCalorieIsNotZero() {
-		List<Menu> menuList = service.menuList().getMenuList();
+		List<Menu> menuList = service.menuList().getList();
 		assertThat(menuList.get(0).calorie, is(not(0.0)));
 		assertThat(menuList.get(1).calorie, is(not(0.0)));
 		assertThat(menuList.get(2).calorie, is(not(0.0)));
 	}
 
 	@Test
-	@DisplayName("급식표 내의 메뉴 리스트들은 순서가 존재")
-	public void shouldGetMenuTable() {
+	@DisplayName("일일메뉴 내의 메뉴들은 순서가 존재")
+	public void shouldGetMenuListInOrder() {
 		when(template.getForObject(url(1, 1), String.class)).thenReturn(
 			"{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":22}}"
 		);
@@ -103,7 +103,7 @@ class MndMenuServiceTest {
 		DailyMenu dailyMenu = table.getDailyMenu(2021, 4, 23);
 		MenuList breakfast = dailyMenu.getBreakfast();
 
-		assertThat(breakfast.getMenuList(), is(containsInRelativeOrder(
+		assertThat(breakfast.getList(), is(containsInRelativeOrder(
 				menu("밥"), menu("콩나물무채국"), menu("쇠고기"),
 				menu("미역초무침"), menu("배추김치"), menu("주스,청포도"),
 				menu("방울토마토, 3-11"), menu("우유"))));
@@ -111,23 +111,9 @@ class MndMenuServiceTest {
 		dailyMenu = table.getDailyMenu(2021, 4, 24);
 		MenuList lunch = dailyMenu.getLunch();
 
-		assertThat(lunch.getMenuList(), is(containsInRelativeOrder(
+		assertThat(lunch.getList(), is(containsInRelativeOrder(
 				menu("밥"), menu("북어채국"), menu("낙지볶음"),
 				menu("양파계란볶음"), menu("백김치"))));
-	}
-
-	@Test
-	@DisplayName("메뉴 리스트는 총 칼로리를 계산 후 반환")
-	public void shouldGetMenuListCalorie() {
-		when(template.getForObject(url(1, 1), String.class)).thenReturn(
-				"{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":3}}"
-		);
-		when(template.getForObject(url(1, 3), String.class)).thenReturn(
-				"{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":3,\"row\":[{\"dinr_cal\":\"105.67kcal\",\"lunc\":\"김치찌개(05)(06)(10)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-23\",\"lunc_cal\":\"70.45kcal\",\"brst\":\"쇠고기무국(05)(16)\",\"dinr\":\"돼지고기고추장찌개(05)(06)(10)\",\"brst_cal\":\"45.12kcal\"},{\"dinr_cal\":\"184.53kcal\",\"lunc\":\"느타리버섯볶음(05)(06)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"61.83kcal\",\"brst\":\"두부구이(05)(06)\",\"dinr\":\"오징어볶음(05)(06)(17)\",\"brst_cal\":\"123.97kcal\"},{\"dinr_cal\":\"95.56kcal\",\"lunc\":\"훈제삼겹살간장조림(05)(06)(10)\",\"sum_cal\":\"\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"\",\"lunc_cal\":\"309.66kcal\",\"brst\":\"부추나물\",\"dinr\":\"계란찜(01)(09)\",\"brst_cal\":\"19.45kcal\"}]}}"
-		);
-
-		MenuTable table = service.menuTable();
-		assertThat(table.getDailyMenu(2021, 4, 23).getLunch().getTotalCalorie(), is(70.45 + 61.83 + 309.66));
 	}
 
 	private String url(int start, int end) {

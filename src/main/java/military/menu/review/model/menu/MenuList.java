@@ -1,11 +1,15 @@
 package military.menu.review.model.menu;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@EqualsAndHashCode
+@ToString
 public class MenuList {
     private List<Menu> menuList;
 
@@ -13,7 +17,7 @@ public class MenuList {
         menuList = new ArrayList<>();
     }
 
-    public void addMenu(Menu menu) {
+    public void add(Menu menu) {
         menuList.add(menu);
     }
 
@@ -23,10 +27,7 @@ public class MenuList {
                 .reduce(0.0, (acc, value) -> acc + value);
     }
 
-    @Override
-    public String toString() {
-        return "MenuList{" +
-                "menuList=" + menuList +
-                '}';
+    public List<Menu> getList() {
+        return menuList;
     }
 }

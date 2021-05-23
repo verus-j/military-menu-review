@@ -4,17 +4,15 @@ import military.menu.review.model.menu.Menu;
 import military.menu.review.model.menu.MenuList;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class MenuListParser extends MndApiParser<MenuList>{
+public class MenuListParser extends MndApiDataParser<MenuList> {
     public MenuList parse(String json) {
         MenuList list = new MenuList();
         destructToMenuList(json).stream()
                 .map(this::parseEachMenu)
                 .flatMap(Collection::stream)
                 .distinct()
-                .forEach(list::addMenu);
-
+                .forEach(list::add);
         return list;
     }
 

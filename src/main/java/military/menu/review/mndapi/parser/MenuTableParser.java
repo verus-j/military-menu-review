@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
-public class MenuTableParser extends MndApiParser<MenuTable>{
+public class MenuTableParser extends MndApiDataParser<MenuTable> {
     private final String MENU_DATE_COLUMN = "dates";
 
     public MenuTable parse(String json) {
