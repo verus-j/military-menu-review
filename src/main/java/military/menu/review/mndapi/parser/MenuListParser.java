@@ -1,17 +1,19 @@
 package military.menu.review.mndapi.parser;
 
-import military.menu.review.model.Menu;
+import military.menu.review.model.menu.Menu;
+import military.menu.review.model.menu.MenuList;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class MenuListParser extends MndApiParser<List<Menu>>{
-    public List<Menu> parse(String json) {
-        return destructToMenuList(json).stream()
+public class MenuListParser extends MndApiDataParser<MenuList> {
+    public MenuList parse(String json) {
+        MenuList list = new MenuList();
+        destructToMenuList(json).stream()
                 .map(this::parseEachMenu)
                 .flatMap(Collection::stream)
                 .distinct()
-                .collect(Collectors.toList());
+                .forEach(list::add);
+        return list;
     }
 
     private List<Menu> parseEachMenu(Map<String, String> jsonMap) {

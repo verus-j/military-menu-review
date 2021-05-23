@@ -1,13 +1,13 @@
 package military.menu.review.mndapi.parser;
 
-import military.menu.review.model.DailyMenu;
-import military.menu.review.model.MenuTable;
+import military.menu.review.model.menu.DailyMenu;
+import military.menu.review.model.menu.MenuTable;
 
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
-public class MenuTableParser extends MndApiParser<MenuTable>{
+public class MenuTableParser extends MndApiDataParser<MenuTable> {
     private final String MENU_DATE_COLUMN = "dates";
 
     public MenuTable parse(String json) {

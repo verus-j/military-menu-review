@@ -1,21 +1,25 @@
-package military.menu.review.model;
+package military.menu.review.model.menu;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class Menu {
-    public final String name;
-    public final double calorie;
+    private String name;
+    private double calorie;
+    private int totalLike;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof Menu)) return false;
+        if (o == null || !(o.getClass() == getClass())) return false;
         Menu menu = (Menu) o;
         return Objects.equals(name, menu.name);
     }
@@ -34,6 +38,10 @@ public class Menu {
     }
 
     public static Menu of(String name, double calorie) {
-        return new Menu(name, calorie);
+        return new Menu(name, calorie, 0);
+    }
+
+    public static Menu of(String name, double calorie, int totalLike) {
+        return new Menu(name, calorie, totalLike);
     }
 }
