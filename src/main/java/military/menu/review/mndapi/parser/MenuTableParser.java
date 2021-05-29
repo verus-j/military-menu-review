@@ -1,29 +1,29 @@
 package military.menu.review.mndapi.parser;
 
 import military.menu.review.model.menu.DailyMenu;
-import military.menu.review.model.menu.MenuTable;
+import military.menu.review.model.menu.DailyMenuList;
 
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
-public class MenuTableParser extends MndApiDataParser<MenuTable> {
+public class MenuTableParser extends MndApiDataParser<DailyMenuList> {
     private final String MENU_DATE_COLUMN = "dates";
 
-    public MenuTable parse(String json) {
-        MenuTable menuTable = new MenuTable();
+    public DailyMenuList parse(String json) {
+        DailyMenuList dailyMenuList = new DailyMenuList();
         Optional<DailyMenu> dailyMenu = Optional.ofNullable(null);
 
         for(Map<String, String> jsonMap : destructToMenuList(json)) {
             if(hasDate(jsonMap)) {
                 dailyMenu = createDailyMenu(jsonMap);
-                menuTable.addDailyMenu(dailyMenu.get());
+                dailyMenuList.addDailyMenu(dailyMenu.get());
             }
 
             dailyMenu.ifPresent(menu -> addEachMenu(menu, jsonMap));
         }
 
-        return menuTable;
+        return dailyMenuList;
     }
 
     private boolean hasDate(Map<String, String> jsonMap) {

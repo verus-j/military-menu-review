@@ -3,7 +3,7 @@ package military.menu.review.mndapi.parser;
 import military.menu.review.model.menu.DailyMenu;
 import military.menu.review.model.menu.Menu;
 import military.menu.review.model.menu.MenuList;
-import military.menu.review.model.menu.MenuTable;
+import military.menu.review.model.menu.DailyMenuList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,8 +73,8 @@ public class MndApiDataParserTest {
     @Test
     @DisplayName("JSON으로부터 메뉴 테이블 반환")
     void shouldGetMenuTableFromJson() {
-        MenuTable table = menuTableParser.parse("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"dinr_cal\":\"363kcal\",\"lunc\":\"밥\",\"sum_cal\":\"2392.51kcal\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-24\",\"lunc_cal\":\"363kcal\",\"brst\":\"밥\",\"dinr\":\"밥\",\"brst_cal\":\"363kcal\"}]}}");
-        MenuTable expected = new MenuTable();
+        DailyMenuList table = menuTableParser.parse("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"dinr_cal\":\"363kcal\",\"lunc\":\"밥\",\"sum_cal\":\"2392.51kcal\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-24\",\"lunc_cal\":\"363kcal\",\"brst\":\"밥\",\"dinr\":\"밥\",\"brst_cal\":\"363kcal\"}]}}");
+        DailyMenuList expected = new DailyMenuList();
         DailyMenu dailyMenu = new DailyMenu(LocalDate.of(2021, 4, 24));
         dailyMenu.addBreakfastMenu(Menu.of("밥", 0.0));
         dailyMenu.addLunchMenu(Menu.of("밥", 0.0));

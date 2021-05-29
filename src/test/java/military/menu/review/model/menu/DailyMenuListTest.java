@@ -8,11 +8,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
 @DisplayName("메뉴 테이블 테스트")
-public class MenuTableTest {
+public class DailyMenuListTest {
     @Test
     @DisplayName("메뉴 테이블에 저장된 메뉴는 찾을 수 있다.")
     public void shouldFindRegisteredDiaryMenu() {
-        MenuTable table = new MenuTable();
+        DailyMenuList table = new DailyMenuList();
         table.addDailyMenu(dailyMenu());
         assertThat(table.getDailyMenu(2021, 4, 23), is(dailyMenu()));
     }
@@ -20,7 +20,7 @@ public class MenuTableTest {
     @Test
     @DisplayName("저장되지 않은 일일 메뉴를 찾으면 빈 일일메뉴를 반환하다.")
     public void shouldReturnEmptyMenuListWhenFindNotRegisteredDiaryMenu() {
-        MenuTable table = new MenuTable();
+        DailyMenuList table = new DailyMenuList();
         assertThat(table.getDailyMenu(2021, 4, 23), is(new DailyMenu(LocalDate.of(2021, 4, 23))));
     }
 

@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 public class DailyMenu {
     private final LocalDate date;
     private final MenuList breakfast;
@@ -32,5 +32,18 @@ public class DailyMenu {
 
     public void addDinnerMenu(Menu menu) {
         dinner.add(menu);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DailyMenu dailyMenu = (DailyMenu) o;
+        return Objects.equals(date, dailyMenu.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date);
     }
 }

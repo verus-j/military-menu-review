@@ -11,10 +11,10 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class MenuTable {
+public class DailyMenuList {
     private final List<DailyMenu> table;
 
-    public MenuTable() {
+    public DailyMenuList() {
         table = new ArrayList<>();
     }
 

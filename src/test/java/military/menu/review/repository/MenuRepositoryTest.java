@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
@@ -23,38 +24,21 @@ public class MenuRepositoryTest {
     }
 
     @Test
-    public void shouldSaveMenuList() {
-        repository.insertAll(menuList());
-        assertThat(repository.findAll(), is(menuList()));
+    public void shouldSaveMenu() {
+        repository.insert(Menu.of("밥", 100.0, 1000));
+        Optional<Menu> menuOptional = repository.find("밥");
+        menuOptional.ifPresent(this::assertMenu);
     }
 
     @Test
-    public void shouldSaveMenuListTransactional() {
-        try {
-            repository.insertAll(exceptionalMenuList());
-        }catch(Exception e) { }
-
-        assertThat(repository.findAll(), is(new MenuList()));
+    void shouldReturnOptionalEmptyWhenNotFoundMenu() {
+        Optional<Menu> menuOptional = repository.find("라면");
+        assertThat(menuOptional, is(Optional.empty()));
     }
 
-    private MenuList exceptionalMenuList() {
-        return new MenuList() {
-            Menu errorMenu = new Menu() {
-                public String getName() {
-                    throw new RuntimeException("occur from getName()");
-                }
-            };
-
-            public List<Menu> getList() {
-                return Arrays.asList(Menu.of("라면", 0.0, 0), errorMenu);
-            }
-        };
-    }
-
-    public MenuList menuList() {
-        MenuList menuList = new MenuList();
-        menuList.add(Menu.of("밥", 0.0));
-        menuList.add(Menu.of("김치", 0.0));
-        return menuList;
+    public void assertMenu(Menu m) {
+        assertThat(m.getName(), is("밥"));
+        assertThat(m.getCalorie(), is(100.0));
+        assertThat(m.getTotalLike(), is(1000));
     }
 }
