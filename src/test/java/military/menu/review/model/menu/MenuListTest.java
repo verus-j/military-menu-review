@@ -1,20 +1,27 @@
 package military.menu.review.model.menu;
 
-import org.junit.jupiter.api.DisplayName;
+import military.menu.review.model.menu.Menu;
+import military.menu.review.model.menu.MenuList;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 
-@DisplayName("메뉴 리스트 테스트")
 public class MenuListTest {
+    MenuList menuList;
+
+    @BeforeEach
+    void setUp() {
+        menuList = new MenuList();
+        menuList.add(new Menu("밥", 104.0));
+        menuList.add(new Menu("김치", 12.3));
+    }
+
     @Test
-    @DisplayName("메뉴 리스트의 전체 칼로리 계산")
-    public void shouldCalculateTotalCalorie() {
-        MenuList list = new MenuList();
-        list.add(Menu.of("밥", 100.0));
-        list.add(Menu.of("김치", 10.0));
-        list.add(Menu.of("라면", 23.0));
-        assertThat(list.getTotalCalorie(), is(133.0));
+    public void shouldAddMenu() {
+        assertThat(menuList.size(), is(2));
+        assertThat(menuList.get(0), is(new Menu("밥", 104.0)));
+        assertThat(menuList.get(1), is(new Menu("김치", 12.3)));
     }
 }

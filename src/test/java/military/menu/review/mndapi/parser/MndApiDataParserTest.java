@@ -3,16 +3,12 @@ package military.menu.review.mndapi.parser;
 import military.menu.review.model.menu.DailyMenu;
 import military.menu.review.model.menu.Menu;
 import military.menu.review.model.menu.MenuList;
-import military.menu.review.model.menu.DailyMenuList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
@@ -21,7 +17,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class MndApiDataParserTest {
     MndApiDataParser<String> basicParser;
     MenuListParser menuListParser;
-    MenuTableParser menuTableParser;
+    DailyMenuListParser dailyMenuListParser;
     TotalCountParser totalCountParser;
 
     @BeforeEach
@@ -33,7 +29,7 @@ public class MndApiDataParserTest {
             }
         } ;
         menuListParser = new MenuListParser();
-        menuTableParser = new MenuTableParser();
+        dailyMenuListParser = new DailyMenuListParser();
         totalCountParser = new TotalCountParser();
     }
 
@@ -71,16 +67,15 @@ public class MndApiDataParserTest {
     }
 
     @Test
-    @DisplayName("JSON으로부터 메뉴 테이블 반환")
+    @DisplayName("JSON으로부터 일일 메뉴 리스트 반환")
     void shouldGetMenuTableFromJson() {
-        DailyMenuList table = menuTableParser.parse("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"dinr_cal\":\"363kcal\",\"lunc\":\"밥\",\"sum_cal\":\"2392.51kcal\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-24\",\"lunc_cal\":\"363kcal\",\"brst\":\"밥\",\"dinr\":\"밥\",\"brst_cal\":\"363kcal\"}]}}");
-        DailyMenuList expected = new DailyMenuList();
-        DailyMenu dailyMenu = new DailyMenu(LocalDate.of(2021, 4, 24));
-        dailyMenu.addBreakfastMenu(Menu.of("밥", 0.0));
-        dailyMenu.addLunchMenu(Menu.of("밥", 0.0));
-        dailyMenu.addDinnerMenu(Menu.of("밥", 0.0));
-        expected.addDailyMenu(dailyMenu);
-        assertThat(table, is(expected));
+        List<DailyMenu> list = dailyMenuListParser.parse("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"dinr_cal\":\"363kcal\",\"lunc\":\"밥\",\"sum_cal\":\"2392.51kcal\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-24\",\"lunc_cal\":\"363kcal\",\"brst\":\"밥\",\"dinr\":\"밥\",\"brst_cal\":\"363kcal\"}]}}");
+        DailyMenu dailyMenu = list.get(0);
+
+        assertThat(dailyMenu.getDate(), is(LocalDate.of(2021, 4, 24)));
+        assertThat(dailyMenu.getBreakfast(), is(MenuList.asList(Menu.of("밥", 0.0))));
+        assertThat(dailyMenu.getLunch(), is(MenuList.asList(Menu.of("밥", 0.0))));
+        assertThat(dailyMenu.getDinner(), is(MenuList.asList(Menu.of("밥", 0.0))));
     }
 
     @Test
