@@ -6,6 +6,7 @@ import military.menu.review.mndapi.convertor.JsonToBreakfastConvertor;
 import military.menu.review.mndapi.convertor.JsonToDinnerConvertor;
 import military.menu.review.mndapi.convertor.JsonToLunchConvertor;
 import military.menu.review.mndapi.convertor.JsonToMenuConvertor;
+import military.menu.review.model.menu.Menu;
 
 import java.io.IOException;
 import java.util.*;

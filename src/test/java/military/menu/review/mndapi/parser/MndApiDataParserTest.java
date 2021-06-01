@@ -81,9 +81,7 @@ public class MndApiDataParserTest {
     @Test
     @DisplayName("JSON으로부터 중복없는 메뉴 리스트 반환")
     public void shouldGetMenuListFromJson() {
-        MenuList list = menuListParser.parse("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"dinr_cal\":\"363kcal\",\"lunc\":\"밥\",\"sum_cal\":\"2392.51kcal\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-24\",\"lunc_cal\":\"363kcal\",\"brst\":\"밥\",\"dinr\":\"밥\",\"brst_cal\":\"363kcal\"}]}}");
-        MenuList expected = new MenuList();
-        expected.add(Menu.of("밥", 0.0));
-        assertThat(list, is(expected));
+        List<Menu> list = menuListParser.parse("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"dinr_cal\":\"363kcal\",\"lunc\":\"밥\",\"sum_cal\":\"2392.51kcal\",\"adspcfd\":\"\",\"adspcfd_cal\":\"\",\"dates\":\"2021-04-24\",\"lunc_cal\":\"363kcal\",\"brst\":\"밥\",\"dinr\":\"밥\",\"brst_cal\":\"363kcal\"}]}}");
+        assertThat(list, is(Arrays.asList(Menu.of("밥", 0.0))));
     }
 }

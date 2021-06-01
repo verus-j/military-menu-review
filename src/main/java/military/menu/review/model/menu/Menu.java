@@ -1,10 +1,18 @@
 package military.menu.review.model.menu;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class Menu {
+    @Id @GeneratedValue
+    private Long id;
     private String name;
     private double kcal;
+
+    public Menu() { }
 
     public Menu(String name, double kcal) {
         this.name = name;
@@ -26,6 +34,14 @@ public class Menu {
 
     public double getKcal() {
         return kcal;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public static Menu of(String name, double kcal) {

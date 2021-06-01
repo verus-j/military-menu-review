@@ -2,9 +2,13 @@ package military.menu.review.mndapi;
 
 import military.menu.review.mndapi.parser.MndApiDataParser;
 import military.menu.review.mndapi.parser.TotalCountParser;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+@Component
 public class MndApi {
+    @Value("${mnd.baseUrl}")
     private String baseUrl;
     private RestTemplate template;
 
