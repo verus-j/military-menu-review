@@ -1,12 +1,8 @@
 package military.menu.review.repository;
 
 import military.menu.review.model.menu.Menu;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface MenuRepository {
-    List<Menu> findAll();
+public interface MenuRepository extends JpaRepository<Menu, Long> {
     Menu findByName(String name);
-    void insert(Menu menu);
-    void insertAll(List<Menu> list);
 }

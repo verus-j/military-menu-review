@@ -1,18 +1,37 @@
 package military.menu.review.model.menu;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
+@Entity
 public class DailyMenu {
+    @Id @GeneratedValue @Column(name="DAILYMENU_ID")
+    private Long id;
+
     private LocalDate date;
-    private MenuList breakfast;
-    private MenuList lunch;
-    private MenuList dinner;
+
+    @OneToMany(mappedBy = "dailyMenu", cascade = CascadeType.ALL)
+    @MapKeyClass(DailyMenuType.class)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name="TYPE")
+    private Map<DailyMenuType, MenuList> map;
+
+    public DailyMenu() {
+    }
 
     public DailyMenu(LocalDate date) {
         this.date = date;
-        breakfast = new MenuList();
-        lunch = new MenuList();
-        dinner = new MenuList();
+        map = new HashMap<>();
+        map.put(DailyMenuType.BREAKFAST, new MenuList(this));
+        map.put(DailyMenuType.LUNCH, new MenuList(this));
+        map.put(DailyMenuType.DINNER, new MenuList(this));
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public LocalDate getDate() {
@@ -20,26 +39,52 @@ public class DailyMenu {
     }
 
     public MenuList getBreakfast() {
-        return breakfast;
+        return map.get(DailyMenuType.BREAKFAST);
     }
 
     public MenuList getLunch() {
-        return lunch;
+        return map.get(DailyMenuType.LUNCH);
     }
 
     public MenuList getDinner() {
-        return dinner;
+        return map.get(DailyMenuType.DINNER);
+    }
+
+    public double getKcal() {
+        return getBreakfast().getKcal() + getLunch().getKcal() + getDinner().getKcal();
     }
 
     public void addBreakfastMenu(Menu menu) {
-        breakfast.add(menu);
+        getBreakfast().add(menu);
     }
 
     public void addLunchMenu(Menu menu) {
-        lunch.add(menu);
+        getLunch().add(menu);
     }
 
     public void addDinnerMenu(Menu menu) {
-        dinner.add(menu);
+        getDinner().add(menu);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DailyMenu dailyMenu = (DailyMenu) o;
+        return Objects.equals(id, dailyMenu.id) && Objects.equals(date, dailyMenu.date) && Objects.equals(map, dailyMenu.map);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, map);
+    }
+
+    @Override
+    public String toString() {
+        return "DailyMenu{" +
+                "id=" + id +
+                ", date=" + date +
+                ", map=" + map +
+                '}';
     }
 }

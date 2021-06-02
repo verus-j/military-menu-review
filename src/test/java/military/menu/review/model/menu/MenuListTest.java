@@ -24,4 +24,10 @@ public class MenuListTest {
         assertThat(menuList.get(0), is(new Menu("밥", 104.0)));
         assertThat(menuList.get(1), is(new Menu("김치", 12.3)));
     }
+
+    @Test
+    public void shouldEqualsOrder() {
+        assertThat(menuList, is(MenuList.asList(Menu.of("밥", 104.0), Menu.of("김치", 12.3))));
+        assertThat(menuList, not(MenuList.asList(Menu.of("김치", 12.3), Menu.of("밥", 104.0))));
+    }
 }

@@ -1,23 +1,21 @@
 package military.menu.review.mndapi.parser;
 
 import military.menu.review.model.menu.DailyMenu;
-import military.menu.review.model.menu.Menu;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class DailyMenuListParser extends MndApiDataParser<List<DailyMenu>> {
     private final String MENU_DATE_COLUMN = "dates";
+    private Set<String> dateHistory = new HashSet<>();
 
     public List<DailyMenu> parse(String json) {
         List<DailyMenu> dailyMenuList = new ArrayList<>();
         Optional<DailyMenu> dailyMenu = Optional.ofNullable(null);
 
         for(Map<String, String> jsonMap : destructToMenuList(json)) {
-            if(hasDate(jsonMap)) {
+            if(isNewDate(jsonMap)) {
+                dateHistory.add(jsonMap.get(MENU_DATE_COLUMN));
                 dailyMenu = createDailyMenu(jsonMap);
                 dailyMenuList.add(dailyMenu.get());
             }
@@ -28,8 +26,8 @@ public class DailyMenuListParser extends MndApiDataParser<List<DailyMenu>> {
         return dailyMenuList;
     }
 
-    private boolean hasDate(Map<String, String> jsonMap) {
-        return !jsonMap.get(MENU_DATE_COLUMN).trim().equals("");
+    private boolean isNewDate(Map<String, String> jsonMap) {
+        return !jsonMap.get(MENU_DATE_COLUMN).trim().equals("") && !dateHistory.contains(jsonMap.get(MENU_DATE_COLUMN));
     }
 
     private Optional<DailyMenu> createDailyMenu(Map<String, String> jsonMap) {
