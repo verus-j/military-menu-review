@@ -1,37 +1,69 @@
 package military.menu.review.model.menu;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
-
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
-@Getter
-@ToString
+@Entity
 public class DailyMenu {
-    private final LocalDate date;
-    private final MenuList breakfast;
-    private final MenuList lunch;
-    private final MenuList dinner;
+    @Id @GeneratedValue @Column(name="DAILYMENU_ID")
+    private Long id;
+
+    private LocalDate date;
+
+    @OneToMany(mappedBy = "dailyMenu", cascade = CascadeType.ALL)
+    @MapKeyClass(DailyMenuType.class)
+    @MapKeyEnumerated(EnumType.STRING)
+    @MapKeyColumn(name="TYPE")
+    private Map<DailyMenuType, MenuList> map;
+
+    public DailyMenu() {
+    }
 
     public DailyMenu(LocalDate date) {
         this.date = date;
-        breakfast = new MenuList();
-        lunch = new MenuList();
-        dinner = new MenuList();
+        map = new HashMap<>();
+        map.put(DailyMenuType.BREAKFAST, new MenuList(this));
+        map.put(DailyMenuType.LUNCH, new MenuList(this));
+        map.put(DailyMenuType.DINNER, new MenuList(this));
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public MenuList getBreakfast() {
+        return map.get(DailyMenuType.BREAKFAST);
+    }
+
+    public MenuList getLunch() {
+        return map.get(DailyMenuType.LUNCH);
+    }
+
+    public MenuList getDinner() {
+        return map.get(DailyMenuType.DINNER);
+    }
+
+    public double getKcal() {
+        return getBreakfast().getKcal() + getLunch().getKcal() + getDinner().getKcal();
     }
 
     public void addBreakfastMenu(Menu menu) {
-        breakfast.add(menu);
+        getBreakfast().add(menu);
     }
 
     public void addLunchMenu(Menu menu) {
-        lunch.add(menu);
+        getLunch().add(menu);
     }
 
     public void addDinnerMenu(Menu menu) {
-        dinner.add(menu);
+        getDinner().add(menu);
     }
 
     @Override
@@ -39,11 +71,20 @@ public class DailyMenu {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DailyMenu dailyMenu = (DailyMenu) o;
-        return Objects.equals(date, dailyMenu.date);
+        return Objects.equals(id, dailyMenu.id) && Objects.equals(date, dailyMenu.date) && Objects.equals(map, dailyMenu.map);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date);
+        return Objects.hash(id, date, map);
+    }
+
+    @Override
+    public String toString() {
+        return "DailyMenu{" +
+                "id=" + id +
+                ", date=" + date +
+                ", map=" + map +
+                '}';
     }
 }

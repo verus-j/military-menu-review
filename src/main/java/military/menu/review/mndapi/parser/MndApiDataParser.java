@@ -6,6 +6,9 @@ import military.menu.review.mndapi.convertor.JsonToBreakfastConvertor;
 import military.menu.review.mndapi.convertor.JsonToDinnerConvertor;
 import military.menu.review.mndapi.convertor.JsonToLunchConvertor;
 import military.menu.review.mndapi.convertor.JsonToMenuConvertor;
+import military.menu.review.model.menu.Menu;
+
+import java.io.IOException;
 import java.util.*;
 
 public abstract class MndApiDataParser<T> {
@@ -30,6 +33,8 @@ public abstract class MndApiDataParser<T> {
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(json, Map.class);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

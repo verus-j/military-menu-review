@@ -3,10 +3,10 @@ package military.menu.review.mndapi.convertor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import military.menu.review.model.menu.Menu;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
@@ -70,6 +70,8 @@ public class JsonToMenuConvertorTest {
             Map result = new ObjectMapper().readValue(json, Map.class);
             return result;
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
