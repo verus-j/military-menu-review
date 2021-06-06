@@ -18,7 +18,6 @@ import javax.persistence.EntityManager;
 @Configuration
 @RequiredArgsConstructor
 public class MndServiceConfig {
-    private final EntityManager em;
     private final MndApi api;
     private final MenuRepository menuRepository;
     private final MealRepository mealRepository;
@@ -48,10 +47,10 @@ public class MndServiceConfig {
     }
 
     private MndSaveBodyChain saveMeals() {
-        return new SaveMeals(em, mealRepository);
+        return new SaveMeals(mealRepository);
     }
 
     private MndSaveBodyChain saveMealMenus() {
-        return new SaveMealMenus(em, mealMenuRepository);
+        return new SaveMealMenus(mealMenuRepository);
     }
 }

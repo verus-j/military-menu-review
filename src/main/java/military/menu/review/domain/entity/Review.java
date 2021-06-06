@@ -12,9 +12,9 @@ public class Review {
     private Long id;
     private String content;
     private LocalDate created;
-    @ManyToOne @JoinColumn(name="meal_id")
+    @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="meal_id")
     private Meal meal;
-    @ManyToOne @JoinColumn(name="user_id")
+    @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="user_id")
     private User user;
 
     protected Review() {}

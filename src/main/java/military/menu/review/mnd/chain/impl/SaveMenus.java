@@ -1,6 +1,7 @@
 package military.menu.review.mnd.chain.impl;
 
 import lombok.RequiredArgsConstructor;
+import military.menu.review.domain.dto.MealDTO;
 import military.menu.review.domain.dto.MenuDTO;
 import military.menu.review.domain.entity.Menu;
 import military.menu.review.mnd.chain.MndSaveChainCache;
@@ -13,7 +14,7 @@ public class SaveMenus extends MndSaveBodyChain {
 
     @Override
     protected void process(MndSaveChainCache cache) {
-        cache.getMenus().stream().forEach(menu -> save(cache, menu));
+        cache.findDtoList(MenuDTO.class).stream().forEach(menu -> save(cache, menu));
     }
 
     private void save(MndSaveChainCache cache, MenuDTO menu) {
@@ -43,6 +44,6 @@ public class SaveMenus extends MndSaveBodyChain {
     }
 
     private void saveToCache(MndSaveChainCache cache, Menu menu) {
-        cache.saveMenuId(menu.getName(), menu.getId());
+        cache.putEntity(menu.getName(), menu);
     }
 }

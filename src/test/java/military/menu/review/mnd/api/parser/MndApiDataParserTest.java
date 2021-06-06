@@ -35,7 +35,7 @@ public class MndApiDataParserTest {
     @Test
     @DisplayName("서비스 속성내의 데이터 분해")
     void shouldDestructByServiceColumn() {
-        Map<String, Object> map = basicParser.destructToService("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":23}}");
+        Map<String, Object> map = basicParser.deserializeByService("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"list_total_count\":23}}");
         Map<String, Object> expected = new HashMap<>();
         expected.put("list_total_count", 23);
         assertThat(map, is(expected));
@@ -44,7 +44,7 @@ public class MndApiDataParserTest {
     @Test
     @DisplayName("서비스와 배열 속성 내의 데이터 분해")
     void shouldDestructByServiceAndListColumn() {
-        List<Map<String, String>> list = basicParser.destructToMenuList("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"value\":\"1\"}, {\"value\":\"2\"}]}}");
+        List<Map<String, String>> list = basicParser.deserializeByRow("{\"DS_TB_MNDT_DATEBYMLSVC_ATC\":{\"row\":[{\"value\":\"1\"}, {\"value\":\"2\"}]}}");
 
         List<Map<String, String>> expected = new LinkedList<>();
         Map<String, String> map1 = new HashMap<>();

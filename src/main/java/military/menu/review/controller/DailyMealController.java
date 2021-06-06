@@ -2,6 +2,8 @@ package military.menu.review.controller;
 
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.dto.DailyMealDTO;
+import military.menu.review.mnd.api.MndApi;
+import military.menu.review.mnd.api.parser.DailyMealsParser;
 import military.menu.review.service.DailyMealService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("/dailyMeal")
 @RequiredArgsConstructor
 public class DailyMealController {
+    private final MndApi api;
     private final DailyMealService dailyMealService;
 
     @GetMapping("/one")
@@ -31,6 +34,14 @@ public class DailyMealController {
     public ResponseEntity<List<DailyMealDTO>> list(@RequestParam String start, @RequestParam String end) {
         return new ResponseEntity(
                 dailyMealService.findByDateBetween(toDate(start), toDate(end)),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<List<DailyMealDTO>> test() {
+        return new ResponseEntity(
+                api.parse(new DailyMealsParser()),
                 HttpStatus.OK
         );
     }

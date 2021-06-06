@@ -8,6 +8,7 @@ import military.menu.review.repository.DailyMealRepository;
 import military.menu.review.mnd.chain.MndSaveBodyChain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 public class SaveDailyMeals extends MndSaveBodyChain {
@@ -15,7 +16,7 @@ public class SaveDailyMeals extends MndSaveBodyChain {
 
     @Override
     protected void process(MndSaveChainCache cache) {
-        cache.getDailyMeals().stream().forEach(d -> save(cache, d));
+        cache.findDtoList(DailyMealDTO.class).stream().forEach(d -> save(cache, d));
     }
 
     private void save(MndSaveChainCache cache, DailyMealDTO dto) {
@@ -36,15 +37,15 @@ public class SaveDailyMeals extends MndSaveBodyChain {
         return dailyMeal == null;
     }
 
-    private DailyMeal toEntity(DailyMealDTO dto) {
-        return DailyMeal.from(dto.getDate());
-    }
-
     private DailyMeal saveToDB(DailyMeal dailyMeal) {
         return dailyMealRepository.save(dailyMeal);
     }
 
+    private DailyMeal toEntity(DailyMealDTO dto) {
+        return DailyMeal.from(dto.getDate());
+    }
+
     private void saveToCache(MndSaveChainCache cache, DailyMeal dailyMeal) {
-        cache.saveDailyMealId(dailyMeal.getDate(), dailyMeal.getId());
+        cache.putEntity(dailyMeal.getDate(), dailyMeal);
     }
 }

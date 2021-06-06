@@ -1,58 +1,35 @@
 package military.menu.review.mnd.chain;
 
-import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.dto.DailyMealDTO;
-import military.menu.review.domain.dto.MenuDTO;
-
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MndSaveChainCache {
-    private final List<MenuDTO> menus;
-    private final List<DailyMealDTO> dailyMeals;
-    private final Map<String, Long> menuIds;
-    private final Map<LocalDate, Long> dailyMealIds;
-    private final Map<MealInfo, Long> mealIds;
+    private final Map<Class<?>, Object> map;
 
-    public MndSaveChainCache(List<MenuDTO> menus, List<DailyMealDTO> dailyMeals) {
-        this.menus = menus;
-        this.dailyMeals = dailyMeals;
-        this.menuIds = new HashMap<>();
-        this.dailyMealIds = new HashMap<>();
-        this.mealIds = new HashMap<>();
+    public MndSaveChainCache() {
+        map = new HashMap<>();
     }
 
-    public List<DailyMealDTO> getDailyMeals() {
-        return dailyMeals;
+    public <T> MndSaveChainCache initDtoList(Class<T> cls, List<T> list) {
+        map.put(cls, list);
+        return this;
     }
 
-    public List<MenuDTO> getMenus() {
-        return menus;
+    public <E, K> MndSaveChainCache initEntityMap(Class<E> cls) {
+        map.put(cls, new HashMap<K, E>());
+        return this;
     }
 
-    public Long findMenuId(String name) {
-        return menuIds.get(name);
+    public <E, K> void putEntity(K key, E entity) {
+        ((Map)map.get(entity.getClass())).put(key, entity);
     }
 
-    public Long findDailyMealId(LocalDate date) {
-        return dailyMealIds.get(date);
+    public <D> List<D> findDtoList(Class<D> cls) {
+        return (List<D>)map.get(cls);
     }
 
-    public Long findMealId(MealInfo info) {
-        return mealIds.get(info);
-    }
-
-    public void saveMenuId(String name, Long id) {
-        menuIds.put(name, id);
-    }
-
-    public void saveDailyMealId(LocalDate date, Long id) {
-        dailyMealIds.put(date, id);
-    }
-
-    public void saveMealId(MealInfo info, Long id) {
-        mealIds.put(info, id);
+    public <E, K> E findEntity(Class<E> cls, K key) {
+        return (E)((Map)map.get(cls)).get(key);
     }
 }

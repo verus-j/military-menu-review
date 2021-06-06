@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 public class Meal {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="meal_id")
+    @Id @GeneratedValue @Column(name="meal_id")
     private Long id;
     @Enumerated(EnumType.STRING)
     private MealType type;
@@ -25,6 +25,10 @@ public class Meal {
     private Meal(MealType type, DailyMeal dailyMeal) {
         this.type = type;
         this.dailyMeal = dailyMeal;
+    }
+
+    public String toString() {
+        return id + " " + type.name() + " " + dailyMeal.getDate();
     }
 
     public static Meal of(MealType type, DailyMeal dailyMeal) {

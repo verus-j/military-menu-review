@@ -6,6 +6,7 @@ import military.menu.review.domain.entity.DailyMeal;
 import military.menu.review.domain.entity.Meal;
 import military.menu.review.domain.entity.MealType;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter @Setter
 public class DailyMealDTO {

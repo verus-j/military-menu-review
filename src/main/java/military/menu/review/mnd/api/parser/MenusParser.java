@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class MenusParser extends MndApiDataParser<List<MenuDTO>> {
     public List<MenuDTO> parse(String json) {
-        return destructToMenuList(json).stream()
+        return deserializeByRow(json).stream()
                 .map(this::parseEachMenu)
                 .flatMap(Collection::stream)
                 .distinct()

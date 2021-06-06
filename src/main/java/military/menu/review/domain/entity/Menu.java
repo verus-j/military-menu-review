@@ -1,13 +1,15 @@
 package military.menu.review.domain.entity;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@ToString
 public class Menu {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="menu_id")
+    @Id @GeneratedValue @Column(name="menu_id")
     private Long id;
     @Column(unique = true)
     private String name;

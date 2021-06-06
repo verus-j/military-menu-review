@@ -12,18 +12,18 @@ import java.util.*;
 
 public abstract class MndApiDataParser<T> {
     private static final String SERVICE_COLUMN = "DS_TB_MNDT_DATEBYMLSVC_ATC";
-    private static final String LIST_COLUMN = "row";
+    private static final String ROW_COLUMN = "row";
     protected static final JsonToMenuConvertor BREAKFAST_CONVERTOR = new JsonToBreakfastConvertor();
     protected static final JsonToMenuConvertor LUNCH_CONVERTOR = new JsonToLunchConvertor();
     protected static final JsonToMenuConvertor DINNER_CONVERTOR = new JsonToDinnerConvertor();
 
     public abstract T parse(String json);
 
-    protected List<Map<String, String>> destructToMenuList(String json) {
-        return (List) destructToService(json).get(LIST_COLUMN);
+    protected List<Map<String, String>> deserializeByRow(String json) {
+        return (List) deserializeByService(json).get(ROW_COLUMN);
     }
 
-    protected Map<String, Object> destructToService(String json) {
+    protected Map<String, Object> deserializeByService(String json) {
         return (Map<String, Object>)readJson(json).get(SERVICE_COLUMN);
     }
 

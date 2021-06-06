@@ -4,13 +4,14 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 public class DailyMeal {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="daily_meal_id")
+    @Id @GeneratedValue @Column(name="daily_meal_id")
     private Long id;
     @Column(unique = true, nullable = false)
     private LocalDate date;

@@ -3,37 +3,36 @@ package military.menu.review.mnd.api.parser;
 import military.menu.review.domain.dto.DailyMealDTO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DailyMealsParser extends MndApiDataParser<List<DailyMealDTO>> {
-    private final String MENU_DATE_COLUMN = "dates";
-    private Set<String> dateHistory = new HashSet<>();
+    private final String DATE_COLUMN = "dates";
+    private Map<String, DailyMealDTO> dateMap = new HashMap<>();
 
     public List<DailyMealDTO> parse(String json) {
-        List<DailyMealDTO> result = new ArrayList<>();
-        DailyMealDTO dailyMeal = null;
-
-        for(Map<String, String> jsonMap : destructToMenuList(json)) {
+        for(Map<String, String> jsonMap : deserializeByRow(json)) {
             if(isNewDate(jsonMap)) {
-                dateHistory.add(jsonMap.get(MENU_DATE_COLUMN));
-                dailyMeal = createDailyMeal(jsonMap);
-                result.add(dailyMeal);
+                dateMap.put(jsonMap.get(DATE_COLUMN), createDailyMeal(jsonMap));
             }
+
+            DailyMealDTO dailyMeal = dateMap.get(jsonMap.get(DATE_COLUMN));
 
             if(dailyMeal != null) {
                 addEachMenu(dailyMeal, jsonMap);
             }
         }
 
-        return result;
+        return dateMap.keySet().stream().map(k -> dateMap.get(k)).collect(Collectors.toList());
     }
 
     private boolean isNewDate(Map<String, String> jsonMap) {
-        return !jsonMap.get(MENU_DATE_COLUMN).trim().equals("") && !dateHistory.contains(jsonMap.get(MENU_DATE_COLUMN));
+        return !jsonMap.get(DATE_COLUMN).trim().equals("") && !dateMap.containsKey(jsonMap.get(DATE_COLUMN));
     }
 
     private DailyMealDTO createDailyMeal(Map<String, String> jsonMap) {
-        return DailyMealDTO.of(LocalDate.parse(jsonMap.get(MENU_DATE_COLUMN)));
+        return DailyMealDTO.of(LocalDate.parse(jsonMap.get(DATE_COLUMN)));
     }
 
     private void addEachMenu(DailyMealDTO dailyDate, Map<String, String> jsonMap) {

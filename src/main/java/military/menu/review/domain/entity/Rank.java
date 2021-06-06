@@ -12,7 +12,7 @@ public class Rank {
     @Id @GeneratedValue @Column(name="rank_id")
     private Long id;
     private LocalDate date;
-    @ManyToOne @JoinColumn(name="menu_id")
+    @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="menu_id")
     private Menu menu;
     @Column(name="likes")
     private Integer like;
