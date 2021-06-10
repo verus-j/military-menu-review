@@ -13,7 +13,7 @@ import military.menu.review.service.mnd.filter.MndSaveProcessFilter;
 import java.time.LocalDate;
 
 @RequiredArgsConstructor
-public class SaveMeals extends MndSaveProcessFilter {
+public class SaveMealsToDBAndCache extends MndSaveProcessFilter {
     private final MealRepository mealRepository;
 
     @Override
