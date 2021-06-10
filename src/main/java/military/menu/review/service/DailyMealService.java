@@ -1,16 +1,13 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.dto.DailyMealDTO;
-import military.menu.review.domain.entity.DailyMeal;
+import military.menu.review.service.dto.DailyMealDTO;
 import military.menu.review.repository.DailyMealRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
