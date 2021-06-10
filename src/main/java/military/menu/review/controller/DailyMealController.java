@@ -1,9 +1,9 @@
 package military.menu.review.controller;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.dto.DailyMealDTO;
-import military.menu.review.mnd.api.MndApi;
-import military.menu.review.mnd.api.parser.DailyMealsParser;
+import military.menu.review.service.dto.DailyMealDTO;
+import military.menu.review.service.mnd.api.MndApi;
+import military.menu.review.service.mnd.api.parser.DailyMealsParser;
 import military.menu.review.service.DailyMealService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
