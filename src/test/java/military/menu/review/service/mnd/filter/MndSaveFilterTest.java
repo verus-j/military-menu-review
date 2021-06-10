@@ -1,25 +1,52 @@
 package military.menu.review.service.mnd.filter;
 
+import military.menu.review.service.mnd.api.MndApi;
+import military.menu.review.service.mnd.api.parser.DailyMealsParser;
+import military.menu.review.service.mnd.api.parser.MenusParser;
+import military.menu.review.service.mnd.filter.impl.RestMndDataFilter;
 import org.junit.jupiter.api.Test;
-import org.mockito.InOrder;
-import org.mockito.Mockito;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class MndSaveFilterTest {
+    static class Log {
+        String log = "";
+
+        public void addLog(String log) {
+            this.log += log;
+        }
+    }
+
     @Test
     public void shouldChainingFilters() {
-        MndRestProcessFilter head = mock(MndRestProcessFilter.class);
-        MndSaveProcessFilter filter1 = mock(MndSaveProcessFilter.class);
-        MndSaveProcessFilter filter2 = mock(MndSaveProcessFilter.class);
-        MndRestProcessFilter filter = new MndSaveFilterBuilder(head).addChain(filter1).addChain(filter2).build();
+        Log log = new Log();
+        MndRestProcessFilter head = new MndRestProcessFilter() {
+            @Override
+            protected MndFilterCache initCache() {
+                log.addLog("head ");
+                return null;
+            }
+        };
 
-        filter.execute();
+        MndSaveProcessFilter filter1 = new MndSaveProcessFilter() {
+            @Override
+            protected void process(MndFilterCache cache) {
+                log.addLog("filter1 ");
+            }
+        };
 
-        InOrder inOrder = Mockito.inOrder(head, filter1, filter2);
-        inOrder.verify(head).execute();
-        inOrder.verify(filter1).execute(any(MndFilterCache.class));
-        inOrder.verify(filter2).execute(any(MndFilterCache.class));
+        MndSaveProcessFilter filter2 = new MndSaveProcessFilter() {
+            @Override
+            protected void process(MndFilterCache cache) {
+                log.addLog("filter2");
+            }
+        };
+
+        new MndSaveFilterBuilder(head).addChain(filter1).addChain(filter2).build().execute();
+
+        assertThat(log.log, is("head filter1 filter2"));
     }
 }
