@@ -26,26 +26,31 @@ public class MndServiceConfig {
     public MndRestProcessFilter headerChain() {
         return new MndSaveFilterBuilder(restMndData())
             .addChain(saveMenus())
-            .addChain(saveDailyMeals())
+            .addChain(saveDailyMealsToDB())
+            .addChain(saveDailyMealsToCache())
             .addChain(saveMeals())
             .addChain(saveMealMenus())
             .build();
     }
 
     private MndRestProcessFilter restMndData() {
-        return new RestMndData(api);
+        return new RestMndDataFilter(api);
     }
 
     private MndSaveProcessFilter saveMenus() {
         return new SaveMenus(menuRepository);
     }
 
-    private MndSaveProcessFilter saveDailyMeals() {
-        return new SaveDailyMeals(dailyMealRepository);
+    private MndSaveProcessFilter saveDailyMealsToDB() {
+        return new SaveDailyMealsToDB(dailyMealRepository);
+    }
+
+    private MndSaveProcessFilter saveDailyMealsToCache() {
+        return new SaveDailyMealsToCache(dailyMealRepository);
     }
 
     private MndSaveProcessFilter saveMeals() {
-        return new SaveMeals(mealRepository);
+        return new SaveMealsToDBAndCache(mealRepository);
     }
 
     private MndSaveProcessFilter saveMealMenus() {
