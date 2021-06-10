@@ -14,19 +14,19 @@ public class Review {
     private LocalDate created;
     @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="meal_id")
     private Meal meal;
-    @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="user_id")
-    private User user;
+    @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="member_id")
+    private Member member;
 
     protected Review() {}
 
-    private Review(String content, LocalDate created, Meal meal, User user) {
+    private Review(String content, LocalDate created, Meal meal, Member member) {
         this.content = content;
         this.created = created;
         this.meal = meal;
-        this.user = user;
+        this.member = member;
     }
 
-    public static Review of(String content, LocalDate created, Meal meal, User user) {
-        return new Review(content, created, meal, user);
+    public static Review of(String content, LocalDate created, Meal meal, Member member) {
+        return new Review(content, created, meal, member);
     }
 }
