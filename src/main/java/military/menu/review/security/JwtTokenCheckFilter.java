@@ -53,7 +53,7 @@ public class JwtTokenCheckFilter extends BasicAuthenticationFilter {
             authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    member.getName(), null, authorities
+                    member.getUsername(), null, authorities
             );
 
             SecurityContextHolder.getContext().setAuthentication(auth);

@@ -38,7 +38,8 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User)authResult.getPrincipal();
-        System.out.println("user login");
-        response.addHeader(JWTUtils.HEADER, JWTUtils.BEARER + jwtUtils.generate(user.getUsername()));
+        response.getWriter().write(JWTUtils.BEARER + jwtUtils.generate(user.getUsername()));
+        System.out.println("user login: " + user.getUsername());
+        chain.doFilter(request, response);
     }
 }
