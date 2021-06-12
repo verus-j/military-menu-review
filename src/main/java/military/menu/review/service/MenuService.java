@@ -30,21 +30,11 @@ public class MenuService {
 
     public List<MenuDTO> findByMemberLikedAndDate(MemberContext context, LocalDate date) {
         MemberDTO member = context.getCurrentMember();
-
-        if(!member.getRole().equals(Role.SOLDIER)) {
-            return new ArrayList<>();
-        }
-
         return menuRepository.findByMemberLikedAndDate(member.getUsername(), date).stream().map(MenuDTO::new).collect(toList());
     }
 
     public List<MenuDTO> findByMemberLikedAndDateBetween(MemberContext context, LocalDate start, LocalDate end) {
         MemberDTO member = context.getCurrentMember();
-
-        if(!member.getRole().equals(Role.SOLDIER)) {
-            return new ArrayList<>();
-        }
-
         return menuRepository.findByMemberLikedAndDateBetween(member.getUsername(), start, end).stream().map(MenuDTO::new).collect(toList());
     }
 }
