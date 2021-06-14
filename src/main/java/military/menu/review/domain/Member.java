@@ -1,13 +1,19 @@
 package military.menu.review.domain;
 
 import lombok.Getter;
+import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Getter
+@ToString
 public class Member {
     @Id @GeneratedValue @Column(name="member_id")
     private Long id;
@@ -20,7 +26,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    protected Member(){}
+    protected Member(){
+
+    }
 
     private Member(String username, String password, String name, String militaryId, Role role) {
         this.username = username;
@@ -36,9 +44,5 @@ public class Member {
 
     public void encodePassword(PasswordEncoder encoder) {
         password = encoder.encode(password);
-    }
-
-    public void removePassword() {
-        password = "************";
     }
 }
