@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-                    .antMatchers("/login", "/join").permitAll()
+                    .antMatchers("/member/login", "/member/join").permitAll()
                     .anyRequest().authenticated();
 
         http
@@ -81,7 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtLoginFilter jwtLoginFilter() throws Exception {
         JwtLoginFilter filter = new JwtLoginFilter(objectMapper, super.authenticationManager(), jwtUtils);
-        filter.setFilterProcessesUrl("/login");
+        filter.setFilterProcessesUrl("/member/login");
         return filter;
     }
 

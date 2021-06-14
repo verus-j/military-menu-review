@@ -1,10 +1,8 @@
 package military.menu.review;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Like;
-import military.menu.review.domain.Member;
-import military.menu.review.domain.Menu;
-import military.menu.review.domain.Role;
+import military.menu.review.domain.*;
+import military.menu.review.repository.MealRepository;
 import military.menu.review.repository.MemberRepository;
 import military.menu.review.service.LikeService;
 import military.menu.review.service.MemberService;
@@ -19,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -27,6 +27,7 @@ public class MilitaryMenuReviewApplication {
 	private final MenuService menuService;
 	private final LikeService likeService;
 	private final MemberRepository memberRepository;
+	private final MealRepository mealRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MilitaryMenuReviewApplication.class, args);
@@ -42,10 +43,11 @@ public class MilitaryMenuReviewApplication {
 //				if(memberRepository.findByUsername("user") == null) {
 //					Member member = Member.of("user", "123", "kim", "11-11111", Role.SOLDIER);
 //					Member normal = Member.of("normal", "123", "lee", "11-123211", Role.NORMAL);
+//					Meal meal = mealRepository.findByDateAndType(LocalDate.of(2021, 6, 15), MealType.LUNCH);
 //					memberService.join(member);
 //					memberService.join(normal);
 //					Menu menu = menuService.findByName("밥");
-//					likeService.like(member, menu);
+//					likeService.like(meal, menu, member);
 //				}
 			}
 		};
