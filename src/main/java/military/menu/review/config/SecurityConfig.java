@@ -46,9 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/dailyMeal/**").authenticated()
-                .anyRequest().authenticated();
+                    .antMatchers("/login", "/join").permitAll()
+                    .anyRequest().authenticated();
 
         http
                 .cors().and()
@@ -69,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

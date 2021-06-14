@@ -9,6 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -52,11 +54,15 @@ public class JwtTokenCheckFilter extends BasicAuthenticationFilter {
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
 
+            System.out.println(member);
+
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    member.getUsername(), null, authorities
+                    member, null, authorities
             );
 
             SecurityContextHolder.getContext().setAuthentication(auth);
+        }else {
+            SecurityContextHolder.getContext().setAuthentication(null);
         }
 
         chain.doFilter(request, response);
