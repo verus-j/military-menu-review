@@ -8,10 +8,20 @@ public class Week {
     private int month;
     private int week;
     private int year;
+    private LocalDate firstDate;
+    private LocalDate lastDate;
 
     public Week(LocalDate now) {
         this.now = now;
         initMonthAndWeek();
+        initFirstAndLastDate();
+    }
+
+    public Week(int year, int month, int week) {
+        this.year = year;
+        this.month = month;
+        this.week = week;
+        initFirstAndLastDate();
     }
 
     private void initMonthAndWeek() {
@@ -25,6 +35,15 @@ public class Week {
             this.year = now.getYear();
             this.month = now.getMonthValue();
             this.week = ((now.getDayOfMonth() - firstMonday.getDayOfMonth()) / 7) + 1;
+        }
+    }
+
+    private void initFirstAndLastDate() {
+        firstDate = firstMonday(year, month).plusWeeks(week - 1);
+        lastDate = firstDate.plusDays(6);
+
+        if(firstDate.getMonthValue() != month) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -63,5 +82,13 @@ public class Week {
 
     public int year() {
         return year;
+    }
+
+    public LocalDate firstDate() {
+        return firstDate;
+    }
+
+    public LocalDate lastDate() {
+        return lastDate;
     }
 }
