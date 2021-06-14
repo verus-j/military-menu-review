@@ -3,7 +3,9 @@ package military.menu.review.service;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.Member;
 import military.menu.review.repository.MemberRepository;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,17 +27,18 @@ public class MemberService implements UserDetailsService {
 
     public Member findByUsername(String username) {
         Member m = memberRepository.findByUsername(username);
-        m.removePassword();
         return m;
     }
-
-
 
     public void join(Member member) {
         member.encodePassword(encoder);
         memberRepository.save(member);
     }
 
+    public Member getCurrentMember() {
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        return (Member)token.getPrincipal();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

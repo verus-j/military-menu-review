@@ -1,9 +1,8 @@
 package military.menu.review.controller;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.security.MemberContext;
+import military.menu.review.service.MemberService;
 import military.menu.review.service.MenuService;
-import military.menu.review.service.dto.DailyMealDTO;
 import military.menu.review.service.mnd.api.MndApi;
 import military.menu.review.service.DailyMealService;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +20,13 @@ public class DailyMealController {
     private final MndApi api;
     private final DailyMealService dailyMealService;
     private final MenuService menuService;
-    private final MemberContext context;
+    private final MemberService memberService;
 
     @GetMapping("/one")
     public ResponseEntity<Map<String, Object>> dailyMeal(@RequestParam String date) {
         Map<String, Object> map = new HashMap<>();
         map.put("meal", dailyMealService.findByDate(toDate(date)));
-        map.put("liked", menuService.findByMemberLikedAndDate(context, toDate(date)));
+        map.put("liked", menuService.findByMemberLikedAndDate(memberService.getCurrentMember(), toDate(date)));
 
         return ResponseEntity.ok(map);
     }
@@ -37,7 +36,7 @@ public class DailyMealController {
         System.out.println(principal);
         Map<String, Object> map = new HashMap<>();
         map.put("meal", dailyMealService.findByDateBetween(toDate(start), toDate(end)));
-        map.put("liked", menuService.findByMemberLikedAndDateBetween(context, toDate(start), toDate(end)));
+        map.put("liked", menuService.findByMemberLikedAndDateBetween(memberService.getCurrentMember(), toDate(start), toDate(end)));
 
         System.out.println(map);
         return ResponseEntity.ok(map);
