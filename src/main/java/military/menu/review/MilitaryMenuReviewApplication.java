@@ -26,6 +26,8 @@ public class MilitaryMenuReviewApplication {
 	private final MemberService memberService;
 	private final MenuService menuService;
 	private final LikeService likeService;
+	private final MemberRepository memberRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MilitaryMenuReviewApplication.class, args);
 	}
@@ -36,13 +38,15 @@ public class MilitaryMenuReviewApplication {
 			@Override
 			@Transactional
 			public void run(ApplicationArguments args) throws Exception {
-				service.saveFromApi();
-				Member member = Member.of("user", "123", "kim", "11-11111", Role.SOLDIER);
-				Member normal = Member.of("normal", "123", "lee", "11-123211", Role.NORMAL);
-				memberService.join(member);
-				memberService.join(normal);
-				Menu menu = menuService.findByName("밥");
-				likeService.like(member, menu);
+//				service.saveFromApi();
+//				if(memberRepository.findByUsername("user") == null) {
+//					Member member = Member.of("user", "123", "kim", "11-11111", Role.SOLDIER);
+//					Member normal = Member.of("normal", "123", "lee", "11-123211", Role.NORMAL);
+//					memberService.join(member);
+//					memberService.join(normal);
+//					Menu menu = menuService.findByName("밥");
+//					likeService.like(member, menu);
+//				}
 			}
 		};
 	}
