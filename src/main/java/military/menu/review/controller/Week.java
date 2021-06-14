@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class Week {
-    private LocalDate now;
     private int month;
     private int week;
     private int year;
@@ -12,8 +11,7 @@ public class Week {
     private LocalDate lastDate;
 
     public Week(LocalDate now) {
-        this.now = now;
-        initMonthAndWeek();
+        initMonthAndWeek(now);
         initFirstAndLastDate();
     }
 
@@ -24,7 +22,7 @@ public class Week {
         initFirstAndLastDate();
     }
 
-    private void initMonthAndWeek() {
+    private void initMonthAndWeek(LocalDate now) {
         LocalDate firstMonday = firstMonday(now.getYear(), now.getMonthValue());
 
         if(now.getDayOfMonth() < firstMonday.getDayOfMonth()) {
