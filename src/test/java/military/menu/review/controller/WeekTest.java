@@ -1,5 +1,6 @@
 package military.menu.review.controller;
 
+import military.menu.review.domain.Week;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ public class WeekTest {
     @Test
     public void shouldFirstMondayOfMonthIsWeekFirstStart() {
         LocalDate date = LocalDate.of(2021, 6, 7);
-        Week week = new Week(date);
+        Week week = Week.from(date);
 
         assertThat(week.month(), is(6));
         assertThat(week.week(), is(1));
@@ -22,11 +23,11 @@ public class WeekTest {
 
     @Test
     public void shouldEveryWeekStartMonday() {
-         LocalDate date = LocalDate.of(2021, 6, 14);
-         Week week = new Week(date);
+        LocalDate date = LocalDate.of(2021, 6, 14);
+        Week week = Week.from(date);
 
-         assertThat(week.month(), is(6));
-         assertThat(week.week(), is(2));
+        assertThat(week.month(), is(6));
+        assertThat(week.week(), is(2));
         assertThat(week.firstDate(), is(LocalDate.of(2021, 6, 14)));
         assertThat(week.lastDate(), is(LocalDate.of(2021, 6, 20)));
     }
@@ -34,7 +35,7 @@ public class WeekTest {
     @Test
     public void shouldCalculateWeekBaseOnMonday() {
         LocalDate date = LocalDate.of(2021, 6, 23);
-        Week week = new Week(date);
+        Week week = Week.from(date);
 
         assertThat(week.month(), is(6));
         assertThat(week.week(), is(3));
@@ -45,7 +46,7 @@ public class WeekTest {
     @Test
     public void shouldGetLastWeekOfPreviousMonthWhenDateIsBeforeFirstMonday() {
         LocalDate date = LocalDate.of(2021, 6, 4);
-        Week week = new Week(date);
+        Week week = Week.from(date);
 
         assertThat(week.month(), is(5));
         assertThat(week.week(), is(5));
@@ -56,7 +57,7 @@ public class WeekTest {
     @Test
     public void shouldGetLastWeekOfYearWhenDateIsBeforeFirstMondayOfYear() {
         LocalDate date = LocalDate.of(2021, 1, 1);
-        Week week = new Week(date);
+        Week week = Week.from(date);
 
         assertThat(week.year(), is(2020));
         assertThat(week.month(), is(12));
@@ -78,7 +79,11 @@ public class WeekTest {
     @Test
     void shouldThrowExceptionNotProperWeeks() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Week(2021, 6, 5);
+            new Week(2021, 6, 5).firstDate();
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Week(2021, 6, 5).lastDate();
         });
     }
 }

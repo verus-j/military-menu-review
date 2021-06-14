@@ -3,13 +3,15 @@ package military.menu.review.service;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.Member;
 import military.menu.review.domain.Menu;
+import military.menu.review.domain.Week;
+import military.menu.review.repository.LikeRepository;
 import military.menu.review.repository.MenuRepository;
 import military.menu.review.service.dto.MenuDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -19,15 +21,21 @@ import static java.util.stream.Collectors.toList;
 public class MenuService {
     private final MenuRepository menuRepository;
 
+    public List<MenuDTO> findByMemberLikedDuringWeek(Member member, Week week) {
+        return menuRepository.findByMemberLikedDuringWeek(member, week).stream().map(MenuDTO::new).collect(toList());
+    }
+
     public Menu findByName(String name) {
         return menuRepository.findByName(name);
     }
 
-    public List<MenuDTO> findByMemberLikedAndDate(Member member, LocalDate date) {
-        return menuRepository.findByMemberLikedAndDate(member.getUsername(), date).stream().map(MenuDTO::new).collect(toList());
-    }
+    public Menu findById(long id) {
+        Optional<Menu> optional = menuRepository.findById(id);
 
-    public List<MenuDTO> findByMemberLikedAndDateBetween(Member member, LocalDate start, LocalDate end) {
-        return menuRepository.findByMemberLikedAndDateBetween(member.getUsername(), start, end).stream().map(MenuDTO::new).collect(toList());
+        if(optional.isPresent()) {
+            return optional.get();
+        }
+
+        throw new IllegalArgumentException();
     }
 }
