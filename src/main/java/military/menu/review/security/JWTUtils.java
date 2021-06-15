@@ -12,7 +12,7 @@ import java.time.Instant;
 
 @Component
 public class JWTUtils {
-    public static final String HEADER = "Authentication";
+    public static final String HEADER = "Authorization";
     public static final String BEARER = "Bearer ";
 
     @Value("${jwt.secret}")
