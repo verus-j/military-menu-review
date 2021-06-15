@@ -20,13 +20,16 @@ import static java.util.stream.Collectors.toList;
 @Transactional
 public class MenuService {
     private final MenuRepository menuRepository;
+    private final MemberService memberService;
 
-    public List<MenuDTO> findByMemberLikedDuringWeek(Member member, Week week) {
+    public List<MenuDTO> findByMemberLikedDuringWeek(Week week) {
+        Member member = memberService.getCurrentMember();
+
         return menuRepository.findByMemberLikedDuringWeek(member, week).stream().map(MenuDTO::new).collect(toList());
     }
 
-    public Menu findByName(String name) {
-        return menuRepository.findByName(name);
+    public List<MenuDTO> findAll() {
+        return menuRepository.findAll().stream().map(MenuDTO::new).collect(toList());
     }
 
     public Menu findById(long id) {
