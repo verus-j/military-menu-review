@@ -19,7 +19,8 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public ResponseEntity join(@ModelAttribute MemberDTO memberDTO) {
+    public ResponseEntity join(@RequestBody MemberDTO memberDTO) {
+        System.out.println(memberDTO);
         memberService.join(memberDTO.toEntity());
         return ResponseEntity.ok("success");
     }
