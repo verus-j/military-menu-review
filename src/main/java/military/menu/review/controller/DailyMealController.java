@@ -21,13 +21,12 @@ import java.util.stream.Collectors;
 public class DailyMealController {
     private final DailyMealService dailyMealService;
     private final MenuService menuService;
-    private final MemberService memberService;
 
     @GetMapping("/list")
     public ResponseEntity<Map<String, Object>> list(@ModelAttribute Week week) {
         Map<String, Object> map = new HashMap<>();
         map.put("meal", dailyMealService.findByDateBetween(week.firstDate(), week.lastDate()));
-        map.put("liked", menuService.findByMemberLikedDuringWeek(memberService.getCurrentMember(), week).stream().map(MenuDTO::getId).collect(Collectors.toList()));
+        map.put("liked", menuService.findByMemberLikedDuringWeek(week).stream().map(MenuDTO::getId).collect(Collectors.toList()));
         return ResponseEntity.ok(map);
     }
 }

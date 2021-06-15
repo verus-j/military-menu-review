@@ -17,16 +17,8 @@ import static java.util.stream.Collectors.*;
 public class DailyMealService {
     private final DailyMealRepository dailyMealRepository;
 
-    public DailyMealDTO findByDate(LocalDate date) {
-        return new DailyMealDTO(dailyMealRepository.findByDate(adjustDate(date)));
-    }
-
     public List<DailyMealDTO> findByDateBetween(LocalDate start, LocalDate end) {
-        return dailyMealRepository.findByDateBetween(adjustDate(start), adjustDate(end))
+        return dailyMealRepository.findByDateBetween(start, end)
             .stream().map(DailyMealDTO::new).collect(toList());
-    }
-
-    private LocalDate adjustDate(LocalDate date) {
-        return date;
     }
 }

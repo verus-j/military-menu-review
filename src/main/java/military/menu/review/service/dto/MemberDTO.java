@@ -1,6 +1,7 @@
 package military.menu.review.service.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import military.menu.review.domain.Member;
 import military.menu.review.domain.Role;
@@ -13,6 +14,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Getter
+@Setter
 @ToString
 public class MemberDTO {
     private String username;
@@ -20,6 +22,8 @@ public class MemberDTO {
     private String name;
     private String militaryId;
     private String role;
+
+    public MemberDTO() {}
 
     public MemberDTO(Member member) {
         this.username = member.getUsername();
