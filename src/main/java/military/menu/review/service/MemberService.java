@@ -25,19 +25,18 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public Member findByUsername(String username) {
-        Member m = memberRepository.findByUsername(username);
-        return m;
-    }
-
     public void join(Member member) {
+        if(memberRepository.findByUsername(member.getUsername()) != null) {
+            throw new IllegalStateException();
+        }
+
         member.encodePassword(encoder);
         memberRepository.save(member);
     }
 
     public Member getCurrentMember() {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return (Member)token.getPrincipal();
+        return memberRepository.findByUsername((String)token.getPrincipal());
     }
 
     @Override
