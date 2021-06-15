@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/dailyMeal")
+@RequestMapping("/daily-meal")
 @RequiredArgsConstructor
 public class DailyMealController {
     private final DailyMealService dailyMealService;
