@@ -93,3 +93,18 @@ __해당 식단(Meal)의 리뷰들 반환(현재 로그인된 사용자가 작�
  example : 
         await axios.post("/review/list?mealId=612&page=0&size=5", {headers: {"Authrization" : "JWT TOKEN"}});
 ```
+## MealImageController
+__식단 이미지 조회__
+```
+ URL : /meal-image/download
+ HTTP Method : GET
+ headers : {"Authrization" : "JWT TOKEN"}
+ param : mealId
+```
+__식단 이미지 업로드_
+```
+ URL : /meal-image/upload
+ HTTP Method : POST
+ headers : {"Authrization" : "JWT TOKEN"}
+ body : {mealId: 0, file: imageFile} // file 프로퍼티를 통해 업로드할 이미지 설정
+```
