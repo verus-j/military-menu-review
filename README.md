@@ -101,7 +101,7 @@ __식단 이미지 조회__
  headers : {"Authrization" : "JWT TOKEN"}
  param : mealId
 ```
-__식단 이미지 업로드_
+__식단 이미지 업로드__
 ```
  URL : /meal-image/upload
  HTTP Method : POST
