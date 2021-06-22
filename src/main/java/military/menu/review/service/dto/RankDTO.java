@@ -11,19 +11,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class RankDTO implements Comparable<RankDTO>{
-    private int year;
-    private int month;
-    private int week;
     private String menu;
     private int like;
     private int rank;
 
+    public RankDTO(Menu menu, int rank) {
+        this.menu = menu.getName();
+        this.like = menu.getLike();
+        this.rank = rank;
+    }
+
     public RankDTO(Rank rank) {
-        this.year = rank.getWeek().year();
-        this.month = rank.getWeek().month();
-        this.week = rank.getWeek().week();
         this.menu = rank.getMenu().getName();
-        this.like = rank.getMenu().getLike();
+        this.like = rank.getLike();
         this.rank = rank.getRank();
     }
 
