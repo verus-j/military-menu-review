@@ -1,5 +1,6 @@
 package military.menu.review.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.Embeddable;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 
 @Embeddable
 @ToString
+@EqualsAndHashCode
 public class Week {
     private int month;
     private int week;

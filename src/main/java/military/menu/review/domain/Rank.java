@@ -3,7 +3,6 @@ package military.menu.review.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name="Ranks")
@@ -11,7 +10,8 @@ import java.time.LocalDate;
 public class Rank {
     @Id @GeneratedValue @Column(name="rank_id")
     private Long id;
-    private LocalDate date;
+    @Embedded
+    private Week week;
     @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="menu_id")
     private Menu menu;
     @Column(name="likes")
@@ -21,14 +21,14 @@ public class Rank {
 
     protected Rank() {}
 
-    private Rank(LocalDate date, Menu menu, Integer rank) {
-        this.date = date;
+    private Rank(Week week, Menu menu, Integer like, Integer rank) {
+        this.week = week;
         this.menu = menu;
-        this.like = menu.getLike();
+        this.like = like;
         this.rank = rank;
     }
 
-    public static Rank of(LocalDate date, Menu menu, Integer rank) {
-        return new Rank(date, menu, rank);
+    public static Rank of(Week date, Menu menu, int like, Integer rank) {
+        return new Rank(date, menu, like, rank);
     }
 }
