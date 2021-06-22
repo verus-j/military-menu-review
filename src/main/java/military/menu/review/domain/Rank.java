@@ -21,14 +21,14 @@ public class Rank {
 
     protected Rank() {}
 
-    private Rank(Week week, Menu menu, Integer rank) {
+    private Rank(Week week, Menu menu, Integer like, Integer rank) {
         this.week = week;
         this.menu = menu;
-        this.like = menu.getLike();
+        this.like = like;
         this.rank = rank;
     }
 
-    public static Rank of(Week date, Menu menu, Integer rank) {
-        return new Rank(date, menu, rank);
+    public static Rank of(Week date, Menu menu, int like, Integer rank) {
+        return new Rank(date, menu, like, rank);
     }
 }
