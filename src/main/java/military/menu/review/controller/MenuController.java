@@ -1,15 +1,12 @@
 package military.menu.review.controller;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Menu;
 import military.menu.review.service.LikeService;
 import military.menu.review.service.MenuService;
-import military.menu.review.service.dto.MenuDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
