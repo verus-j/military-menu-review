@@ -18,6 +18,6 @@ public class SaveMNDRunner implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        service.saveFromApi();
+//        service.saveFromApi();
     }
 }

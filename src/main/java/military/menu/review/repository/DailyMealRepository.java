@@ -14,6 +14,4 @@ import java.util.List;
 public interface DailyMealRepository extends JpaRepository<DailyMeal, Long> {
     DailyMeal findByDate(LocalDate date);
     List<DailyMeal> findByDateBetween(LocalDate start ,LocalDate end);
-    @Query("select d from DailyMeal d where :meal in(d.meals)")
-    DailyMeal findByMeal(Meal meal);
 }
