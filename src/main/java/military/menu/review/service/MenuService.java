@@ -22,10 +22,9 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final MemberService memberService;
 
-    public List<MenuDTO> findByMemberLikedDuringWeek(Week week) {
-        Member member = memberService.getCurrentMember();
-
-        return menuRepository.findByMemberLikedDuringWeek(member, week).stream().map(MenuDTO::new).collect(toList());
+    public List<Long> findIdByMemberLikedDuringWeek(Week week) {
+        return menuRepository.findByMemberLikedDuringWeek(memberService.getCurrentMember(), week)
+            .stream().map(MenuDTO::new).map(MenuDTO::getId).collect(toList());
     }
 
     public List<MenuDTO> findAll() {
