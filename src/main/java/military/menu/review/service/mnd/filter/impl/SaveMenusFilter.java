@@ -8,7 +8,7 @@ import military.menu.review.repository.MenuRepository;
 import military.menu.review.service.mnd.filter.MndSaveProcessFilter;
 
 @RequiredArgsConstructor
-public class SaveMenus extends MndSaveProcessFilter {
+public class SaveMenusFilter extends MndSaveProcessFilter {
     private final MenuRepository menuRepository;
 
     @Override
