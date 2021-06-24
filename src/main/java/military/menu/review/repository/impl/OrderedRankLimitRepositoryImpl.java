@@ -15,7 +15,7 @@ public class OrderedRankLimitRepositoryImpl implements OrderedRankLimitRepositor
 
     @Override
     public List<Rank> findByWeekOrderByRankLimit(Week week, int limit) {
-        return em.createQuery("select r from Rank r where r.week=:week order by r.rank", Rank.class)
+        return em.createQuery("select r from Rank r join fetch r.menu where r.week=:week order by r.rank", Rank.class)
             .setParameter("week", week)
             .setFirstResult(0)
             .setMaxResults(limit)

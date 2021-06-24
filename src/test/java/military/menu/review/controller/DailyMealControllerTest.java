@@ -3,17 +3,16 @@ package military.menu.review.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import military.menu.review.domain.Week;
-import military.menu.review.service.DailyMealService;
 import military.menu.review.service.MenuService;
 import military.menu.review.service.dto.DailyMealDTO;
 import military.menu.review.service.dto.MenuDTO;
+import military.menu.review.service.MealMenuService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -26,20 +25,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class DailyMealControllerTest {
     private MockMvc mvc;
 
-    @MockBean private DailyMealService dailyMealService;
+    @MockBean private MealMenuService mealMenuService;
     @MockBean private MenuService menuService;
 
     @Autowired private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
-        mvc = MockMvcBuilders.standaloneSetup(new DailyMealController(dailyMealService, menuService)).build();
+        mvc = MockMvcBuilders.standaloneSetup(new DailyMealController(menuService, mealMenuService)).build();
 
         Week week = new Week(2021, 6, 1);
-        when(dailyMealService.findByDateBetween(week.firstDate(), week.lastDate())).thenReturn(dailyMeals());
+        when(mealMenuService.findByDateBetween(week.firstDate(), week.lastDate())).thenReturn(dailyMeals());
         when(menuService.findIdByMemberLikedDuringWeek(new Week(2021, 6, 1))).thenReturn(menusId());
     }
 

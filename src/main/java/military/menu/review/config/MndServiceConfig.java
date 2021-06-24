@@ -3,7 +3,6 @@ package military.menu.review.config;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.service.mnd.api.MndApi;
 import military.menu.review.service.mnd.filter.impl.*;
-import military.menu.review.repository.DailyMealRepository;
 import military.menu.review.repository.MealMenuRepository;
 import military.menu.review.repository.MealRepository;
 import military.menu.review.repository.MenuRepository;
@@ -19,15 +18,12 @@ public class MndServiceConfig {
     private final MndApi api;
     private final MenuRepository menuRepository;
     private final MealRepository mealRepository;
-    private final DailyMealRepository dailyMealRepository;
     private final MealMenuRepository mealMenuRepository;
 
     @Bean
     public MndRestProcessFilter headerChain() {
         return new MndSaveFilterBuilder(restMndData())
             .addChain(saveMenus())
-            .addChain(saveDailyMealsToDB())
-            .addChain(saveDailyMealsToCache())
             .addChain(saveMeals())
             .addChain(saveMealMenus())
             .build();
@@ -38,19 +34,11 @@ public class MndServiceConfig {
     }
 
     private MndSaveProcessFilter saveMenus() {
-        return new SaveMenus(menuRepository);
-    }
-
-    private MndSaveProcessFilter saveDailyMealsToDB() {
-        return new SaveDailyMealsToDB(dailyMealRepository);
-    }
-
-    private MndSaveProcessFilter saveDailyMealsToCache() {
-        return new SaveDailyMealsToCache(dailyMealRepository);
+        return new SaveMenusFilter(menuRepository);
     }
 
     private MndSaveProcessFilter saveMeals() {
-        return new SaveMealsToDBAndCache(mealRepository);
+        return new SaveMealsFilter(mealRepository);
     }
 
     private MndSaveProcessFilter saveMealMenus() {

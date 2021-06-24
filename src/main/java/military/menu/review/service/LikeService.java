@@ -23,7 +23,7 @@ public class LikeService {
         Member member = memberService.getCurrentMember();
         Meal meal = mealService.findById(mealId);
         Menu menu = menuService.findById(menuId);
-        Week week = Week.from(meal.getDailyMeal().getDate());
+        Week week = Week.from(meal.getDate());
 
         if(likeRepository.findByMemberAndMenuAndWeek(member, menu, week) != null) {
             throw new IllegalArgumentException();
@@ -37,7 +37,7 @@ public class LikeService {
         Member member = memberService.getCurrentMember();
         Meal meal = mealService.findById(mealId);
         Menu menu = menuService.findById(menuId);
-        Week week = Week.from(meal.getDailyMeal().getDate());
+        Week week = Week.from(meal.getDate());
         Like like = likeRepository.findByMemberAndMenuAndWeek(member, menu, week);
 
         if(like == null) {

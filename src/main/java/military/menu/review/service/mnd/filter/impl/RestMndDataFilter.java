@@ -3,7 +3,6 @@ package military.menu.review.service.mnd.filter.impl;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.service.dto.DailyMealDTO;
 import military.menu.review.service.dto.MenuDTO;
-import military.menu.review.domain.DailyMeal;
 import military.menu.review.domain.Meal;
 import military.menu.review.domain.Menu;
 import military.menu.review.service.mnd.api.MndApi;
@@ -23,7 +22,6 @@ public class RestMndDataFilter extends MndRestProcessFilter {
         return new MndFilterCache()
                 .initDtoList(DailyMealDTO.class, dailyMealDtos())
                 .initDtoList(MenuDTO.class, menuDtos())
-                .initEntityMap(DailyMeal.class)
                 .initEntityMap(Meal.class)
                 .initEntityMap(Menu.class);
     }

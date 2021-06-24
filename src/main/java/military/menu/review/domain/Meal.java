@@ -3,6 +3,7 @@ package military.menu.review.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,25 +14,24 @@ public class Meal {
     private Long id;
     @Enumerated(EnumType.STRING)
     private MealType type;
-    @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="daily_meal_id")
-    private DailyMeal dailyMeal;
-    @OneToMany(mappedBy="meal", fetch=FetchType.LAZY)
+    private LocalDate date;
+    @OneToMany(mappedBy="meal")
     private List<MealMenu> mealMenus = new ArrayList<>();
 
     protected Meal() {
 
     }
 
-    private Meal(MealType type, DailyMeal dailyMeal) {
+    private Meal(MealType type, LocalDate date) {
         this.type = type;
-        this.dailyMeal = dailyMeal;
+        this.date = date;
     }
 
     public String toString() {
-        return id + " " + type.name() + " " + dailyMeal.getDate();
+        return id + " " + type.name() + " " + date;
     }
 
-    public static Meal of(MealType type, DailyMeal dailyMeal) {
-        return new Meal(type, dailyMeal);
+    public static Meal of(MealType type, LocalDate date) {
+        return new Meal(type, date);
     }
 }

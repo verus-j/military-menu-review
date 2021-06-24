@@ -1,15 +1,18 @@
 package military.menu.review.service.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import military.menu.review.domain.Meal;
 import military.menu.review.domain.MealMenu;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Getter @Setter
+@Getter @Setter @ToString @EqualsAndHashCode
 public class MealDTO {
     private Long id;
     private List<MenuDTO> menus;

@@ -13,6 +13,6 @@ import java.util.List;
 
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
-    @Query("select l from Like l join l.member m join l.menu mn where m=:member and mn=:menu and l.week=:week")
+    @Query("select l from Like l join l.member m join l.menu mn join fetch l.menu where m=:member and mn=:menu and l.week=:week")
     Like findByMemberAndMenuAndWeek(@Param("member") Member member, @Param("menu") Menu menu, @Param("week") Week week);
 }
