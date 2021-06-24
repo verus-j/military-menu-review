@@ -22,6 +22,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+
 public class JwtTokenCheckFilter extends BasicAuthenticationFilter {
     private final JWTUtils jwtUtils;
     private final MemberRepository memberRepository;
@@ -54,10 +55,8 @@ public class JwtTokenCheckFilter extends BasicAuthenticationFilter {
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
 
-            System.out.println(member);
-
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    member.getUsername(), null, authorities
+                    member, null, authorities
             );
 
             SecurityContextHolder.getContext().setAuthentication(auth);

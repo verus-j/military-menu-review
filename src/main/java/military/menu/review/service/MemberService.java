@@ -36,7 +36,7 @@ public class MemberService implements UserDetailsService {
 
     public Member getCurrentMember() {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return memberRepository.findByUsername((String)token.getPrincipal());
+        return (Member)token.getPrincipal();
     }
 
     @Override
