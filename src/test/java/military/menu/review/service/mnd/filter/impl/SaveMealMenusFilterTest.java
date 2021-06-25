@@ -6,15 +6,11 @@ import military.menu.review.domain.MealType;
 import military.menu.review.domain.Menu;
 import military.menu.review.repository.MealMenuRepository;
 import military.menu.review.service.dto.DailyMealDTO;
-import military.menu.review.service.dto.MenuDTO;
 import military.menu.review.service.mnd.filter.MealInfo;
 import military.menu.review.service.mnd.filter.MndFilterCache;
-import military.menu.review.service.mnd.filter.impl.exception.MenuNotFoundException;
+import military.menu.review.service.mnd.filter.exception.MenuNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;

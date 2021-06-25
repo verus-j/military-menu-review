@@ -1,4 +1,4 @@
-package military.menu.review.service.mnd.filter.impl.exception;
+package military.menu.review.service.mnd.filter.exception;
 
 public class MenuNotFoundException extends IllegalStateException{
 

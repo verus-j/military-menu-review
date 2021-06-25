@@ -12,7 +12,7 @@ import military.menu.review.service.mnd.filter.MealInfo;
 import military.menu.review.service.mnd.filter.MndFilterCache;
 import military.menu.review.repository.MealMenuRepository;
 import military.menu.review.service.mnd.filter.MndSaveProcessFilter;
-import military.menu.review.service.mnd.filter.impl.exception.MenuNotFoundException;
+import military.menu.review.service.mnd.filter.exception.MenuNotFoundException;
 
 import java.time.LocalDate;
 import java.util.Optional;
