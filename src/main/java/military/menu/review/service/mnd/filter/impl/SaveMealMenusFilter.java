@@ -12,13 +12,14 @@ import military.menu.review.service.mnd.filter.MealInfo;
 import military.menu.review.service.mnd.filter.MndFilterCache;
 import military.menu.review.repository.MealMenuRepository;
 import military.menu.review.service.mnd.filter.MndSaveProcessFilter;
+import military.menu.review.service.mnd.filter.impl.exception.MenuNotFoundException;
 
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RequiredArgsConstructor
-public class SaveMealMenus extends MndSaveProcessFilter {
+public class SaveMealMenusFilter extends MndSaveProcessFilter {
     private final MealMenuRepository mealMenuRepository;
 
     @Override
@@ -53,7 +54,7 @@ public class SaveMealMenus extends MndSaveProcessFilter {
         Menu menu = cache.findEntity(Menu.class, name);
 
         if (menu == null) {
-            throw new IllegalStateException();
+            throw new MenuNotFoundException();
         }
 
         return menu;

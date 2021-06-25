@@ -42,6 +42,6 @@ public class MndServiceConfig {
     }
 
     private MndSaveProcessFilter saveMealMenus() {
-        return new SaveMealMenus(mealMenuRepository);
+        return new SaveMealMenusFilter(mealMenuRepository);
     }
 }
