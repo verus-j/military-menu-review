@@ -40,7 +40,7 @@ public class DailyMealControllerTest {
 
         Week week = new Week(2021, 6, 1);
         when(mealMenuService.findByDateBetween(week.firstDate(), week.lastDate())).thenReturn(dailyMeals());
-        when(menuService.findIdByMemberLikedDuringWeek(new Week(2021, 6, 1))).thenReturn(menusId());
+        when(menuService.findMemberLikedIdDuringWeek(new Week(2021, 6, 1))).thenReturn(menusId());
     }
 
     private List<DailyMealDTO> dailyMeals() {

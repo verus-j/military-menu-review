@@ -6,6 +6,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -18,9 +19,6 @@ public class Menu {
     private Double kcal;
     @Column(name="likes")
     private Integer like;
-
-    @OneToMany(mappedBy="menu")
-    private List<MealMenu> mealMenus = new ArrayList<>();
 
     protected Menu() {}
 
@@ -36,6 +34,19 @@ public class Menu {
 
     public void unlike() {
         like--;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return Objects.equals(name, menu.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     public static Menu of(String name, Double kcal) {
