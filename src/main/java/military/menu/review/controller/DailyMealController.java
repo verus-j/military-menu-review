@@ -21,7 +21,7 @@ public class DailyMealController {
     public ResponseEntity<Map<String, Object>> list(@ModelAttribute Week week) {
         Map<String, Object> map = new HashMap<>();
         map.put("meal", mealMenuService.findByDateBetween(week.firstDate(), week.lastDate()));
-        map.put("liked", menuService.findIdByMemberLikedDuringWeek(week));
+        map.put("liked", menuService.findMemberLikedIdDuringWeek(week));
         return ResponseEntity.ok(map);
     }
 }
