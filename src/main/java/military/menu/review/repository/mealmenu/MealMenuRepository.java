@@ -10,7 +10,5 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface MealMenuRepository extends JpaRepository<MealMenu, Long> {
-    @Query("select mm from MealMenu mm join fetch mm.meal join fetch mm.menu join mm.meal ma where ma.date between :start and :end")
-    List<MealMenu> findByDateBetween(@Param("start") LocalDate start, @Param("end") LocalDate end);
+public interface MealMenuRepository extends JpaRepository<MealMenu, Long>, QueryDslMealMenuRepository{
 }
