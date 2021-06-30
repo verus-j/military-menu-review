@@ -1,4 +1,4 @@
-package military.menu.review.repository;
+package military.menu.review.repository.mealmenu;
 
 import military.menu.review.domain.MealMenu;
 import org.springframework.data.jpa.repository.JpaRepository;

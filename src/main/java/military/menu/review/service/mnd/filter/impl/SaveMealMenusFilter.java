@@ -10,7 +10,7 @@ import military.menu.review.domain.MealType;
 import military.menu.review.domain.Menu;
 import military.menu.review.service.mnd.filter.MealInfo;
 import military.menu.review.service.mnd.filter.MndFilterCache;
-import military.menu.review.repository.MealMenuRepository;
+import military.menu.review.repository.mealmenu.MealMenuRepository;
 import military.menu.review.service.mnd.filter.MndSaveProcessFilter;
 import military.menu.review.service.mnd.filter.exception.MenuNotFoundException;
 

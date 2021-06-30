@@ -4,6 +4,7 @@ import military.menu.review.domain.Meal;
 import military.menu.review.domain.MealMenu;
 import military.menu.review.domain.MealType;
 import military.menu.review.domain.Menu;
+import military.menu.review.repository.mealmenu.MealMenuRepository;
 import military.menu.review.repository.menu.MenuRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

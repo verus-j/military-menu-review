@@ -3,7 +3,7 @@ package military.menu.review.config;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.service.mnd.api.MndApi;
 import military.menu.review.service.mnd.filter.impl.*;
-import military.menu.review.repository.MealMenuRepository;
+import military.menu.review.repository.mealmenu.MealMenuRepository;
 import military.menu.review.repository.MealRepository;
 import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.mnd.filter.MndSaveProcessFilter;

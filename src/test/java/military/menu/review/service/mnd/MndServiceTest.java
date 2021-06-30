@@ -4,7 +4,7 @@ import military.menu.review.domain.Meal;
 import military.menu.review.domain.MealMenu;
 import military.menu.review.domain.MealType;
 import military.menu.review.domain.Menu;
-import military.menu.review.repository.MealMenuRepository;
+import military.menu.review.repository.mealmenu.MealMenuRepository;
 import military.menu.review.repository.MealRepository;
 import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.mnd.api.MndApi;

@@ -3,7 +3,7 @@ package military.menu.review.service;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.MealMenu;
 import military.menu.review.domain.MealType;
-import military.menu.review.repository.MealMenuRepository;
+import military.menu.review.repository.mealmenu.MealMenuRepository;
 import military.menu.review.service.dto.DailyMealDTO;
 import military.menu.review.service.dto.MenuDTO;
 import org.springframework.stereotype.Service;
