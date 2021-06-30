@@ -54,7 +54,7 @@ public class ReviewRepositoryTest {
         em.clear();
 
         Page<Review> page1 = reviewRepository.findByMeal(meal, PageRequest.of(0, 4, Sort.by(Sort.Direction.ASC, "created")));
-        Page<Review> page2 = reviewRepository.findByMeal(meal, PageRequest.of(4, 4, Sort.by(Sort.Direction.ASC, "created")));
+        Page<Review> page2 = reviewRepository.findByMeal(meal, PageRequest.of(1, 4, Sort.by(Sort.Direction.ASC, "created")));
 
         assertThat(page1.hasNext(), is(true));
         assertThat(page2.hasNext(), is(false));
