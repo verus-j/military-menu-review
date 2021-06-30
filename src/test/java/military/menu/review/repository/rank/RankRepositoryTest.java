@@ -1,4 +1,4 @@
-package military.menu.review.repository;
+package military.menu.review.repository.rank;
 
 import military.menu.review.domain.Menu;
 import military.menu.review.domain.Rank;
