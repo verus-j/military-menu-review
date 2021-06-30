@@ -26,20 +26,35 @@ public class MealRepositoryTest {
 
     @Test
     public void shouldFindById() {
-        Meal meal1 = Meal.of(MealType.BREAKFAST, LocalDate.of(2021, 6, 21));
-        mealRepository.save(meal1);
-        em.flush();
-        em.clear();
+        Meal meal = saveMeal();
 
-        Optional<Meal> expected = mealRepository.findById(meal1.getId());
+        Optional<Meal> expected = mealRepository.findById(meal.getId());
 
         assertThat(expected.isPresent(), is(true));
-        assertThat(expected.get(), is(meal1));
+        assertThat(expected.get(), is(meal));
     }
 
     @Test
     public void shouldNotFoundById() {
         Optional<Meal> expected = mealRepository.findById(1L);
         assertThat(expected.isPresent(), is(false));
+    }
+
+    @Test
+    public void shouldFindByDateAndType() {
+        Meal meal = saveMeal();
+
+        Meal expected = mealRepository.findByDateAndType(meal.getDate(), meal.getType());
+
+        assertThat(expected, is(meal));
+    }
+
+    private Meal saveMeal() {
+        Meal meal = Meal.of(MealType.BREAKFAST, LocalDate.of(2021, 6, 21));
+        mealRepository.save(meal);
+        em.flush();
+        em.clear();
+
+        return meal;
     }
 }
