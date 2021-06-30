@@ -13,7 +13,5 @@ import java.util.Optional;
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
     Optional<Meal> findById(Long id);
-
-    @Query("select m from Meal m where m.type=:type and m.date=:date")
-    Meal findByDateAndType(@Param("date") LocalDate date, @Param("type") MealType type);
+    Meal findByDateAndType(LocalDate date, MealType type);
 }

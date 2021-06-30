@@ -43,10 +43,14 @@ public class MealRepositoryTest {
     @Test
     public void shouldFindByDateAndType() {
         Meal meal = saveMeal();
-
         Meal expected = mealRepository.findByDateAndType(meal.getDate(), meal.getType());
-
         assertThat(expected, is(meal));
+    }
+
+    @Test
+    public void shouldNotFoundByDateAndType() {
+         Meal expected = mealRepository.findByDateAndType(LocalDate.of(2021, 6, 21), MealType.BREAKFAST);
+         assertThat(expected, is(nullValue()));
     }
 
     private Meal saveMeal() {
@@ -54,7 +58,6 @@ public class MealRepositoryTest {
         mealRepository.save(meal);
         em.flush();
         em.clear();
-
         return meal;
     }
 }
