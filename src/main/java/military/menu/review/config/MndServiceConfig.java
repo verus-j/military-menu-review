@@ -5,7 +5,7 @@ import military.menu.review.service.mnd.api.MndApi;
 import military.menu.review.service.mnd.filter.impl.*;
 import military.menu.review.repository.MealMenuRepository;
 import military.menu.review.repository.MealRepository;
-import military.menu.review.repository.MenuRepository;
+import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.mnd.filter.MndSaveProcessFilter;
 import military.menu.review.service.mnd.filter.MndSaveFilterBuilder;
 import military.menu.review.service.mnd.filter.MndRestProcessFilter;

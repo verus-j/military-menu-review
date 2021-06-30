@@ -3,10 +3,6 @@ package military.menu.review.service;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.*;
 import military.menu.review.repository.LikeRepository;
-import military.menu.review.repository.MealRepository;
-import military.menu.review.repository.MemberRepository;
-import military.menu.review.repository.MenuRepository;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

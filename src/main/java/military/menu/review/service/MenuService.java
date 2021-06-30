@@ -1,11 +1,9 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Member;
 import military.menu.review.domain.Menu;
 import military.menu.review.domain.Week;
-import military.menu.review.repository.LikeRepository;
-import military.menu.review.repository.MenuRepository;
+import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.dto.MenuDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

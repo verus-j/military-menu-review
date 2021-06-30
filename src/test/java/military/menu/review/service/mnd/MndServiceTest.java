@@ -6,7 +6,7 @@ import military.menu.review.domain.MealType;
 import military.menu.review.domain.Menu;
 import military.menu.review.repository.MealMenuRepository;
 import military.menu.review.repository.MealRepository;
-import military.menu.review.repository.MenuRepository;
+import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.mnd.api.MndApi;
 import military.menu.review.service.mnd.filter.MndRestProcessFilter;
 import military.menu.review.service.mnd.filter.MndSaveFilterBuilder;
@@ -17,9 +17,7 @@ import military.menu.review.service.mnd.filter.impl.SaveMenusFilter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;

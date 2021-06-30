@@ -1,7 +1,7 @@
 package military.menu.review.service.mnd.filter.impl;
 
 import military.menu.review.domain.Menu;
-import military.menu.review.repository.MenuRepository;
+import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.dto.MenuDTO;
 import military.menu.review.service.mnd.filter.MndFilterCache;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
