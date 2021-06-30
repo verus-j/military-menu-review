@@ -3,10 +3,9 @@ package military.menu.review.service;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.Menu;
 import military.menu.review.domain.Week;
-import military.menu.review.repository.MenuRepository;
+import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.repository.RankRepository;
 import military.menu.review.service.dto.RankDTO;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +32,7 @@ public class RankService {
     }
 
     private List<RankDTO> makeRankFromMenuRepository() {
-        List<Menu> menus = menuRepository.findByWeekOrderByLikeLimit(11);
+        List<Menu> menus = menuRepository.findOrderByLikeLimit(11);
         List<RankDTO> ranks = new ArrayList<>();
 
         for(int rank = 0; rank < menus.size(); rank++) {
