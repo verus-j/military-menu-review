@@ -1,0 +1,45 @@
+package military.menu.review.repository;
+
+import military.menu.review.domain.Meal;
+import military.menu.review.domain.MealType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+
+
+@DataJpaTest
+@ActiveProfiles("test")
+public class MealRepositoryTest {
+    @Autowired
+    private EntityManager em;
+    @Autowired MealRepository mealRepository;
+
+    @Test
+    public void shouldFindById() {
+        Meal meal1 = Meal.of(MealType.BREAKFAST, LocalDate.of(2021, 6, 21));
+        mealRepository.save(meal1);
+        em.flush();
+        em.clear();
+
+        Optional<Meal> expected = mealRepository.findById(meal1.getId());
+
+        assertThat(expected.isPresent(), is(true));
+        assertThat(expected.get(), is(meal1));
+    }
+
+    @Test
+    public void shouldNotFoundById() {
+        Optional<Meal> expected = mealRepository.findById(1L);
+        assertThat(expected.isPresent(), is(false));
+    }
+}
