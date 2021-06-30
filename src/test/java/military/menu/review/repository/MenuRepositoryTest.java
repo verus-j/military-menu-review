@@ -1,6 +1,7 @@
 package military.menu.review.repository;
 
 import military.menu.review.domain.*;
+import military.menu.review.repository.menu.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
@@ -41,6 +43,10 @@ public class MenuRepositoryTest {
         menu2 = Menu.of("라면", 234.2);
         menu3 = Menu.of("김치", 23.2);
         week = new Week(2021, 6, 2);
+
+        menuRepository.deleteAll();
+        memberRepository.deleteAll();
+        likeRepository.deleteAll();
     }
 
     @Test
@@ -94,5 +100,45 @@ public class MenuRepositoryTest {
 
         List<Menu> expected = menuRepository.findByMemberLikedDuringWeek(member, week);
         assertThat(expected, is(containsInAnyOrder(Arrays.asList(menu1).toArray())));
+    }
+
+    @Test
+    public void shouldFindOrderByLikeLimit() {
+        String[] names = {"김밥", "라면", "밥", "김치", "된장찌개"};
+        int[] like = {10, 9, 7, 7, 5};
+
+        List<Menu> menus = menus(names);
+        pressLike(menus, like);
+        saveMenus(menus);
+
+        em.flush();
+        em.clear();
+
+        List<Menu> expected = menuRepository.findOrderByLikeLimit(4);
+
+        assertThat(expected, is(Arrays.asList(
+            Menu.of("김밥", 111.1),
+            Menu.of("라면", 111.1),
+            Menu.of("김치", 111.1),
+            Menu.of("밥", 111.1)))
+        );
+    }
+
+    private List<Menu> menus(String[] names) {
+        return Arrays.stream(names).map(n -> Menu.of(n, 111.1)).collect(Collectors.toList());
+    }
+
+    private void pressLike(List<Menu> menus, int[] like){
+        int index = 0;
+        for(Menu m : menus) {
+            for(int i = 0; i < like[index]; i++) {
+                m.like();
+            }
+            index++;
+        }
+    }
+
+    private void saveMenus(List<Menu> menus) {
+        menus.stream().forEach(menuRepository::save);
     }
 }
