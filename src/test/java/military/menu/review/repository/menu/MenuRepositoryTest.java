@@ -47,10 +47,6 @@ public class MenuRepositoryTest {
         menu2 = Menu.of("라면", 234.2);
         menu3 = Menu.of("김치", 23.2);
         week = new Week(2021, 6, 2);
-
-        menuRepository.deleteAll();
-        memberRepository.deleteAll();
-        likeRepository.deleteAll();
     }
 
     @Test
