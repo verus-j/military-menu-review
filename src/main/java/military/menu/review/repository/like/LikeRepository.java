@@ -1,4 +1,4 @@
-package military.menu.review.repository;
+package military.menu.review.repository.like;
 
 import military.menu.review.domain.Like;
 import military.menu.review.domain.Member;

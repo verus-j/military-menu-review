@@ -1,6 +1,7 @@
 package military.menu.review.repository;
 
 import military.menu.review.domain.*;
+import military.menu.review.repository.like.LikeRepository;
 import military.menu.review.repository.menu.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
