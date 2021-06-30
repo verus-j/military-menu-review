@@ -3,6 +3,7 @@ package military.menu.review.domain;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="Ranks")
@@ -28,7 +29,20 @@ public class Rank {
         this.rank = rank;
     }
 
-    public static Rank of(Week date, Menu menu, int like, Integer rank) {
-        return new Rank(date, menu, like, rank);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rank rank1 = (Rank) o;
+        return Objects.equals(week, rank1.week) && Objects.equals(menu, rank1.menu) && Objects.equals(like, rank1.like) && Objects.equals(rank, rank1.rank);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(week, menu, like, rank);
+    }
+
+    public static Rank of(Week date, Menu menu, Integer rank) {
+        return new Rank(date, menu, menu.getLike(), rank);
     }
 }
