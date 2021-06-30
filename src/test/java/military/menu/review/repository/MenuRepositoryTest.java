@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static military.menu.review.repository.MenuUtils.createMenus;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -108,8 +109,8 @@ public class MenuRepositoryTest {
         String[] names = {"김밥", "라면", "밥", "김치", "된장찌개"};
         int[] like = {10, 9, 7, 7, 5};
 
-        List<Menu> menus = menus(names);
-        pressLike(menus, like);
+        List<Menu> menus = createMenus(names);
+        MenuUtils.pressLike(menus, like);
         saveMenus(menus);
 
         em.flush();
@@ -123,20 +124,6 @@ public class MenuRepositoryTest {
             Menu.of("김치", 111.1),
             Menu.of("밥", 111.1)))
         );
-    }
-
-    private List<Menu> menus(String[] names) {
-        return Arrays.stream(names).map(n -> Menu.of(n, 111.1)).collect(Collectors.toList());
-    }
-
-    private void pressLike(List<Menu> menus, int[] like){
-        int index = 0;
-        for(Menu m : menus) {
-            for(int i = 0; i < like[index]; i++) {
-                m.like();
-            }
-            index++;
-        }
     }
 
     private void saveMenus(List<Menu> menus) {
