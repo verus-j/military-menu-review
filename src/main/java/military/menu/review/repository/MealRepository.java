@@ -12,9 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface MealRepository extends JpaRepository<Meal, Long> {
-    @Query("select m from Meal m join fetch m.dailyMeal where m.id=:id")
-    Optional<Meal> findById(@Param("id") Long id);
-
-    @Query("select m from Meal m join fetch m.dailyMeal d where m.type=:type and d.date=:date")
-    Meal findByDateAndType(@Param("date") LocalDate date, @Param("type") MealType type);
+    Optional<Meal> findById(Long id);
+    Meal findByDateAndType(LocalDate date, MealType type);
 }

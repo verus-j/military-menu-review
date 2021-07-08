@@ -2,11 +2,7 @@ package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.*;
-import military.menu.review.repository.LikeRepository;
-import military.menu.review.repository.MealRepository;
-import military.menu.review.repository.MemberRepository;
-import military.menu.review.repository.MenuRepository;
-import org.springframework.security.core.parameters.P;
+import military.menu.review.repository.like.LikeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +19,7 @@ public class LikeService {
         Member member = memberService.getCurrentMember();
         Meal meal = mealService.findById(mealId);
         Menu menu = menuService.findById(menuId);
-        Week week = Week.from(meal.getDailyMeal().getDate());
+        Week week = Week.from(meal.getDate());
 
         if(likeRepository.findByMemberAndMenuAndWeek(member, menu, week) != null) {
             throw new IllegalArgumentException();
@@ -37,7 +33,7 @@ public class LikeService {
         Member member = memberService.getCurrentMember();
         Meal meal = mealService.findById(mealId);
         Menu menu = menuService.findById(menuId);
-        Week week = Week.from(meal.getDailyMeal().getDate());
+        Week week = Week.from(meal.getDate());
         Like like = likeRepository.findByMemberAndMenuAndWeek(member, menu, week);
 
         if(like == null) {

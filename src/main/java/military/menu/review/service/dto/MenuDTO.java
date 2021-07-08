@@ -24,10 +24,17 @@ public class MenuDTO {
         this.like = menu.getLike();
     }
 
+    public static MenuDTO of(String name, double kcal, long id) {
+        MenuDTO menuDTO = MenuDTO.of(name, kcal);
+        menuDTO.setId(id);
+        return menuDTO;
+    }
+
     public static MenuDTO of(String name, double kcal) {
         MenuDTO dto = new MenuDTO();
         dto.setName(name);
         dto.setKcal(kcal);
+        dto.setLike(0);
         return dto;
     }
 

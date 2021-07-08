@@ -1,11 +1,8 @@
 package military.menu.review.runner;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Menu;
-import military.menu.review.domain.Rank;
-import military.menu.review.domain.Week;
-import military.menu.review.repository.MenuRepository;
-import military.menu.review.repository.RankRepository;
+import military.menu.review.repository.menu.MenuRepository;
+import military.menu.review.repository.rank.RankRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;

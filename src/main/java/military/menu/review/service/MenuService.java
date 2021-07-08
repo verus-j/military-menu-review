@@ -1,11 +1,9 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Member;
 import military.menu.review.domain.Menu;
 import military.menu.review.domain.Week;
-import military.menu.review.repository.LikeRepository;
-import military.menu.review.repository.MenuRepository;
+import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.dto.MenuDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +20,9 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final MemberService memberService;
 
-    public List<MenuDTO> findByMemberLikedDuringWeek(Week week) {
-        Member member = memberService.getCurrentMember();
-
-        return menuRepository.findByMemberLikedDuringWeek(member, week).stream().map(MenuDTO::new).collect(toList());
+    public List<Long> findMemberLikedIdDuringWeek(Week week) {
+        return menuRepository.findByMemberLikedDuringWeek(memberService.getCurrentMember(), week)
+            .stream().map(MenuDTO::new).map(MenuDTO::getId).collect(toList());
     }
 
     public List<MenuDTO> findAll() {

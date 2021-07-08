@@ -2,13 +2,17 @@ package military.menu.review.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -36,6 +40,19 @@ public class Member {
         this.name = name;
         this.militaryId = militaryId;
         this.role = role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(username, member.username) && role == member.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, role);
     }
 
     public static Member of(String username, String password, String name, String militaryId, Role role) {

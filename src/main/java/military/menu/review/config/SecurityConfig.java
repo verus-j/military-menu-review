@@ -14,10 +14,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -43,19 +45,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-                    .antMatchers(HttpMethod.POST, "/member/login", "/member/join").permitAll()
-                    .antMatchers(HttpMethod.POST, "/menu/like", "/menu/unlike").hasAuthority("SOLDIER")
-                    .anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/member/login", "/member/join").permitAll()
+                .antMatchers(HttpMethod.POST, "/menu/like", "/menu/unlike", "/review/new").hasAuthority("SOLDIER")
+                .antMatchers(HttpMethod.POST, "/meal-image/upload").hasAuthority("ADMIN")
+                .anyRequest().authenticated();
 
-        http
-                .cors().and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable();
-
+        http.cors().and()
+            .csrf().disable()
+            .formLogin().disable()
+            .httpBasic().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterAt(jwtLoginFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterAt(jwtTokenCheckFilter(), BasicAuthenticationFilter.class);

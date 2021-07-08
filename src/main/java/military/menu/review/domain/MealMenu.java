@@ -1,12 +1,15 @@
 package military.menu.review.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @IdClass(MealMenuId.class)
 @Getter
+@ToString
 public class MealMenu implements Comparable<MealMenu>{
     @Id @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="meal_id")
     private Meal meal;
@@ -21,6 +24,19 @@ public class MealMenu implements Comparable<MealMenu>{
         this.meal = meal;
         this.menu = menu;
         this.order = order;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MealMenu mealMenu = (MealMenu) o;
+        return order == mealMenu.order && Objects.equals(meal, mealMenu.meal) && Objects.equals(menu, mealMenu.menu);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(meal, menu, order);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class MealImageProperties {
 
     private String imageDirPath(Meal meal) {
         StringBuilder path = new StringBuilder(basePath);
-        LocalDate date = meal.getDailyMeal().getDate();
+        LocalDate date = meal.getDate();
 
         path.append("/" + date.getYear());
         path.append("/" + date.getMonthValue());
