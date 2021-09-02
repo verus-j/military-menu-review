@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final ObjectMapper objectMapper;
     private final JWTUtils jwtUtils;
     private final MemberRepository memberRepository;
-    private final UserDetailsService userDetailsService;
+    private final MemberService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/member/login", "/member/join").permitAll()
+                .antMatchers(HttpMethod.POST, "/login", "/join", "meals/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/menu/like", "/menu/unlike", "/review/new").hasAuthority("SOLDIER")
                 .antMatchers(HttpMethod.POST, "/meal-image/upload").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private JwtLoginFilter jwtLoginFilter() throws Exception {
         JwtLoginFilter filter = new JwtLoginFilter(objectMapper, super.authenticationManager(), jwtUtils);
-        filter.setFilterProcessesUrl("/member/login");
+        filter.setFilterProcessesUrl("/login");
         return filter;
     }
 

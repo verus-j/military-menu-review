@@ -3,15 +3,8 @@ package military.menu.review.service.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import military.menu.review.domain.Member;
+import military.menu.review.domain.member.Member;
 import military.menu.review.domain.Role;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 @Getter
 @Setter

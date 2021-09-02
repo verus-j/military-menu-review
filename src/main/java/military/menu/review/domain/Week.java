@@ -68,6 +68,10 @@ public class Week {
         return new Week(year, month, week);
     }
 
+    public static Week of(int year, int month, int week) {
+        return new Week(year, month, week);
+    }
+
     private static LocalDate firstMonday(int year, int month) {
         LocalDate firstDate = LocalDate.of(year, month, 1);
         return firstDate.plusDays(adjustPlusDay(firstDate.getDayOfWeek()));

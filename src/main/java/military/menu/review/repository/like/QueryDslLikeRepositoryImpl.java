@@ -3,6 +3,8 @@ package military.menu.review.repository.like;
 import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.*;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

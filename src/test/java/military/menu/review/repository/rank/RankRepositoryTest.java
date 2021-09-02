@@ -1,10 +1,9 @@
 package military.menu.review.repository.rank;
 
-import military.menu.review.domain.Menu;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.Rank;
 import military.menu.review.domain.Week;
 import military.menu.review.repository.menu.MenuRepository;
-import military.menu.review.repository.rank.RankRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

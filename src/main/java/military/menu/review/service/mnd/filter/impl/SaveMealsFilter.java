@@ -2,7 +2,7 @@ package military.menu.review.service.mnd.filter.impl;
 
 import lombok.RequiredArgsConstructor;
 import military.menu.review.service.dto.DailyMealDTO;
-import military.menu.review.domain.Meal;
+import military.menu.review.domain.meal.Meal;
 import military.menu.review.domain.MealType;
 import military.menu.review.service.dto.MealDTO;
 import military.menu.review.service.mnd.filter.MealInfo;

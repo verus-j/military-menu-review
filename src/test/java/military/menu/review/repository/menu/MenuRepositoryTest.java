@@ -1,10 +1,11 @@
 package military.menu.review.repository.menu;
 
 import military.menu.review.domain.*;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.repository.MemberRepository;
 import military.menu.review.repository.MenuUtils;
 import military.menu.review.repository.like.LikeRepository;
-import military.menu.review.repository.menu.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import javax.persistence.EntityManager;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static military.menu.review.repository.MenuUtils.createMenus;
 import static org.hamcrest.MatcherAssert.assertThat;

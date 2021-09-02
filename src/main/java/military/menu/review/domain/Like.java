@@ -1,6 +1,8 @@
 package military.menu.review.domain;
 
 import lombok.Getter;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 
 import javax.persistence.*;
 

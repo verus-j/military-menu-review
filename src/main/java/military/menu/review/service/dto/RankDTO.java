@@ -2,11 +2,8 @@ package military.menu.review.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import military.menu.review.domain.Menu;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.Rank;
-import military.menu.review.domain.Week;
-
-import javax.persistence.*;
 
 @Getter
 @Setter

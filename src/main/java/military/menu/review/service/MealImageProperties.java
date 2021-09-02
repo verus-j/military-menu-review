@@ -1,6 +1,6 @@
 package military.menu.review.service;
 
-import military.menu.review.domain.Meal;
+import military.menu.review.domain.meal.Meal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +11,11 @@ import java.time.LocalDate;
 
 @Component
 public class MealImageProperties {
-    @Value("${mealImage.basePath}")
+    @Value("${meal-image.basePath}")
     private String basePath;
-    @Value("${mealImage.noImagePath}")
+    @Value("${meal-image.noImagePath}")
     private String noImagePath;
-    @Value("${mealImage.imageName}")
+    @Value("${meal-image.imageName}")
     private String imageName;
 
     public File imageDir(Meal meal) {

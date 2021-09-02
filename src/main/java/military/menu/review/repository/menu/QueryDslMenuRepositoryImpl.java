@@ -3,9 +3,10 @@ package military.menu.review.repository.menu;
 import com.mysema.query.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.*;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

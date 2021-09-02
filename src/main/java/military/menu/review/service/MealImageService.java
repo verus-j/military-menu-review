@@ -1,9 +1,8 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Meal;
+import military.menu.review.domain.meal.Meal;
 import military.menu.review.service.dto.MealImageDTO;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

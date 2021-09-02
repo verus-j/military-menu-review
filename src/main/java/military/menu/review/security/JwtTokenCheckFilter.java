@@ -1,16 +1,13 @@
 package military.menu.review.security;
 
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Member;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.member.MemberAdapter;
 import military.menu.review.repository.MemberRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -46,17 +43,12 @@ public class JwtTokenCheckFilter extends BasicAuthenticationFilter {
         VerifyResult result = jwtUtils.verify(token.substring(JWTUtils.BEARER.length()));
 
         if(result.isVerified()) {
-            if(result.getLifeTime() - Instant.now().getEpochSecond() < 30) {
-                String newToken = jwtUtils.generate(result.getUsername());
-                response.addHeader(JWTUtils.HEADER, newToken);
-            }
-
             Member member = memberRepository.findByUsername(result.getUsername());
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                    member, null, authorities
+                    new MemberAdapter(member), null, authorities
             );
 
             SecurityContextHolder.getContext().setAuthentication(auth);

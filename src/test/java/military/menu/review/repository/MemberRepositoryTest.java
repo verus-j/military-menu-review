@@ -1,6 +1,6 @@
 package military.menu.review.repository;
 
-import military.menu.review.domain.Member;
+import military.menu.review.domain.member.Member;
 import military.menu.review.domain.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

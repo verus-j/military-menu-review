@@ -1,7 +1,7 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Meal;
+import military.menu.review.domain.meal.Meal;
 import military.menu.review.repository.MealRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

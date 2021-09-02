@@ -3,13 +3,12 @@ package military.menu.review.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import military.menu.review.domain.Member;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -28,9 +27,9 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(
             HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        LoginInfo loginInfo = objectMapper.readValue(request.getInputStream(), LoginInfo.class);
+        LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                loginInfo.getUsername(), loginInfo.getPassword(), null
+                loginRequest.getUsername(), loginRequest.getPassword(), null
         );
 
         return authenticationManager.authenticate(token);
@@ -39,8 +38,8 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User user = (User)authResult.getPrincipal();
-        response.addHeader(JWTUtils.HEADER, JWTUtils.BEARER + jwtUtils.generate(user.getUsername()));
-
+        SecurityContextHolder.getContext().setAuthentication(authResult);
+        response.addHeader(JWTUtils.HEADER, jwtUtils.generate(user.getUsername()));
         chain.doFilter(request, response);
     }
 }

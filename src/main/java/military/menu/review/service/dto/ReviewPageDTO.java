@@ -1,7 +1,7 @@
 package military.menu.review.service.dto;
 
 import lombok.Getter;
-import military.menu.review.domain.Member;
+import military.menu.review.domain.member.Member;
 import military.menu.review.domain.Review;
 import org.springframework.data.domain.Page;
 

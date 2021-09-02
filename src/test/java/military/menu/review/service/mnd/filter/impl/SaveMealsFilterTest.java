@@ -1,6 +1,6 @@
 package military.menu.review.service.mnd.filter.impl;
 
-import military.menu.review.domain.Meal;
+import military.menu.review.domain.meal.Meal;
 import military.menu.review.domain.MealType;
 import military.menu.review.repository.MealRepository;
 import military.menu.review.service.dto.DailyMealDTO;

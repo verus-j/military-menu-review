@@ -1,7 +1,8 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Member;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.member.MemberAdapter;
 import military.menu.review.repository.MemberRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,11 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +23,12 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public void join(Member member) {
+    public Member join(Member member) {
         if(memberRepository.findByUsername(member.getUsername()) != null) {
-            throw new IllegalStateException();
+            throw new UsernameNotFoundException(String.format("%s의 아이디를 가진 유저는 없습니다.", member.getUsername()));
         }
-
         member.encodePassword(encoder);
-        memberRepository.save(member);
+        return memberRepository.save(member);
     }
 
     public Member getCurrentMember() {
@@ -47,10 +44,6 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException(username + " is not found");
         }
 
-        return User.builder()
-            .username(member.getUsername())
-            .password(member.getPassword())
-            .authorities(new SimpleGrantedAuthority(member.getRole().name()))
-            .build();
+        return new MemberAdapter(member);
     }
 }

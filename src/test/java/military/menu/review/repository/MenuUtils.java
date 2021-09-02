@@ -1,6 +1,6 @@
 package military.menu.review.repository;
 
-import military.menu.review.domain.Menu;
+import military.menu.review.domain.menu.Menu;
 
 import java.util.Arrays;
 import java.util.List;

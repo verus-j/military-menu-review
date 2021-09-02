@@ -1,7 +1,8 @@
 package military.menu.review.repository;
 
-import com.mysema.query.types.Order;
 import military.menu.review.domain.*;
+import military.menu.review.domain.meal.Meal;
+import military.menu.review.domain.member.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

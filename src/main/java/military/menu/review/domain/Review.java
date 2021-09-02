@@ -1,9 +1,10 @@
 package military.menu.review.domain;
 
 import lombok.Getter;
+import military.menu.review.domain.meal.Meal;
+import military.menu.review.domain.member.Member;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

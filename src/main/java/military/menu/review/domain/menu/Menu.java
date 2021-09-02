@@ -1,11 +1,9 @@
-package military.menu.review.domain;
+package military.menu.review.domain.menu;
 
 import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

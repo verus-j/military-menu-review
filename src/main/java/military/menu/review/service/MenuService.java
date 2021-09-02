@@ -1,7 +1,7 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Menu;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.Week;
 import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.dto.MenuDTO;

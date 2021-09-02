@@ -1,12 +1,11 @@
 package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
-import military.menu.review.domain.Meal;
-import military.menu.review.domain.Member;
+import military.menu.review.domain.meal.Meal;
+import military.menu.review.domain.member.Member;
 import military.menu.review.domain.Review;
 import military.menu.review.repository.ReviewRepository;
 import military.menu.review.service.dto.ReviewPageDTO;
-import military.menu.review.service.dto.ReviewDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

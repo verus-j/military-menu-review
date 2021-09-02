@@ -2,6 +2,9 @@ package military.menu.review.service;
 
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.*;
+import military.menu.review.domain.meal.Meal;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.repository.like.LikeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

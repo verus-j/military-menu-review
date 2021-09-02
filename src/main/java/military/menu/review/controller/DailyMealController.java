@@ -11,17 +11,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/daily-meal")
+@RequestMapping("/meals")
 @RequiredArgsConstructor
 public class DailyMealController {
     private final MenuService menuService;
     private final MealMenuService mealMenuService;
 
-    @GetMapping("/list")
-    public ResponseEntity<Map<String, Object>> list(@ModelAttribute Week week) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("meal", mealMenuService.findByDateBetween(week.firstDate(), week.lastDate()));
-        map.put("liked", menuService.findMemberLikedIdDuringWeek(week));
-        return ResponseEntity.ok(map);
+    @GetMapping("/{year}/{month}/{week}")
+    public ResponseEntity<Map<String, Object>> meals(@PathVariable int year, @PathVariable int month, @PathVariable int week) {
+        Week w = Week.of(year, month, week);
+        return null;
     }
 }

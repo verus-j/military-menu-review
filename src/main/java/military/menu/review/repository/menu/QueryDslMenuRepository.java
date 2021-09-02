@@ -1,7 +1,7 @@
 package military.menu.review.repository.menu;
 
-import military.menu.review.domain.Member;
-import military.menu.review.domain.Menu;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.Week;
 
 import java.util.List;

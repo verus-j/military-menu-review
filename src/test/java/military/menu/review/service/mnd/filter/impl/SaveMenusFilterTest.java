@@ -1,6 +1,6 @@
 package military.menu.review.service.mnd.filter.impl;
 
-import military.menu.review.domain.Menu;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.repository.menu.MenuRepository;
 import military.menu.review.service.dto.MenuDTO;
 import military.menu.review.service.mnd.filter.MndFilterCache;

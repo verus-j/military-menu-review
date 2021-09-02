@@ -2,11 +2,12 @@ package military.menu.review.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import military.menu.review.domain.meal.Meal;
+import military.menu.review.domain.menu.Menu;
 
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
 @IdClass(MealMenuId.class)
 @Getter
 @ToString

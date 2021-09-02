@@ -1,8 +1,9 @@
 package military.menu.review.repository.like;
 
 import military.menu.review.domain.*;
+import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
 import military.menu.review.repository.MemberRepository;
-import military.menu.review.repository.like.LikeRepository;
 import military.menu.review.repository.menu.MenuRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

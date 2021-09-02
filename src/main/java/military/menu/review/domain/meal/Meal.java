@@ -1,7 +1,9 @@
-package military.menu.review.domain;
+package military.menu.review.domain.meal;
 
 import lombok.Getter;
 import lombok.ToString;
+import military.menu.review.domain.MealMenu;
+import military.menu.review.domain.MealType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
