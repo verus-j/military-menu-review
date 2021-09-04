@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import military.menu.review.application.menu.MenuDto;
+import military.menu.review.domain.member.Member;
 import military.menu.review.domain.menu.Menu;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -27,7 +28,5 @@ public class MenuResponse extends RepresentationModel<MenuResponse> {
         this.kcal = menu.getKcal();
         this.like = menu.getLike();
         add(linkTo(MenuController.class).slash(id).withSelfRel());
-//        add(linkTo(MenuController.class).slash(id).slash("like").withRel("like"));
-//        add(linkTo(MenuController.class).slash(id).slash("unlike").withRel("unlike"));
     }
 }

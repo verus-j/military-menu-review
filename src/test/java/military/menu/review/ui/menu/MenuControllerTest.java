@@ -2,12 +2,15 @@ package military.menu.review.ui.menu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
+import military.menu.review.application.like.LikeService;
 import military.menu.review.domain.Role;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.menu.MenuRepository;
 import military.menu.review.security.LoginRequest;
 import military.menu.review.application.member.MemberService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +52,20 @@ public class MenuControllerTest {
     MemberService memberService;
 
     @Autowired
+    LikeService likeService;
+
+    @Autowired
     ObjectMapper objectMapper;
+
+    static final String USERNAME = "wilgur513";
+    static final String PASSWORD = "pass";
+    Member member;
+
+    @BeforeEach
+    void setUp() {
+        member = Member.of(USERNAME, PASSWORD, "정진혁", null, Role.NORMAL);
+        memberService.join(member);
+    }
 
     @Test
     @DisplayName("미 로그인 시 10개 메뉴중 3개씩 2번째 페이지 가져오기")
@@ -128,6 +144,22 @@ public class MenuControllerTest {
     }
 
     @Test
+    @DisplayName("로그인 후 메뉴 단건 조회")
+    @Disabled
+    public void queryMenuWithMember() throws Exception {
+        Menu menu = Menu.of("a", 1.0);
+        menuRepository.save(menu);
+
+        mockMvc.perform(get("/menus/{id}", menu.getId())
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_links.like.href").exists())
+        ;
+    }
+
+    @Test
     @DisplayName("존재하지 않는 메뉴 조회하기")
     public void queryEmptyMenu() throws Exception {
         mockMvc.perform(get("/menus/100000"))
@@ -146,13 +178,10 @@ public class MenuControllerTest {
         menuRepository.saveAll(menus);
     }
 
-    private String getBearerToken() throws Exception {
-        Member member = Member.of("wilgur513", "pass", "정진혁", null, Role.NORMAL);
-        memberService.join(member);
-
-        return mockMvc.perform(post("/login")
+    private String getBearerToken(String username, String password) throws Exception {
+        return "Bearer " + mockMvc.perform(post("/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(new LoginRequest("wilgur513", "pass")))
+                .content(objectMapper.writeValueAsString(new LoginRequest(username, password)))
         )
                 .andReturn().getResponse().getHeader(HttpHeaders.AUTHORIZATION);
     }

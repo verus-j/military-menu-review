@@ -28,7 +28,7 @@ public class MenuController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity menu( @PathVariable long id) {
+    public ResponseEntity menu(@CurrentMember Member member, @PathVariable long id) {
         Optional<Menu> menuOptional = menuRepository.findById(id);
         if(!menuOptional.isPresent()) {
             return ResponseEntity.notFound().build();
