@@ -1,10 +1,8 @@
-package military.menu.review.controller.member;
+package military.menu.review.ui.member;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.springframework.validation.BindingResultUtils;
 import org.springframework.validation.Errors;
 
 import static org.mockito.ArgumentMatchers.anyString;

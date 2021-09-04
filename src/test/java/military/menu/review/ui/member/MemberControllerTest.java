@@ -1,12 +1,11 @@
-package military.menu.review.controller.member;
+package military.menu.review.ui.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
-import military.menu.review.controller.member.MemberRequest;
 import military.menu.review.domain.Role;
 import military.menu.review.domain.member.Member;
 import military.menu.review.security.LoginRequest;
-import military.menu.review.service.MemberService;
+import military.menu.review.application.member.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

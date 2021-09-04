@@ -1,4 +1,4 @@
-package military.menu.review.repository;
+package military.menu.review.domain.member;
 
 import military.menu.review.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

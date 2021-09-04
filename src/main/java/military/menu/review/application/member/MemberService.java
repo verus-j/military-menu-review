@@ -1,11 +1,9 @@
-package military.menu.review.app.member;
+package military.menu.review.application.member;
 
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.member.MemberAdapter;
 import military.menu.review.domain.member.MemberRepository;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,11 +25,6 @@ public class MemberService implements UserDetailsService {
         }
         member.encodePassword(encoder);
         return memberRepository.save(member);
-    }
-
-    public Member getCurrentMember() {
-        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        return (Member)token.getPrincipal();
     }
 
     @Override

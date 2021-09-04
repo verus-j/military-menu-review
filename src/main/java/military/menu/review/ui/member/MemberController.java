@@ -1,9 +1,9 @@
-package military.menu.review.controller.member;
+package military.menu.review.ui.member;
 
 import lombok.RequiredArgsConstructor;
 import military.menu.review.domain.member.Member;
 import military.menu.review.security.CurrentMember;
-import military.menu.review.service.MemberService;
+import military.menu.review.application.member.MemberService;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;

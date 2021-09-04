@@ -1,4 +1,4 @@
-package military.menu.review.controller.member;
+package military.menu.review.ui.member;
 
 import lombok.Builder;
 import lombok.Getter;
