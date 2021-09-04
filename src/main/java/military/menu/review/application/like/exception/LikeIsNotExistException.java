@@ -1,4 +1,4 @@
-package military.menu.review.application.like;
+package military.menu.review.application.like.exception;
 
 public class LikeIsNotExistException extends IllegalArgumentException {
     public LikeIsNotExistException(Long memberId, Long menuId) {
