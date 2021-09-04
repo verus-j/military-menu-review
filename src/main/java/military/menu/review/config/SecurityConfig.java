@@ -2,11 +2,11 @@ package military.menu.review.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import military.menu.review.repository.MemberRepository;
+import military.menu.review.domain.member.MemberRepository;
 import military.menu.review.security.JWTUtils;
 import military.menu.review.security.JwtLoginFilter;
 import military.menu.review.security.JwtTokenCheckFilter;
-import military.menu.review.service.MemberService;
+import military.menu.review.application.member.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,19 +15,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -47,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/login", "/join", "meals/**").permitAll()
+                .antMatchers("/login", "/join", "meals/**", "/menus/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/menu/like", "/menu/unlike", "/review/new").hasAuthority("SOLDIER")
                 .antMatchers(HttpMethod.POST, "/meal-image/upload").hasAuthority("ADMIN")
                 .anyRequest().authenticated();

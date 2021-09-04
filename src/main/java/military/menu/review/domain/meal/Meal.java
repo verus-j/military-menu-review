@@ -1,9 +1,6 @@
 package military.menu.review.domain.meal;
 
-import lombok.Getter;
-import lombok.ToString;
-import military.menu.review.domain.MealMenu;
-import military.menu.review.domain.MealType;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,13 +11,15 @@ import java.util.Objects;
 @Entity
 @Getter
 @ToString
+@Builder
+@AllArgsConstructor
 public class Meal {
     @Id @GeneratedValue @Column(name="meal_id")
     private Long id;
     @Enumerated(EnumType.STRING)
     private MealType type;
     private LocalDate date;
-    @OneToMany(mappedBy="meal")
+    @ElementCollection
     private List<MealMenu> mealMenus = new ArrayList<>();
 
     protected Meal() {

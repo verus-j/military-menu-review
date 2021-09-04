@@ -17,13 +17,13 @@ public class Rank {
     @ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="menu_id")
     private Menu menu;
     @Column(name="likes")
-    private Integer like;
+    private Long like;
     @Column(name="ranks")
     private Integer rank;
 
     protected Rank() {}
 
-    private Rank(Week week, Menu menu, Integer like, Integer rank) {
+    private Rank(Week week, Menu menu, Long like, Integer rank) {
         this.week = week;
         this.menu = menu;
         this.like = like;

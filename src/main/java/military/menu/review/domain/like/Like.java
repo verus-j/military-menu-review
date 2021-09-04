@@ -1,29 +1,22 @@
-package military.menu.review.domain.menu;
+package military.menu.review.domain.like;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import military.menu.review.domain.member.Member;
+import lombok.NoArgsConstructor;
+import military.menu.review.domain.menu.Menu;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Table(name="Likes")
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class Like {
     @Id @GeneratedValue @Column(name="like_id")
     private Long id;
-    @ManyToOne @JoinColumn(name="member_id")
-    private Member member;
-    @ManyToOne @JoinColumn(name="menu_id")
-    private Menu menu;
-
-    protected Like() {}
-
-    private Like(Menu menu, Member member) {
-        this.member = member;
-        this.menu = menu;
-    }
-
-    public static Like of(Menu menu, Member member) {
-        return new Like(menu, member);
-    }
+    private Long menuId;
+    private Long memberId;
+    private LocalDateTime dateTime;
 }

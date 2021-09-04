@@ -1,4 +1,4 @@
-package military.menu.review.controller;
+package military.menu.review.ui;
 
 import military.menu.review.domain.Week;
 import org.junit.jupiter.api.Test;

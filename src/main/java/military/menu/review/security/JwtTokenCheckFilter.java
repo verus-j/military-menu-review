@@ -2,7 +2,7 @@ package military.menu.review.security;
 
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.member.MemberAdapter;
-import military.menu.review.repository.MemberRepository;
+import military.menu.review.domain.member.MemberRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,22 +18,18 @@ public class Menu {
     private String name;
     private Double kcal;
     @Column(name="likes")
-    private Integer like;
+    private Long like;
 
     protected Menu() {}
 
     private Menu(String name, Double kcal) {
         this.name = name;
         this.kcal = kcal;
-        this.like = 0;
+        this.like = 0L;
     }
 
     public void like() {
         like++;
-    }
-
-    public void unlike() {
-        like--;
     }
 
     @Override
@@ -49,5 +47,9 @@ public class Menu {
 
     public static Menu of(String name, Double kcal) {
         return new Menu(name, kcal);
+    }
+
+    public void unlike() {
+        like--;
     }
 }

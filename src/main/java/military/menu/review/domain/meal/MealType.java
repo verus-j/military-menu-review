@@ -1,4 +1,4 @@
-package military.menu.review.domain;
+package military.menu.review.domain.meal;
 
 public enum MealType {
     BREAKFAST(0), LUNCH(1), DINNER(2);
