@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import military.menu.review.application.like.LikeService;
 import military.menu.review.application.member.MemberService;
-import military.menu.review.domain.Role;
+import military.menu.review.domain.member.Role;
 import military.menu.review.domain.like.Like;
 import military.menu.review.domain.like.LikeRepository;
 import military.menu.review.domain.member.Member;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -102,10 +101,10 @@ public class LikeControllerTest {
                 ))
         ;
 
-        Like like = likeRepository.findByMemberIdAndMenuId(member.getId(), menu1.getId());
+        Like like = likeRepository.findByMemberAndMenu(member, menu1);
         assertThat(like).isNotNull();
-        assertThat(like.getMenuId()).isEqualTo(menu1.getId());
-        assertThat(like.getMemberId()).isEqualTo(member.getId());
+        assertThat(like.getMenu()).isEqualTo(menu1);
+        assertThat(like.getMember()).isEqualTo(member);
         assertThat(like.getDateTime()).isNotNull();
         assertThat(like.getId()).isNotNull();
     }
@@ -378,7 +377,7 @@ public class LikeControllerTest {
                 ))
         ;
 
-        Like like = likeRepository.findByMemberIdAndMenuId(member.getId(), menu1.getId());
+        Like like = likeRepository.findByMemberAndMenu(member, menu1);
         assertThat(like).isNull();
     }
 

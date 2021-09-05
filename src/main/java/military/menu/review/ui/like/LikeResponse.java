@@ -21,8 +21,8 @@ public class LikeResponse extends RepresentationModel<LikeResponse> {
 
     public LikeResponse(Like like, Member member) {
         this.id = like.getId();
-        this.memberId = like.getMemberId();
-        this.menuId = like.getMenuId();
+        this.memberId = like.getMember().getId();
+        this.menuId = like.getMenu().getId();
         this.dateTime = like.getDateTime();
 
         add(selfLink());

@@ -3,7 +3,7 @@ package military.menu.review.application.like;
 import military.menu.review.application.like.exception.LikeIsAlreadyExistException;
 import military.menu.review.application.like.exception.LikeIsNotExistException;
 import military.menu.review.application.member.MemberService;
-import military.menu.review.domain.Role;
+import military.menu.review.domain.member.Role;
 import military.menu.review.domain.like.LikeRepository;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.like.Like;
@@ -55,8 +55,8 @@ public class LikeServiceTest {
         Like actualLike = likeOptional.get();
         Menu actualMenu = menuOptional.get();
 
-        assertThat(actualLike.getMemberId()).isEqualTo(member.getId());
-        assertThat(actualLike.getMenuId()).isEqualTo(menu.getId());
+        assertThat(actualLike.getMember()).isEqualTo(member);
+        assertThat(actualLike.getMenu()).isEqualTo(menu);
         assertThat(actualMenu.getLike()).isEqualTo(1);
     }
 

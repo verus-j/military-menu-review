@@ -69,7 +69,8 @@ public class LikeController {
             return ResponseEntity.notFound().build();
         }
 
-        Page<Like> page = likeRepository.findAllByMenuId(menuId, pageable);
+        Menu menu = menuOptional.get();
+        Page<Like> page = likeRepository.findAllByMenu(menu, pageable);
         PagedModel<LikeResponse> pagedModel = assembler.toModel(page, l -> new LikeResponse(l, member));
         return ResponseEntity.ok(pagedModel);
     }
@@ -82,7 +83,7 @@ public class LikeController {
         }
 
         Like like = optionalLike.get();
-        if(!like.getMenuId().equals(menuId)) {
+        if(!like.getMenu().getId().equals(menuId)) {
             return ResponseEntity.notFound().build();
         }
 

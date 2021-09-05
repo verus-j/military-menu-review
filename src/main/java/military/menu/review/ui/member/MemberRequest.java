@@ -3,7 +3,7 @@ package military.menu.review.ui.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import military.menu.review.domain.Role;
+import military.menu.review.domain.member.Role;
 import military.menu.review.domain.member.Member;
 
 import javax.validation.constraints.NotNull;

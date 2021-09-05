@@ -1,4 +1,4 @@
-package military.menu.review.domain;
+package military.menu.review.domain.member;
 
 import lombok.Getter;
 import org.hibernate.annotations.GeneratorType;

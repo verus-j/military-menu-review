@@ -2,7 +2,7 @@ package military.menu.review.ui.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
-import military.menu.review.domain.Role;
+import military.menu.review.domain.member.Role;
 import military.menu.review.domain.member.Member;
 import military.menu.review.security.LoginRequest;
 import military.menu.review.application.member.MemberService;

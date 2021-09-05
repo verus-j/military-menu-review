@@ -21,13 +21,13 @@ public class LikeService {
     private final MenuRepository menuRepository;
 
     public Like like(Member member, Menu menu) {
-        if(likeRepository.findByMemberIdAndMenuId(member.getId(), menu.getId()) != null) {
+        if(likeRepository.findByMemberAndMenu(member, menu) != null) {
             throw new LikeIsAlreadyExistException(member.getId(), menu.getId());
         }
 
         Like like = Like.builder()
-                .memberId(member.getId())
-                .menuId(menu.getId())
+                .member(member)
+                .menu(menu)
                 .dateTime(LocalDateTime.now())
                 .build();
         menu.like();
@@ -36,11 +36,11 @@ public class LikeService {
     }
 
     public void cancel(Member member, Menu menu) {
-        if(likeRepository.findByMemberIdAndMenuId(member.getId(), menu.getId()) == null) {
+        if(likeRepository.findByMemberAndMenu(member, menu) == null) {
             throw new LikeIsNotExistException(member.getId(), menu.getId());
         }
 
         menu.unlike();
-        likeRepository.deleteByMemberIdAndMenuId(member.getId(), menu.getId());
+        likeRepository.deleteByMemberAndMenu(member, menu);
     }
 }

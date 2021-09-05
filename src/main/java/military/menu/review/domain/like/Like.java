@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import military.menu.review.domain.member.Member;
 import military.menu.review.domain.menu.Menu;
 
 import javax.persistence.*;
@@ -14,9 +15,13 @@ import java.time.LocalDateTime;
 @Table(name="Likes")
 @Builder @NoArgsConstructor @AllArgsConstructor
 public class Like {
-    @Id @GeneratedValue @Column(name="like_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="like_id")
     private Long id;
-    private Long menuId;
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name="menu_id")
+    private Menu menu;
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member member;
     private LocalDateTime dateTime;
 }
