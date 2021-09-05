@@ -1,10 +1,7 @@
 package military.menu.review.domain.member;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
-import military.menu.review.domain.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -14,7 +11,7 @@ import java.util.Objects;
 @Getter
 @ToString
 public class Member {
-    @Id @GeneratedValue @Column(name="member_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="member_id")
     private Long id;
     @Column(unique = true, nullable = false)
     private String username;

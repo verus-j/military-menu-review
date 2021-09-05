@@ -3,7 +3,7 @@ package military.menu.review.ui.menu;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import military.menu.review.application.like.LikeService;
-import military.menu.review.domain.Role;
+import military.menu.review.domain.member.Role;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.menu.MenuRepository;
