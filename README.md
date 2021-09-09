@@ -9,6 +9,7 @@
 ## RESTful 가이드
 
 ### 유저 회원가입
+#### HTTP 요청
 ```
 POST /join HTTP/1.1
 Content-Type: application/json;charset=UTF-8
@@ -20,6 +21,33 @@ Host: localhost:8080
   "password" : "pass",
   "name" : "정진혁",
   "type" : "SOLDIER"
+}
+```
+#### HTTP 응답
+```
+HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 175
+
+{
+  "id" : 5,
+  "username" : "wilgur513",
+  "name" : "정진혁",
+  "type" : "SOLDIER",
+  "_links" : {
+    "login" : {
+      "href" : "http://localhost:8080/login"
+    }
+  }
 }
 ```
 
