@@ -191,7 +191,6 @@ public class LikeControllerTest {
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
                 .param("size", "3")
                 .param("page", "0")
-                .param("sort", "dateTime,DESC")
         )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -208,8 +207,7 @@ public class LikeControllerTest {
                         ),
                         requestParameters(
                                 parameterWithName("size").description("한 페이지에 속한 요소 개수"),
-                                parameterWithName("page").description("조회할 페이지 번호"),
-                                parameterWithName("sort").description("정렬 옵션")
+                                parameterWithName("page").description("조회할 페이지 번호")
                         ),
                         relaxedResponseFields(
                                 fieldWithPath("_embedded.likeResponseList[].id").description("좋아요 식별 번호"),
@@ -359,7 +357,7 @@ public class LikeControllerTest {
     @DisplayName("좋아요 해제")
     public void cancelLike() throws Exception {
         likeService.like(member, menu1);
-        mockMvc.perform(delete("/menus/{menuId}/likes", menu1.getId())
+        mockMvc.perform(delete("/menus/{menuId}/cancel-like", menu1.getId())
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
         )
                 .andDo(print())
@@ -385,7 +383,7 @@ public class LikeControllerTest {
     @DisplayName("미 로그인 시 좋아요 해제 시 실패")
     public void cancelLikeWithAnonymous() throws Exception {
         likeService.like(member, menu1);
-        mockMvc.perform(delete("/menus/{menuId}/likes", menu1.getId())
+        mockMvc.perform(delete("/menus/{menuId}/cancel-like", menu1.getId())
         )
                 .andDo(print())
                 .andExpect(status().isUnauthorized())
@@ -395,7 +393,7 @@ public class LikeControllerTest {
     @Test
     @DisplayName("좋아요를 누르지 않은 메뉴 좋아요 해제 시 실패")
     public void cancelLikeNotExist() throws Exception {
-        mockMvc.perform(delete("/menus/{menuId}/likes", menu1.getId())
+        mockMvc.perform(delete("/menus/{menuId}/cancel-like", menu1.getId())
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
         )
                 .andDo(print())
@@ -406,7 +404,7 @@ public class LikeControllerTest {
     @Test
     @DisplayName("존재하지 않는 메뉴에서 좋아요 해제 시 실패")
     public void cancelLikeNotExistMenu() throws Exception {
-        mockMvc.perform(delete("/menus/{menuId}/likes", menu1.getId() + 1111)
+        mockMvc.perform(delete("/menus/{menuId}/cancel-like", menu1.getId() + 1111)
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
         )
                 .andDo(print())
@@ -415,13 +413,13 @@ public class LikeControllerTest {
     }
 
     private void generateLikes() {
+        likeService.like(member, menu1);
+        likeService.like(member, menu2);
         for(int i = 0; i < 9; i++) {
             Member m = Member.of("username" + i, "pass", "name" + i, null, Role.NORMAL);
             memberService.join(m);
             likeService.like(m, menu1);
         }
-        likeService.like(member, menu1);
-        likeService.like(member, menu2);
     }
 
     private String getBearerToken(String username, String password) throws Exception {

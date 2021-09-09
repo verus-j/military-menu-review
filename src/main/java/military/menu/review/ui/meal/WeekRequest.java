@@ -1,55 +1,38 @@
-package military.menu.review.domain;
+package military.menu.review.ui.meal;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Embeddable;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-@Embeddable
-@ToString
-@EqualsAndHashCode
-public class Week {
-    private int month;
-    private int week;
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class WeekRequest {
+    @Min(2019) @Max(2099)
     private int year;
-
-    protected Week() {}
-
-    public Week(int year, int month, int week) {
-        this.year = year;
-        this.month = month;
-        this.week = week;
-    }
-
-    public int month() {
-        return month;
-    }
-
-    public int week() {
-        return week;
-    }
-
-    public int year() {
-        return year;
-    }
+    @Min(1) @Max(12)
+    private int month;
+    @Min(1) @Max(6)
+    private int week;
 
     public LocalDate firstDate() {
-        LocalDate firstDate = firstMonday(year, month).plusWeeks(week - 1);
-
-        if(firstDate.getMonthValue() != month){
-            throw new IllegalArgumentException();
-        }
-
-        return firstDate;
+        return firstMonday(year, month).plusWeeks(week - 1);
     }
 
     public LocalDate lastDate() {
         return firstDate().plusDays(6);
     }
 
-    public static Week from(LocalDate now) {
+    public WeekRequest prevWeek() {
+        return WeekRequest.from(firstDate().minusWeeks(1));
+    }
+
+    public WeekRequest nextWeek() {
+        return WeekRequest.from(firstDate().plusWeeks(1));
+    }
+
+    public static WeekRequest from(LocalDate now) {
         LocalDate firstMonday = firstMonday(now.getYear(), now.getMonthValue());
         int year;
         int month;
@@ -65,11 +48,11 @@ public class Week {
             week = ((now.getDayOfMonth() - firstMonday.getDayOfMonth()) / 7) + 1;
         }
 
-        return new Week(year, month, week);
+        return new WeekRequest(year, month, week);
     }
 
-    public static Week of(int year, int month, int week) {
-        return new Week(year, month, week);
+    public static WeekRequest from(int year, int month, int week) {
+        return new WeekRequest(year, month, week);
     }
 
     private static LocalDate firstMonday(int year, int month) {
