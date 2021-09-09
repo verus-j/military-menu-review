@@ -50,4 +50,43 @@ Content-Length: 175
   }
 }
 ```
+### 유저 로그인
+#### HTTP 요청
+```
+POST /login HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 53
+Host: localhost:8080
 
+{
+  "username" : "wilgur513",
+  "password" : "pass"
+}
+```
+#### HTTP 응답
+```
+HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3aWxndXI1MTMiLCJleHAiOjE2MzEyMTk4NDV9.n67cORyiiPkqokapC_RXy7P7u6pz0MoNuI9OEY7Zj1bfv3xfTqA0O9pJ9lGwruHtm-ufxrVtf7f9Sb72IZ_2HA
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 88
+
+{
+  "id" : 6,
+  "username" : "wilgur513",
+  "name" : "정진혁",
+  "type" : "SOLDIER"
+}
+```
+## 메뉴
+### 메뉴 조회
+```
+```
