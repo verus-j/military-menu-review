@@ -17,6 +17,5 @@
 
 
 ## RESTful API 가이드
-[RESTful API 가이드 링크](./api_guide.md)<br>
-RESTful API는 Spring Rest Docs를 사용해 문서화했습니다. 
+[RESTful API 가이드 링크](./api_guide.md)
 
