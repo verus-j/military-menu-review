@@ -6,9 +6,9 @@ __XXXX년X월X주 식단표 반환(계정이 좋아요 누른 메뉴 아이디�
  URL : /daily-meal/list
  HTTP Method : GET
  headers : {"Authrization" : "JWT TOKEN"}
- param : year, month, week
+ param : year, month, weekRequest
  example : 
-        const result = await axios.get("/daily-meal/list?year=2021&month=6&week=1", 
+        const result = await axios.get("/daily-meal/list?year=2021&month=6&weekRequest=1", 
             {headers: {Authorization: "JWT TOKEN"}}); 
 ```
 
