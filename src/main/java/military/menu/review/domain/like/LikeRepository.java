@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LikeRepository extends JpaRepository<Like, Long> {
+public interface LikeRepository extends JpaRepository<Like, Long>{
+    void deleteByMemberAndMenu(Member member, Menu menu);
     Like findByMemberAndMenu(Member member, Menu menu);
     Page<Like> findAllByMenu(Menu menu, Pageable pageable);
-    void deleteByMemberAndMenu(Member member, Menu menu);
 }

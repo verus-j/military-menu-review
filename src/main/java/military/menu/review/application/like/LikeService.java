@@ -32,6 +32,7 @@ public class LikeService {
                 .build();
         menu.like();
         likeRepository.save(like);
+        menuRepository.save(menu);
         return like;
     }
 
@@ -42,5 +43,6 @@ public class LikeService {
 
         menu.unlike();
         likeRepository.deleteByMemberAndMenu(member, menu);
+        menuRepository.save(menu);
     }
 }

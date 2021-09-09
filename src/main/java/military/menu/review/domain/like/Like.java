@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name="Likes")
 @Builder @NoArgsConstructor @AllArgsConstructor
 public class Like {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="like_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name="menu_id")

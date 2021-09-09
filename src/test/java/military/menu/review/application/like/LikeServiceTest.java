@@ -28,8 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @Transactional
 public class LikeServiceTest {
     @Autowired
-    EntityManager em;
-    @Autowired
     LikeService likeService;
     @Autowired
     LikeRepository likeRepository;
@@ -47,8 +45,6 @@ public class LikeServiceTest {
         memberService.join(member);
 
         Like like = likeService.like(member, menu);
-        em.flush();
-        em.clear();
 
         Optional<Like> likeOptional = likeRepository.findById(like.getId());
         Optional<Menu> menuOptional = menuRepository.findById(menu.getId());
@@ -69,8 +65,6 @@ public class LikeServiceTest {
         memberService.join(member);
 
         likeService.like(member, menu);
-        em.flush();
-        em.clear();
 
         assertThrows(LikeIsAlreadyExistException.class, () -> {
            likeService.like(member, menu);
@@ -87,8 +81,6 @@ public class LikeServiceTest {
 
         Like like = likeService.like(member, menu);
         likeService.cancel(member, menu);
-        em.flush();
-        em.clear();
 
         Optional<Like> likeOptional = likeRepository.findById(like.getId());
         assertThat(likeOptional.isPresent()).isFalse();

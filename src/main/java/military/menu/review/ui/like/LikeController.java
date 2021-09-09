@@ -90,7 +90,7 @@ public class LikeController {
         return ResponseEntity.ok(new LikeResponse(like, member));
     }
 
-    @DeleteMapping("/likes")
+    @DeleteMapping("/cancel-like")
     public ResponseEntity cancel(@PathVariable Long menuId, @CurrentMember Member member) {
         if(member == null) {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
