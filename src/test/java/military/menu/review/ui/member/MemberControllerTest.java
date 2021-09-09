@@ -2,7 +2,8 @@ package military.menu.review.ui.member;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
-import military.menu.review.domain.member.Role;
+import military.menu.review.common.RestDocsConfiguration;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.member.Member;
 import military.menu.review.security.LoginRequest;
 import military.menu.review.application.member.MemberService;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,6 +35,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @ActiveProfiles("test")
+@Import(RestDocsConfiguration.class)
+@Transactional
 public class MemberControllerTest {
     @Autowired
     private MemberService memberService;
@@ -50,7 +54,7 @@ public class MemberControllerTest {
     @DisplayName("정상적인 로그인 테스트")
     @Transactional
     public void login() throws Exception {
-        Member member = Member.of("wilgur513", "pass", "정진혁", null, Role.NORMAL);
+        Member member = Member.of("wilgur513", "pass", "정진혁", MemberType.SOLDIER);
         memberService.join(member);
 
         mockMvc.perform(post("/login")
@@ -60,7 +64,7 @@ public class MemberControllerTest {
                 .andDo(print())
                 .andExpect(jsonPath("username").value("wilgur513"))
                 .andExpect(jsonPath("name").value("정진혁"))
-                .andExpect(jsonPath("role").value("NORMAL"))
+                .andExpect(jsonPath("type").value("SOLDIER"))
                 .andDo(document("login-member",
                         requestFields(
                                 fieldWithPath("username").description("사용자 아이디"),
@@ -73,8 +77,7 @@ public class MemberControllerTest {
                                 fieldWithPath("id").description("사용자 번호"),
                                 fieldWithPath("username").description("사용자 아이디"),
                                 fieldWithPath("name").description("사용자 이름"),
-                                fieldWithPath("militaryId").description("사용자 군번(민간인의 경우 null 값)"),
-                                fieldWithPath("role").description("사용자 유형(민간인[NORMAL], 군인[SOLDIER])")
+                                fieldWithPath("type").description("사용자 유형(군인[SOLDIER])")
                         )
                 ))
         ;
@@ -88,8 +91,7 @@ public class MemberControllerTest {
                 .username("wilgur513")
                 .name("정진혁")
                 .password("pass")
-                .militaryId("")
-                .role("NORMAL")
+                .type("SOLDIER")
                 .build();
 
         mockMvc.perform(post("/join")
@@ -105,15 +107,13 @@ public class MemberControllerTest {
                                 fieldWithPath("username").description("사용자 아이디"),
                                 fieldWithPath("name").description("사용자 이름"),
                                 fieldWithPath("password").description("사용자 비밀번호"),
-                                fieldWithPath("militaryId").description("사용자 군번(민간인의 경우 생략)"),
-                                fieldWithPath("role").description("사용자 유형(민간인[NORMAL], 군인[SOLDIER])")
+                                fieldWithPath("type").description("사용자 유형(SOLDIER)")
                         ),
                         responseFields(
                                 fieldWithPath("id").description("사용자 번호"),
                                 fieldWithPath("username").description("사용자 아이디"),
                                 fieldWithPath("name").description("사용자 이름"),
-                                fieldWithPath("militaryId").description("사용자 군번(민간인의 경우 null 값)"),
-                                fieldWithPath("role").description("사용자 유형(민간인[NORMAL], 군인[SOLDIER])"),
+                                fieldWithPath("type").description("사용자 유형(군인[SOLDIER])"),
                                 fieldWithPath("_links.login.href").description("로그인 URI")
                         )
                 ))

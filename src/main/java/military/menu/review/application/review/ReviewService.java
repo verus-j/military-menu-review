@@ -23,4 +23,8 @@ public class ReviewService {
         review.editContent(content);
         return review;
     }
+
+    public void delete(Review review) {
+        reviewRepository.delete(review);
+    }
 }

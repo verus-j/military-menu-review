@@ -47,14 +47,3 @@ public class MealController {
         return ResponseEntity.ok(response);
     }
 }
-
-/*
-* GET /meals?year=&month&week O
-* GET /meals/{id}
-*
-* GET /meals/{id}/reviews
-* GET /meals{id}/reviews/{id}
-* POST /meals/{id}/reviews
-* PUT /meals/{id}/reviews/{id}
-* DELETE /meals/{id}/reviews/{id}
-* */

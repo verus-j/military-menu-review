@@ -4,10 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import military.menu.review.application.like.LikeService;
 import military.menu.review.application.member.MemberService;
+import military.menu.review.common.RestDocsConfiguration;
 import military.menu.review.domain.meal.*;
 import military.menu.review.domain.meal.MealRepository;
 import military.menu.review.domain.member.Member;
-import military.menu.review.domain.member.Role;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.menu.MenuRepository;
 import military.menu.review.security.LoginRequest;
@@ -18,13 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.hateoas.MediaTypes;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @Transactional
+@Import(RestDocsConfiguration.class)
 public class MealControllerTest {
     @Autowired
     MockMvc mockMvc;
@@ -75,7 +76,7 @@ public class MealControllerTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.of(USERNAME, PASSWORD, "", "", Role.NORMAL);
+        member = Member.of(USERNAME, PASSWORD, "", MemberType.SOLDIER);
         memberService.join(member);
     }
 

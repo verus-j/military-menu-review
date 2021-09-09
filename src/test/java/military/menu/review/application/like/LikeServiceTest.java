@@ -3,7 +3,7 @@ package military.menu.review.application.like;
 import military.menu.review.application.like.exception.LikeIsAlreadyExistException;
 import military.menu.review.application.like.exception.LikeIsNotExistException;
 import military.menu.review.application.member.MemberService;
-import military.menu.review.domain.member.Role;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.like.LikeRepository;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.like.Like;
@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 import java.util.Optional;
 
@@ -40,7 +38,7 @@ public class LikeServiceTest {
     @DisplayName("메뉴에 좋아요 추가")
     public void saveLike() throws Exception {
         Menu menu = Menu.of("밥", 100.0);
-        Member member = Member.of("wilgur513", "pass", "wilgur", "11-1111", Role.SOLDIER);
+        Member member = Member.of("wilgur513", "pass", "wilgur", MemberType.SOLDIER);
         menuRepository.save(menu);
         memberService.join(member);
 
@@ -60,7 +58,7 @@ public class LikeServiceTest {
     @DisplayName("중복된 좋아요")
     public void duplicateLike() throws Exception {
         Menu menu = Menu.of("밥", 100.0);
-        Member member = Member.of("wilgur513", "pass", "wilgur", "11-1111", Role.SOLDIER);
+        Member member = Member.of("wilgur513", "pass", "wilgur", MemberType.SOLDIER);
         menuRepository.save(menu);
         memberService.join(member);
 
@@ -75,7 +73,7 @@ public class LikeServiceTest {
     @DisplayName("좋아요 누른 메뉴 취소")
     public void cancelLike() throws Exception {
         Menu menu = Menu.of("밥", 100.0);
-        Member member = Member.of("wilgur513", "pass", "wilgur", "11-1111", Role.SOLDIER);
+        Member member = Member.of("wilgur513", "pass", "wilgur", MemberType.SOLDIER);
         menuRepository.save(menu);
         memberService.join(member);
 
@@ -91,7 +89,7 @@ public class LikeServiceTest {
     @DisplayName("좋아요를 누르지 않은 메뉴 좋아요 해제")
     public void cancelNotCreatedLike() throws Exception {
         Menu menu = Menu.of("밥", 100.0);
-        Member member = Member.of("wilgur513", "pass", "wilgur", "11-1111", Role.SOLDIER);
+        Member member = Member.of("wilgur513", "pass", "wilgur", MemberType.SOLDIER);
         menuRepository.save(menu);
         memberService.join(member);
 

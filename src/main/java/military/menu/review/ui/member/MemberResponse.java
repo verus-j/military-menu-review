@@ -9,14 +9,12 @@ public class MemberResponse {
     private Long id;
     private String username;
     private String name;
-    private String role;
-    private String militaryId;
+    private String type;
 
     public MemberResponse(Member member) {
         this.id = member.getId();
         this.username = member.getUsername();
         this.name = member.getName();
-        this.role = member.getRole().name();
-        this.militaryId = member.getMilitaryId();
+        this.type = member.getMemberType().name();
     }
 }

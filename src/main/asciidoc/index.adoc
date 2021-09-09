@@ -1,0 +1,72 @@
+= RESTful API 가이드
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-http-response-title: HTTP 응답 예제
+:operation-http-request-title: HTTP 요청 예제
+:operation-links-title: HATEOAS 링크
+:operation-response-body-title : HTTP 응답 바디
+:operation-response-fields-title : HTTP 응답 필드
+:operation-response-headers-title : HTTP 응답 해더
+:operation-request-parameters-title : HTTP 요청 속성
+:operation-path-parameters-title : HTTP 경로 속성
+:operation-request-headers-title : HTTP 요청 해더
+
+== 유저
+[[resources-join-member]]
+=== 회원가입
+operation::join-member[snippets='http-request,http-response,links,response-body,response-fields']
+
+[[resources-login-member]]
+=== 로그인
+operation::login-member[snippets='http-request,http-response,response-headers,response-fields']
+
+== 메뉴
+[[resources-query-menus]]
+=== 메뉴 조회
+operation::query-menus-with-member[snippets='http-request,http-response,links,request-parameters,response-body,response-fields']
+
+[[resources-query-menu]]
+=== 메뉴 1건 조회
+operation::query-menu[snippets='http-request,http-response,links,path-parameters,response-body,response-fields']
+
+[[resources-like-menu]]
+=== 메뉴 좋아요 설정
+operation::like-menu[snippets='http-request,http-response,request-headers,links,response-body,response-fields']
+
+[[resources-cancel-like]]
+=== 메뉴 좋아요 해제 설정
+operation::cancel-like[snippets='http-request,http-response,links,request-headers,response-body,response-fields']
+
+== 식단표
+[[resources-query-meals]]
+=== 식단표 주별 조회
+operation::query-meals[snippets='http-request,http-response,links,request-parameters,response-body,response-fields']
+
+[[resouces-query-meal]]
+=== 식단표 1건 조회
+operation::query-meal[snippets='http-request,http-response,links,path-parameters,response-body,response-fields']
+
+== 리뷰
+[[resouces-create-review]]
+=== 리뷰 작성
+operation::create-review[snippets='http-request,http-response,links,response-body,response-fields,response-headers']
+
+[[resources-update-review]]
+=== 리뷰 수정
+operation::update-review[snippets='http-request,http-response,links,response-body,response-fields']
+
+[[resources-delete-review]]
+=== 리뷰 삭제
+operation::delete-review[snippets='http-request,http-response,links,response-body']
+
+[[resources-query-reviews]]
+=== 리뷰 조회
+operation::query-reviews[snippets='http-request,http-response,links,request-parameters,response-body,response-fields']
+
+[[resources-query-review]]
+=== 리뷰 1건 조회
+operation::query-review[snippets='http-request,http-response,links,response-body,response-fields']

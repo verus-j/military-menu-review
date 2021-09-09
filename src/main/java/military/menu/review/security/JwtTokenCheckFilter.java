@@ -44,7 +44,7 @@ public class JwtTokenCheckFilter extends BasicAuthenticationFilter {
         if(result.isVerified()) {
             Member member = memberRepository.findByUsername(result.getUsername());
             Set<GrantedAuthority> authorities = new HashSet<>();
-            authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
+            authorities.add(new SimpleGrantedAuthority(member.getMemberType().name()));
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     new MemberAdapter(member), null, authorities

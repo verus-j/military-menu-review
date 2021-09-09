@@ -3,7 +3,7 @@ package military.menu.review.ui.member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import military.menu.review.domain.member.Role;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.member.Member;
 
 import javax.validation.constraints.NotNull;
@@ -16,11 +16,10 @@ public class MemberRequest {
     private String password;
     @NotNull
     private String name;
-    private String militaryId;
     @NotNull
-    private String role;
+    private String type;
 
     public Member toEntity() {
-        return Member.of(username, password, name, militaryId, Role.valueOf(role));
+        return Member.of(username, password, name, MemberType.valueOf(type));
     }
 }

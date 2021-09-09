@@ -4,7 +4,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +21,7 @@ public class MemberAdapter extends User {
 
     private static Set<GrantedAuthority> authorities(Member member) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + member.getRole().name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + member.getMemberType().name()));
         return authorities;
     }
 }

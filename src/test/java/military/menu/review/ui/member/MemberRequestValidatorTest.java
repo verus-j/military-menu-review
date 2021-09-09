@@ -21,33 +21,7 @@ public class MemberRequestValidatorTest {
     public void invalidRole() throws Exception {
         MemberRequestValidator validator = new MemberRequestValidator();
         MemberRequest request = MemberRequest.builder()
-                .role("INVALID")
-                .build();
-        validator.validate(request, errors);
-
-        verify(errors, times(1)).rejectValue(anyString(), anyString(), anyString());
-    }
-
-    @Test
-    @DisplayName("민간인 유형은 군번을 가질 수 없다.")
-    public void normalTypeNotHasMilitaryId() throws Exception {
-        MemberRequestValidator validator = new MemberRequestValidator();
-        MemberRequest request = MemberRequest.builder()
-                .role("NORMAL")
-                .militaryId("11-11111")
-                .build();
-        validator.validate(request, errors);
-
-        verify(errors, times(1)).rejectValue(anyString(), anyString(), anyString());
-    }
-
-    @Test
-    @DisplayName("군인 유형은 군번을 꼭 가져야한다.")
-    public void soldierTypeMustHasMilitaryId() throws Exception {
-        MemberRequestValidator validator = new MemberRequestValidator();
-        MemberRequest request = MemberRequest.builder()
-                .role("SOLDIER")
-                .militaryId("")
+                .type("INVALID")
                 .build();
         validator.validate(request, errors);
 

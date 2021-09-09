@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import military.menu.review.application.like.LikeService;
 import military.menu.review.application.member.MemberService;
-import military.menu.review.domain.member.Role;
+import military.menu.review.common.RestDocsConfiguration;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.like.Like;
 import military.menu.review.domain.like.LikeRepository;
 import military.menu.review.domain.member.Member;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -42,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 @Transactional
+@Import(RestDocsConfiguration.class)
 public class LikeControllerTest {
     @Autowired
     MenuRepository menuRepository;
@@ -67,7 +70,7 @@ public class LikeControllerTest {
         menuRepository.save(menu1);
         menu2 = Menu.of("b", 2.0);
         menuRepository.save(menu2);
-        member = Member.of(USERNAME, PASSWORD, "정진혁", null, Role.NORMAL);
+        member = Member.of(USERNAME, PASSWORD, "정진혁", MemberType.SOLDIER);
         memberService.join(member);
     }
 
@@ -296,7 +299,7 @@ public class LikeControllerTest {
     @Test
     @DisplayName("사용자 로그인 후 본인이 생성하지 않은 좋아요 단건 조회")
     public void queryLikeWithNotOwnerMember() throws Exception {
-        Member m = Member.of("username", "pass", "", "", Role.NORMAL);
+        Member m = Member.of("username", "pass", "", MemberType.SOLDIER);
         memberService.join(m);
         Like like = likeService.like(member, menu1);
         mockMvc.perform(get("/menus/{menuId}/likes/{likeId}", menu1.getId(), like.getId())
@@ -416,7 +419,7 @@ public class LikeControllerTest {
         likeService.like(member, menu1);
         likeService.like(member, menu2);
         for(int i = 0; i < 9; i++) {
-            Member m = Member.of("username" + i, "pass", "name" + i, null, Role.NORMAL);
+            Member m = Member.of("username" + i, "pass", "name" + i, MemberType.SOLDIER);
             memberService.join(m);
             likeService.like(m, menu1);
         }

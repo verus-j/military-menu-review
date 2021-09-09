@@ -17,21 +17,18 @@ public class Member {
     private String username;
     private String password;
     private String name;
-    @Column(unique = true)
-    private String militaryId;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private MemberType memberType;
 
     protected Member(){
 
     }
 
-    private Member(String username, String password, String name, String militaryId, Role role) {
+    private Member(String username, String password, String name, MemberType memberType) {
         this.username = username;
         this.password = password;
         this.name = name;
-        this.militaryId = militaryId;
-        this.role = role;
+        this.memberType = memberType;
     }
 
     @Override
@@ -39,16 +36,16 @@ public class Member {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Member member = (Member) o;
-        return Objects.equals(username, member.username) && role == member.role;
+        return Objects.equals(username, member.username) && memberType == member.memberType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, role);
+        return Objects.hash(username, memberType);
     }
 
-    public static Member of(String username, String password, String name, String militaryId, Role role) {
-        return new Member(username, password, name, militaryId, role);
+    public static Member of(String username, String password, String name, MemberType memberType) {
+        return new Member(username, password, name, memberType);
     }
 
     public void encodePassword(PasswordEncoder encoder) {

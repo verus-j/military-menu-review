@@ -5,7 +5,7 @@ import military.menu.review.application.member.MemberService;
 import military.menu.review.domain.like.Like;
 import military.menu.review.domain.meal.*;
 import military.menu.review.domain.member.Member;
-import military.menu.review.domain.member.Role;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.menu.MenuDto;
 import military.menu.review.domain.menu.MenuRepository;
@@ -17,10 +17,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import java.sql.JDBCType;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -173,7 +169,7 @@ public class MealDaoImplTest {
 
 
     private Member saveMember(String username, String password) {
-        return memberService.join(Member.of(username, password, "", "", Role.NORMAL));
+        return memberService.join(Member.of(username, password, "", MemberType.SOLDIER));
     }
 
     private Like saveLike(Member member, Menu menu) {

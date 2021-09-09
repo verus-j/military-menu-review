@@ -42,12 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/exception/**","/item/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-                .antMatchers("/login", "/join", "/meals", "/meals/**","/menus/**").permitAll()
-
-                .antMatchers(HttpMethod.POST, "/menu/like", "/menu/unlike", "/review/new").hasAuthority("SOLDIER")
-                .antMatchers(HttpMethod.POST, "/meal-image/upload").hasAuthority("ADMIN")
-                .anyRequest().authenticated();
+                .antMatchers(HttpMethod.POST, "/menu/*/likes", "/meals/*/reviews").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/menu/*/cancel-like", "/meals/*/reviews/*").authenticated()
+                .antMatchers(HttpMethod.PUT, "/meals/*/reviews/*").authenticated()
+                .anyRequest().permitAll();
 
         http.cors().and()
             .csrf().disable()

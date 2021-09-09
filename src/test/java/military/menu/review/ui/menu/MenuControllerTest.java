@@ -3,26 +3,26 @@ package military.menu.review.ui.menu;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.net.HttpHeaders;
 import military.menu.review.application.like.LikeService;
-import military.menu.review.domain.member.Role;
+import military.menu.review.common.RestDocsConfiguration;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.menu.MenuRepository;
 import military.menu.review.security.LoginRequest;
 import military.menu.review.application.member.MemberService;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
+@Import(RestDocsConfiguration.class)
 @Transactional
 public class MenuControllerTest {
     @Autowired
@@ -65,7 +66,7 @@ public class MenuControllerTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.of(USERNAME, PASSWORD, "정진혁", null, Role.NORMAL);
+        member = Member.of(USERNAME, PASSWORD, "정진혁", MemberType.SOLDIER);
         memberService.join(member);
         menu = Menu.of("a", 1.0);
         menuRepository.save(menu);

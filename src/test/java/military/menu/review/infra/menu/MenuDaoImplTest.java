@@ -2,7 +2,7 @@ package military.menu.review.infra.menu;
 
 import military.menu.review.application.like.LikeService;
 import military.menu.review.application.member.MemberService;
-import military.menu.review.domain.member.Role;
+import military.menu.review.domain.member.MemberType;
 import military.menu.review.domain.member.Member;
 import military.menu.review.domain.menu.Menu;
 import military.menu.review.domain.menu.MenuDao;
@@ -50,7 +50,7 @@ public class MenuDaoImplTest {
     @BeforeEach
     void setUp() {
         menu = Menu.of(MENU_NAME, KCAL);
-        member = Member.of("wilgur513", "pass", "", "", Role.NORMAL);
+        member = Member.of("wilgur513", "pass", "", MemberType.SOLDIER);
 
         menuRepository.save(menu);
         memberService.join(member);

@@ -29,7 +29,6 @@ public class ReviewResponse extends RepresentationModel<ReviewResponse> {
         add(linkTo(ReviewController.class, mealId).withRel("reviews"));
 
         if(member != null) {
-            add(linkTo(ReviewController.class, mealId).withRel("create-review"));
             if (member.getId().equals(memberId)) {
                 add(linkTo(ReviewController.class, mealId).slash(id).withRel("update-review"));
                 add(linkTo(ReviewController.class, mealId).slash(id).withRel("delete-review"));
