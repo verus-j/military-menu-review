@@ -1,9 +1,13 @@
-package military.menu.review.domain.menu;
+package military.menu.review.infra.menu;
 
 import military.menu.review.application.like.LikeService;
 import military.menu.review.application.member.MemberService;
 import military.menu.review.domain.member.Role;
 import military.menu.review.domain.member.Member;
+import military.menu.review.domain.menu.Menu;
+import military.menu.review.domain.menu.MenuDao;
+import military.menu.review.domain.menu.MenuDto;
+import military.menu.review.domain.menu.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ActiveProfiles("test")
 @Transactional
-public class MenuDaoTest {
+public class MenuDaoImplTest {
     @Autowired
     MenuRepository menuRepository;
     @Autowired
@@ -34,9 +38,9 @@ public class MenuDaoTest {
     @Autowired
     MemberService memberService;
     @Autowired
-    EntityManager em;
-    @Autowired
     MenuDao dao;
+    @Autowired
+    EntityManager em;
 
     static String MENU_NAME = "밥";
     static double KCAL = 100.1;
@@ -50,8 +54,6 @@ public class MenuDaoTest {
 
         menuRepository.save(menu);
         memberService.join(member);
-        em.flush();
-        em.clear();
     }
 
     @Test
@@ -71,7 +73,6 @@ public class MenuDaoTest {
     public void selectByIdWithIsTrueLiked() throws Exception {
         likeService.like(member, menu);
         em.flush();
-        em.clear();
 
         MenuDto menuDto = dao.selectByIdWithIsLiked(menu.getId(), member.getId()).get();
 
@@ -94,20 +95,23 @@ public class MenuDaoTest {
     public void selectAllWithIsLiked() throws Exception {
         saveMenus();
         likeService.like(member, menu);
-        flushAndClear();
-        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "menu_id"));
+        em.flush();
 
+        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "menu_id"));
         List<MenuDto> menuDtoList = dao.selectAllWithIsLiked(pageable, member.getId());
 
         assertThat(menuDtoList).hasSize(3);
         assertThat(menuDtoList.get(0).getName()).isEqualTo(MENU_NAME);
         assertThat(menuDtoList.get(0).getKcal()).isEqualTo(KCAL);
+        assertThat(menuDtoList.get(0).getLike()).isEqualTo(1L);
         assertThat(menuDtoList.get(0).isLiked()).isTrue();
         assertThat(menuDtoList.get(1).getName()).isEqualTo("b");
         assertThat(menuDtoList.get(1).getKcal()).isEqualTo(2.0);
+        assertThat(menuDtoList.get(1).getLike()).isEqualTo(0L);
         assertThat(menuDtoList.get(1).isLiked()).isFalse();
         assertThat(menuDtoList.get(2).getName()).isEqualTo("c");
         assertThat(menuDtoList.get(2).getKcal()).isEqualTo(3.0);
+        assertThat(menuDtoList.get(2).getLike()).isEqualTo(0L);
         assertThat(menuDtoList.get(2).isLiked()).isFalse();
     }
 
@@ -119,11 +123,5 @@ public class MenuDaoTest {
                 Menu.of("j", 10.0)
         );
         menuRepository.saveAll(menus);
-        flushAndClear();
-    }
-
-    private void flushAndClear() {
-        em.flush();
-        em.clear();
     }
 }

@@ -1,4 +1,4 @@
-package military.menu.review.application.menu;
+package military.menu.review.domain.menu;
 
 import lombok.*;
 
@@ -9,4 +9,5 @@ public class MenuDto {
     private double kcal;
     private long like;
     private boolean isLiked;
+    private boolean isLogin;
 }

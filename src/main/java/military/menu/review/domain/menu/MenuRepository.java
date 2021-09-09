@@ -1,9 +1,9 @@
 package military.menu.review.domain.menu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+import java.util.Optional;
+
 public interface MenuRepository extends JpaRepository<Menu, Long> {
-    Menu findByName(String name);
 }

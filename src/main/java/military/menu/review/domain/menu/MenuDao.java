@@ -1,7 +1,11 @@
 package military.menu.review.domain.menu;
 
-import military.menu.review.application.menu.MenuDto;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface MenuDao {
-    MenuDto selectByIdWithIsLiked(Long menuId, Long MemberId);
+    Optional<MenuDto> selectByIdWithIsLiked(Long menuId, Long MemberId);
+    List<MenuDto> selectAllWithIsLiked(Pageable pageable, Long memberId);
 }

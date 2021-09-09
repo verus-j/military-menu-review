@@ -22,6 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,11 +61,14 @@ public class MenuControllerTest {
     static final String USERNAME = "wilgur513";
     static final String PASSWORD = "pass";
     Member member;
+    Menu menu;
 
     @BeforeEach
     void setUp() {
         member = Member.of(USERNAME, PASSWORD, "정진혁", null, Role.NORMAL);
         memberService.join(member);
+        menu = Menu.of("a", 1.0);
+        menuRepository.save(menu);
     }
 
     @Test
@@ -113,11 +117,104 @@ public class MenuControllerTest {
     }
 
     @Test
+    @DisplayName("로그인 후 좋아요를 누르지 않은 10개 메뉴중 3개씩 1번째 페이지")
+    public void getNotLikedMenusWithMember() throws Exception {
+        saveMenus();
+
+        mockMvc.perform(get("/menus")
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
+                .param("size", "3")
+                .param("page", "0")
+                .param("sort", "name,ASC")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("query-menus-with-member",
+                        links(
+                                linkWithRel("first").description("시작 페이지"),
+                                linkWithRel("self").description("현재 페이지"),
+                                linkWithRel("next").description("다음 페이지"),
+                                linkWithRel("last").description("마지막 페이지")
+                        ),
+                        requestParameters(
+                                parameterWithName("page").description("페이지 번호"),
+                                parameterWithName("size").description("페이지 당 메뉴 개수"),
+                                parameterWithName("sort").description("정렬 옵션")
+                        ),
+                        responseFields(
+                                fieldWithPath("_embedded.menuResponseList[].name").description("메뉴 이름"),
+                                fieldWithPath("_embedded.menuResponseList[].kcal").description("메뉴 칼로리"),
+                                fieldWithPath("_embedded.menuResponseList[].like").description("메뉴 좋아요 개수"),
+                                fieldWithPath("_embedded.menuResponseList[].id").description("메뉴 식별 번호"),
+                                fieldWithPath("_embedded.menuResponseList[]._links.self.href").description("메뉴 개별 조회 링크"),
+                                fieldWithPath("_embedded.menuResponseList[]._links.like.href").description("메뉴 좋아요 링크"),
+                                fieldWithPath("page.size").description("페이지 당 메뉴 개수"),
+                                fieldWithPath("page.totalElements").description("전체 메뉴 개수"),
+                                fieldWithPath("page.totalPages").description("전체 페이지 수"),
+                                fieldWithPath("page.number").description("현재 페이지 번호(0부터 시작)"),
+                                fieldWithPath("_links.self.href").description("현재 페이지"),
+                                fieldWithPath("_links.first.href").description("시작 페이지"),
+                                fieldWithPath("_links.next.href").description("다음 페이지"),
+                                fieldWithPath("_links.last.href").description("마지막 페이지")
+                        )
+                ))
+        ;
+    }
+
+    @Test
+    @DisplayName("로그인 후 10개 메뉴중 3개씩 1번째 페이지")
+    public void getLikedMenusWithMember() throws Exception {
+        saveMenus();
+        likeService.like(member, menu);
+
+        mockMvc.perform(get("/menus")
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
+                .param("size", "3")
+                .param("page", "0")
+                .param("sort", "name,ASC")
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_embedded.menuResponseList[0]._links.like.href").doesNotExist())
+                .andExpect(jsonPath("_embedded.menuResponseList[0]._links.cancel-like.href").exists())
+                .andExpect(jsonPath("_embedded.menuResponseList[1]._links.like.href").exists())
+                .andExpect(jsonPath("_embedded.menuResponseList[1]._links.cancel-like.href").doesNotExist())
+                .andExpect(jsonPath("_embedded.menuResponseList[2]._links.like.href").exists())
+                .andExpect(jsonPath("_embedded.menuResponseList[2]._links.cancel-like.href").doesNotExist())
+                .andDo(document("query-menus-with-member",
+                        links(
+                                linkWithRel("first").description("시작 페이지"),
+                                linkWithRel("self").description("현재 페이지"),
+                                linkWithRel("next").description("다음 페이지"),
+                                linkWithRel("last").description("마지막 페이지")
+                        ),
+                        requestParameters(
+                                parameterWithName("page").description("페이지 번호"),
+                                parameterWithName("size").description("페이지 당 메뉴 개수"),
+                                parameterWithName("sort").description("정렬 옵션")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("_embedded.menuResponseList[].name").description("메뉴 이름"),
+                                fieldWithPath("_embedded.menuResponseList[].kcal").description("메뉴 칼로리"),
+                                fieldWithPath("_embedded.menuResponseList[].like").description("메뉴 좋아요 개수"),
+                                fieldWithPath("_embedded.menuResponseList[].id").description("메뉴 식별 번호"),
+                                fieldWithPath("_embedded.menuResponseList[]._links.self.href").description("메뉴 개별 조회 링크"),
+                                fieldWithPath("page.size").description("페이지 당 메뉴 개수"),
+                                fieldWithPath("page.totalElements").description("전체 메뉴 개수"),
+                                fieldWithPath("page.totalPages").description("전체 페이지 수"),
+                                fieldWithPath("page.number").description("현재 페이지 번호(0부터 시작)"),
+                                fieldWithPath("_links.self.href").description("현재 페이지"),
+                                fieldWithPath("_links.first.href").description("첫 페이지"),
+                                fieldWithPath("_links.last.href").description("다음 페이지"),
+                                fieldWithPath("_links.next.href").description("마지막 페이지")
+                        )
+                ))
+        ;
+    }
+
+    @Test
     @DisplayName("미 로그인 시 메뉴 단건 조회하기")
     public void getMenuWithAnonymous() throws Exception {
-        Menu menu = Menu.of("a", 1.0);
-        menuRepository.save(menu);
-
         mockMvc.perform(get("/menus/{id}", menu.getId()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -145,17 +242,25 @@ public class MenuControllerTest {
 
     @Test
     @DisplayName("로그인 후 메뉴 단건 조회")
-    @Disabled
     public void queryMenuWithMember() throws Exception {
-        Menu menu = Menu.of("a", 1.0);
-        menuRepository.save(menu);
-
         mockMvc.perform(get("/menus/{id}", menu.getId())
                 .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
         )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("_links.like.href").exists())
+                .andExpect(jsonPath("_links.cancel-like.href").doesNotExist())
+        ;
+
+        likeService.like(member, menu);
+
+        mockMvc.perform(get("/menus/{id}", menu.getId())
+                .header(HttpHeaders.AUTHORIZATION, getBearerToken(USERNAME, PASSWORD))
+        )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("_links.like.href").doesNotExist())
+                .andExpect(jsonPath("_links.cancel-like.href").exists())
         ;
     }
 
@@ -169,7 +274,7 @@ public class MenuControllerTest {
 
     private void saveMenus() {
         List<Menu> menus = Arrays.asList(
-                Menu.of("a", 1.0), Menu.of("b", 2.0), Menu.of("c", 3.0),
+                Menu.of("b", 2.0), Menu.of("c", 3.0),
                 Menu.of("d", 4.0), Menu.of("e", 5.0), Menu.of("f", 6.0),
                 Menu.of("g", 7.0), Menu.of("h", 8.0), Menu.of("i", 9.0),
                 Menu.of("j", 10.0)
