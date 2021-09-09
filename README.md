@@ -6,6 +6,17 @@
 * [그런 REST API로 괜찮은가?](https://www.youtube.com/watch?v=RP_f5dMoHFc&t=1s)
 * [스프링 기반 REST API 개발](https://www.inflearn.com/course/spring_rest-api/dashboard)
 
+## 사용 기술
+* Java8
+* Spring Boot
+* Spring Security
+* Spring Data JPA
+* Spring HATEOAS
+* Spring Rest Docs
+* JPA
+
+
 ## RESTful API 가이드
-[RESTful API 가이드 링크](./api_guide.md)
+[RESTful API 가이드 링크](./api_guide.md)<br>
+RESTful API는 Spring Rest Docs를 사용해 문서화했습니다. 
 
