@@ -1,6 +1,6 @@
-package military.menu.review.service.mnd.api.convertor;
+package military.menu.review.mnd.api.convertor;
 
-import military.menu.review.service.dto.MenuDTO;
+import military.menu.review.mnd.api.dto.MndMenuDTO;
 
 import java.util.Map;
 import java.util.Optional;
@@ -13,14 +13,14 @@ public abstract class JsonToMenuConvertor {
     public abstract String getMenuNameColumn();
     public abstract String getCalorieColumn();
 
-    public Optional<MenuDTO> convert(Map<String, String> jsonMap){
+    public Optional<MndMenuDTO> convert(Map<String, String> jsonMap){
         String menuName = jsonMap.get(getMenuNameColumn());
         String calorie = jsonMap.get(getCalorieColumn());
         return parseMenu(menuName, calorie);
     }
 
-    private Optional<MenuDTO> parseMenu(String name, String calorie) {
-        return isEmptyMenu(name) ? Optional.empty() : Optional.of(MenuDTO.of(parseMenuName(name), parseCalorie(calorie)));
+    private Optional<MndMenuDTO> parseMenu(String name, String calorie) {
+        return isEmptyMenu(name) ? Optional.empty() : Optional.of(MndMenuDTO.of(parseMenuName(name), parseCalorie(calorie)));
     }
 
     private boolean isEmptyMenu(String name) {

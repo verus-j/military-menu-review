@@ -1,7 +1,7 @@
-package military.menu.review.service.mnd.api;
+package military.menu.review.mnd.api;
 
-import military.menu.review.service.mnd.api.parser.MndApiDataParser;
-import military.menu.review.service.mnd.api.parser.TotalCountParser;
+import military.menu.review.mnd.api.parser.MndApiDataParser;
+import military.menu.review.mnd.api.parser.TotalCountParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

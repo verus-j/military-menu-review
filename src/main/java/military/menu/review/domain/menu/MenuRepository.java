@@ -6,4 +6,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MenuRepository extends JpaRepository<Menu, Long> {
+    Menu findByName(String name);
 }

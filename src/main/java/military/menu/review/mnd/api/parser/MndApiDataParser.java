@@ -1,11 +1,11 @@
-package military.menu.review.service.mnd.api.parser;
+package military.menu.review.mnd.api.parser;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import military.menu.review.service.mnd.api.convertor.JsonToBreakfastConvertor;
-import military.menu.review.service.mnd.api.convertor.JsonToDinnerConvertor;
-import military.menu.review.service.mnd.api.convertor.JsonToLunchConvertor;
-import military.menu.review.service.mnd.api.convertor.JsonToMenuConvertor;
+import military.menu.review.mnd.api.convertor.JsonToBreakfastConvertor;
+import military.menu.review.mnd.api.convertor.JsonToDinnerConvertor;
+import military.menu.review.mnd.api.convertor.JsonToLunchConvertor;
+import military.menu.review.mnd.api.convertor.JsonToMenuConvertor;
 
 import java.io.IOException;
 import java.util.*;

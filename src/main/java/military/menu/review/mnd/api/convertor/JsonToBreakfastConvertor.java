@@ -1,4 +1,4 @@
-package military.menu.review.service.mnd.api.convertor;
+package military.menu.review.mnd.api.convertor;
 
 public class JsonToBreakfastConvertor extends JsonToMenuConvertor {
     @Override
