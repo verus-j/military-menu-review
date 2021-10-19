@@ -54,9 +54,9 @@ public class MndSaveRunner implements ApplicationRunner {
     }
 
     private Meal findMeal(LocalDate date, MealType type) {
-        Meal meal = mealRepository.findByDateAndMealType(date, MealType.BREAKFAST);
+        Meal meal = mealRepository.findByDateAndMealType(date, type);
         if(meal == null) {
-            return mealRepository.save(Meal.of(date, MealType.BREAKFAST));
+            return mealRepository.save(Meal.of(date, type));
         }
         return meal;
     }
