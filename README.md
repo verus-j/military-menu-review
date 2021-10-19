@@ -19,8 +19,8 @@
 ```
     git clone https://github.com/wilgur513/military-menu-review.git
     cd military-menu-review
-    mvn package // Spring Rest Docs 초기화
-    mvn spring-boot:run // Spring Application 실행
+    mvn package 
+    mvn spring-boot:run 
 ```
 
 ## RESTful API 문서
