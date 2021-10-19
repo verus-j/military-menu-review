@@ -13,6 +13,7 @@ import military.menu.review.security.CurrentMember;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,9 @@ public class LikeController {
         Like like = likeService.like(member, menu);
 
         URI location = linkTo(LikeController.class, menuId).slash(like.getId()).toUri();
-        return ResponseEntity.created(location).body(new LikeResponse(like, member));
+        LikeResponse response = new LikeResponse(like, member);
+        response.add(Link.of("/docs/index.html#resources-like-menu").withRel("profile"));
+        return ResponseEntity.created(location).body(response);
     }
 
     @GetMapping("/likes")
@@ -72,6 +75,7 @@ public class LikeController {
         Menu menu = menuOptional.get();
         Page<Like> page = likeRepository.findAllByMenu(menu, pageable);
         PagedModel<LikeResponse> pagedModel = assembler.toModel(page, l -> new LikeResponse(l, member));
+        pagedModel.add(Link.of("/docs/index.html#resource-query-likes").withRel("profile"));
         return ResponseEntity.ok(pagedModel);
     }
 
@@ -87,7 +91,9 @@ public class LikeController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(new LikeResponse(like, member));
+        LikeResponse response = new LikeResponse(like, member);
+        response.add(Link.of("docs/index.html#resources-query-like").withRel("profile"));
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/cancel-like")
@@ -106,6 +112,7 @@ public class LikeController {
 
         RepresentationModel model = new RepresentationModel();
         model.add(linkTo(methodOn(LikeController.class).createLikes(menuId, member)).withRel("like"));
+        model.add(Link.of("/docs/index.html#resources-cancel-like").withRel("profile"));
         return ResponseEntity.ok(model);
     }
 }

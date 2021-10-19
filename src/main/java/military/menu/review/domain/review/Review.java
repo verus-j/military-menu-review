@@ -28,12 +28,12 @@ public class Review {
         this.created = LocalDateTime.now();
     }
 
-    public static Review of(Member member, Meal meal, String content) {
-        return new Review(member, meal, content);
-    }
-
     public void editContent(String content) {
         this.content = content;
         this.created = LocalDateTime.now();
+    }
+
+    public static Review of(Member member, Meal meal, String content) {
+        return new Review(member, meal, content);
     }
 }

@@ -85,7 +85,8 @@ public class LikeControllerTest {
                 .andDo(document("like-menu",
                         links(
                                 linkWithRel("self").description("메뉴 자신 링크"),
-                                linkWithRel("cancel-like").description("메뉴 좋아요 해제 링크")
+                                linkWithRel("cancel-like").description("메뉴 좋아요 해제 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.AUTHORIZATION).description("JWT 토큰 값")
@@ -99,7 +100,8 @@ public class LikeControllerTest {
                                 fieldWithPath("memberId").description("좋아요 누른 사용자 식별 번호"),
                                 fieldWithPath("dateTime").description("좋아요 누른 시간"),
                                 fieldWithPath("_links.self.href").description("생성된 좋아요 링크"),
-                                fieldWithPath("_links.cancel-like.href").description("좋아요 해제 링크")
+                                fieldWithPath("_links.cancel-like.href").description("좋아요 해제 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;
@@ -160,7 +162,8 @@ public class LikeControllerTest {
                                 linkWithRel("first").description("시작 페이지"),
                                 linkWithRel("prev").description("이전 페이지"),
                                 linkWithRel("next").description("다음 페이지"),
-                                linkWithRel("last").description("마지막 페이지")
+                                linkWithRel("last").description("마지막 페이지"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         requestParameters(
                                 parameterWithName("size").description("한 페이지에 속한 요소 개수"),
@@ -180,7 +183,8 @@ public class LikeControllerTest {
                                 fieldWithPath("_links.prev.href").description("이전 페이지"),
                                 fieldWithPath("_links.self.href").description("현재 페이지"),
                                 fieldWithPath("_links.next.href").description("다음 페이지"),
-                                fieldWithPath("_links.last.href").description("마지막 페이지")
+                                fieldWithPath("_links.last.href").description("마지막 페이지"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;
@@ -206,7 +210,8 @@ public class LikeControllerTest {
                                 linkWithRel("self").description("self 링크"),
                                 linkWithRel("first").description("시작 페이지"),
                                 linkWithRel("next").description("다음 페이지"),
-                                linkWithRel("last").description("마지막 페이지")
+                                linkWithRel("last").description("마지막 페이지"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         requestParameters(
                                 parameterWithName("size").description("한 페이지에 속한 요소 개수"),
@@ -225,7 +230,9 @@ public class LikeControllerTest {
                                 fieldWithPath("_links.self.href").description("현재 페이지"),
                                 fieldWithPath("_links.first.href").description("시작 페이지"),
                                 fieldWithPath("_links.next.href").description("다음 페이지"),
-                                fieldWithPath("_links.last.href").description("마지막 페이지")
+                                fieldWithPath("_links.last.href").description("마지막 페이지"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
+
                         )
                 ))
         ;
@@ -249,7 +256,8 @@ public class LikeControllerTest {
                 .andExpect(status().isOk())
                 .andDo(document("query-like-with-anonymous",
                         links(
-                                linkWithRel("self").description("self 링크")
+                                linkWithRel("self").description("self 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         pathParameters(
                                 parameterWithName("menuId").description("메뉴 식별 번호"),
@@ -260,7 +268,8 @@ public class LikeControllerTest {
                                 fieldWithPath("menuId").description("좋아요 누른 메뉴 식별 번호"),
                                 fieldWithPath("memberId").description("좋아요 누른 사용자 식별 번호"),
                                 fieldWithPath("dateTime").description("좋아요 누른 시간"),
-                                fieldWithPath("_links.self.href").description("self 링크")
+                                fieldWithPath("_links.self.href").description("self 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;
@@ -278,7 +287,8 @@ public class LikeControllerTest {
                 .andDo(document("query-like-with-owner-member",
                         links(
                                 linkWithRel("self").description("self 링크"),
-                                linkWithRel("cancel-like").description("좋아요 해제 링크")
+                                linkWithRel("cancel-like").description("좋아요 해제 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         pathParameters(
                                 parameterWithName("menuId").description("메뉴 식별 번호"),
@@ -290,7 +300,8 @@ public class LikeControllerTest {
                                 fieldWithPath("memberId").description("좋아요 누른 사용자 식별 번호"),
                                 fieldWithPath("dateTime").description("좋아요 누른 시간"),
                                 fieldWithPath("_links.self.href").description("self 링크"),
-                                fieldWithPath("_links.cancel-like.href").description("좋아요 해제 링크")
+                                fieldWithPath("_links.cancel-like.href").description("좋아요 해제 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;
@@ -309,7 +320,8 @@ public class LikeControllerTest {
                 .andExpect(status().isOk())
                 .andDo(document("query-like-with-not-owner-member",
                         links(
-                                linkWithRel("self").description("self 링크")
+                                linkWithRel("self").description("self 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         pathParameters(
                                 parameterWithName("menuId").description("메뉴 식별 번호"),
@@ -320,7 +332,8 @@ public class LikeControllerTest {
                                 fieldWithPath("menuId").description("좋아요 누른 메뉴 식별 번호"),
                                 fieldWithPath("memberId").description("좋아요 누른 사용자 식별 번호"),
                                 fieldWithPath("dateTime").description("좋아요 누른 시간"),
-                                fieldWithPath("_links.self.href").description("self 링크")
+                                fieldWithPath("_links.self.href").description("self 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;
@@ -367,13 +380,15 @@ public class LikeControllerTest {
                 .andExpect(status().isOk())
                 .andDo(document("cancel-like",
                         links(
-                                linkWithRel("like").description("좋아요 링크")
+                                linkWithRel("like").description("좋아요 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.AUTHORIZATION).description("JWT 토큰")
                         ),
                         responseFields(
-                                fieldWithPath("_links.like.href").description("좋아요 링크")
+                                fieldWithPath("_links.like.href").description("좋아요 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;

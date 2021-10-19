@@ -103,7 +103,8 @@ public class ReviewControllerTest {
                                 linkWithRel("self").description("self 링크"),
                                 linkWithRel("reviews").description("리뷰들 링크"),
                                 linkWithRel("delete-review").description("리뷰 삭제 링크"),
-                                linkWithRel("update-review").description("리뷰 수정 링크")
+                                linkWithRel("update-review").description("리뷰 수정 링크"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         responseFields(
                                 fieldWithPath("id").description("리뷰 식별 번호"),
@@ -114,7 +115,8 @@ public class ReviewControllerTest {
                                 fieldWithPath("_links.self.href").description("self 링크"),
                                 fieldWithPath("_links.reviews.href").description("리뷰 페이지 조회 링크"),
                                 fieldWithPath("_links.delete-review.href").description("리뷰 제거 링크"),
-                                fieldWithPath("_links.update-review.href").description("리뷰 수정 링크")
+                                fieldWithPath("_links.update-review.href").description("리뷰 수정 링크"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
@@ -173,7 +175,8 @@ public class ReviewControllerTest {
                                 linkWithRel("self").description("self 링크"),
                                 linkWithRel("first").description("시작 페이지"),
                                 linkWithRel("next").description("다음 페이지"),
-                                linkWithRel("last").description("마지막 페이지")
+                                linkWithRel("last").description("마지막 페이지"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         requestParameters(
                                 parameterWithName("size").description("한 페이지에 속한 요소 개수"),
@@ -194,7 +197,8 @@ public class ReviewControllerTest {
                                 fieldWithPath("_links.self.href").description("현재 페이지"),
                                 fieldWithPath("_links.first.href").description("시작 페이지"),
                                 fieldWithPath("_links.next.href").description("다음 페이지"),
-                                fieldWithPath("_links.last.href").description("마지막 페이지")
+                                fieldWithPath("_links.last.href").description("마지막 페이지"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ));
     }
@@ -226,7 +230,8 @@ public class ReviewControllerTest {
                 .andDo(document("query-review",
                         links(
                                 linkWithRel("self").description("self 링크"),
-                                linkWithRel("reviews").description("리뷰 페이지 조회 링크")
+                                linkWithRel("reviews").description("리뷰 페이지 조회 링크"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         responseFields(
                                 fieldWithPath("id").description("리뷰 식별 번호"),
@@ -235,7 +240,8 @@ public class ReviewControllerTest {
                                 fieldWithPath("content").description("리뷰 내용 시간"),
                                 fieldWithPath("created").description("리뷰 작성 시간"),
                                 fieldWithPath("_links.self.href").description("self 링크"),
-                                fieldWithPath("_links.reviews.href").description("리뷰 페이지 조회 링크")
+                                fieldWithPath("_links.reviews.href").description("리뷰 페이지 조회 링크"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
@@ -274,7 +280,8 @@ public class ReviewControllerTest {
                 .andDo(document("delete-review",
                         links(
                                 linkWithRel("create-review").description("리뷰 생성"),
-                                linkWithRel("reviews").description("리뷰 페이지 조회")
+                                linkWithRel("reviews").description("리뷰 페이지 조회"),
+                                linkWithRel("profile").description("profile URI")
                         )
                 ))
         ;
@@ -351,7 +358,8 @@ public class ReviewControllerTest {
                                 linkWithRel("self").description("self 링크"),
                                 linkWithRel("delete-review").description("리뷰 삭제 링크"),
                                 linkWithRel("update-review").description("리뷰 수정 링크"),
-                                linkWithRel("reviews").description("리뷰 페이지 조회 링크")
+                                linkWithRel("reviews").description("리뷰 페이지 조회 링크"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         responseFields(
                                 fieldWithPath("id").description("리뷰 식별 번호"),
@@ -362,7 +370,8 @@ public class ReviewControllerTest {
                                 fieldWithPath("_links.self.href").description("self 링크"),
                                 fieldWithPath("_links.reviews.href").description("리뷰 페이지 조회 링크"),
                                 fieldWithPath("_links.delete-review.href").description("리뷰 삭제 링크"),
-                                fieldWithPath("_links.update-review.href").description("리뷰 수정 링크")
+                                fieldWithPath("_links.update-review.href").description("리뷰 수정 링크"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ));
 

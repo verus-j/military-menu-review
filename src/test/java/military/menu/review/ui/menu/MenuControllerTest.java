@@ -90,7 +90,8 @@ public class MenuControllerTest {
                                 linkWithRel("prev").description("이전 페이지"),
                                 linkWithRel("self").description("현재 페이지"),
                                 linkWithRel("next").description("다음 페이지"),
-                                linkWithRel("last").description("마지막 페이지")
+                                linkWithRel("last").description("마지막 페이지"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         requestParameters(
                                 parameterWithName("page").description("페이지 번호"),
@@ -111,7 +112,8 @@ public class MenuControllerTest {
                                 fieldWithPath("_links.prev.href").description("이전 페이지"),
                                 fieldWithPath("_links.self.href").description("현재 페이지"),
                                 fieldWithPath("_links.next.href").description("다음 페이지"),
-                                fieldWithPath("_links.last.href").description("마지막 페이지")
+                                fieldWithPath("_links.last.href").description("마지막 페이지"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
@@ -135,7 +137,8 @@ public class MenuControllerTest {
                                 linkWithRel("first").description("시작 페이지"),
                                 linkWithRel("self").description("현재 페이지"),
                                 linkWithRel("next").description("다음 페이지"),
-                                linkWithRel("last").description("마지막 페이지")
+                                linkWithRel("last").description("마지막 페이지"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         requestParameters(
                                 parameterWithName("page").description("페이지 번호"),
@@ -156,7 +159,8 @@ public class MenuControllerTest {
                                 fieldWithPath("_links.self.href").description("현재 페이지"),
                                 fieldWithPath("_links.first.href").description("시작 페이지"),
                                 fieldWithPath("_links.next.href").description("다음 페이지"),
-                                fieldWithPath("_links.last.href").description("마지막 페이지")
+                                fieldWithPath("_links.last.href").description("마지막 페이지"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
@@ -187,7 +191,8 @@ public class MenuControllerTest {
                                 linkWithRel("first").description("시작 페이지"),
                                 linkWithRel("self").description("현재 페이지"),
                                 linkWithRel("next").description("다음 페이지"),
-                                linkWithRel("last").description("마지막 페이지")
+                                linkWithRel("last").description("마지막 페이지"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         requestParameters(
                                 parameterWithName("page").description("페이지 번호"),
@@ -207,7 +212,8 @@ public class MenuControllerTest {
                                 fieldWithPath("_links.self.href").description("현재 페이지"),
                                 fieldWithPath("_links.first.href").description("첫 페이지"),
                                 fieldWithPath("_links.last.href").description("다음 페이지"),
-                                fieldWithPath("_links.next.href").description("마지막 페이지")
+                                fieldWithPath("_links.next.href").description("마지막 페이지"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
@@ -225,7 +231,8 @@ public class MenuControllerTest {
                 .andExpect(jsonPath("like").value("0"))
                 .andDo(document("query-menu",
                         links(
-                                linkWithRel("self").description("단건 메뉴 조회 링크")
+                                linkWithRel("self").description("단건 메뉴 조회 링크"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         pathParameters(
                                 parameterWithName("id").description("메뉴 식별 번호")
@@ -235,7 +242,8 @@ public class MenuControllerTest {
                                 fieldWithPath("name").description("메뉴 이름"),
                                 fieldWithPath("kcal").description("메뉴 칼로리"),
                                 fieldWithPath("like").description("메뉴 좋아요 수"),
-                                fieldWithPath("_links.self.href").description("메뉴 self 링크")
+                                fieldWithPath("_links.self.href").description("메뉴 self 링크"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;

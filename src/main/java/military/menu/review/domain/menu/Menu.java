@@ -32,6 +32,10 @@ public class Menu {
         like++;
     }
 
+    public void unlike() {
+        like--;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,9 +51,5 @@ public class Menu {
 
     public static Menu of(String name, Double kcal) {
         return new Menu(name, kcal);
-    }
-
-    public void unlike() {
-        like--;
     }
 }

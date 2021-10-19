@@ -15,6 +15,7 @@ import military.menu.review.ui.review.exception.NotFoundEntityException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,9 @@ public class ReviewController {
 
         Review review = reviewService.create(member, meal, reviewRequest.getContent());
         URI location = linkTo(ReviewController.class, id).slash(review.getId()).toUri();
-        return ResponseEntity.created(location).body(new ReviewResponse(review, member));
+        ReviewResponse reviewResponse = new ReviewResponse(review, member);
+        reviewResponse.add(Link.of("http://localhost:8080/docs/index.html#resouces-create-review").withRel("profile"));
+        return ResponseEntity.created(location).body(reviewResponse);
     }
 
     @GetMapping
@@ -75,6 +78,7 @@ public class ReviewController {
         if(member != null) {
             pagedModel.add(linkTo(ReviewController.class, id).withRel("create-review"));
         }
+        pagedModel.add(Link.of("http://localhost:8080/docs/index.html#resources-query-reviews").withRel("profile"));
         return ResponseEntity.ok(pagedModel);
     }
 
@@ -82,7 +86,9 @@ public class ReviewController {
     public ResponseEntity queryReview(@PathVariable Long id, @PathVariable Long reviewId, @CurrentMember Member member) {
         Review review = findEntity(reviewRepository.findById(reviewId));
         checkReviewHasSameMealId(review, id);
-        return ResponseEntity.ok(new ReviewResponse(review, member));
+        ReviewResponse reviewResponse = new ReviewResponse(review, member);
+        reviewResponse.add(Link.of("http://localhost:8080/docs/index.html#resources-query-review").withRel("profile"));
+        return ResponseEntity.ok(reviewResponse);
     }
 
     @DeleteMapping("/{reviewId}")
@@ -95,6 +101,7 @@ public class ReviewController {
         RepresentationModel model = new RepresentationModel();
         model.add(linkTo(ReviewController.class, id).withRel("reviews"));
         model.add(linkTo(ReviewController.class, id).withRel("create-review"));
+        model.add(Link.of("http://localhost:8080/docs/index.html#resources-delete-review").withRel("profile"));
         return ResponseEntity.ok(model);
     }
 
@@ -106,10 +113,15 @@ public class ReviewController {
                                        Errors errors) {
         checkReviewRequest(errors);
         Review review = findEntity(reviewRepository.findById(reviewId));
+
         checkReviewHasSameMealId(review ,id);
         checkMemberIsNull(member);
         checkReviewIsCreatedMember(review, member);
-        return ResponseEntity.ok(new ReviewResponse(reviewService.update(review, reviewRequest.getContent()), member));
+
+        Review updatedReview = reviewService.update(review, reviewRequest.getContent());
+        ReviewResponse reviewResponse = new ReviewResponse(updatedReview, member);
+        reviewResponse.add(Link.of("http://localhost:8080/docs/index.html#resources-update-review").withRel("profile"));
+        return ResponseEntity.ok(reviewResponse);
     }
 
     private <T> T findEntity(Optional<T> optional) {

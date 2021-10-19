@@ -108,7 +108,8 @@ public class MealControllerTest {
                         links(
                                 linkWithRel("self").description("self 링크"),
                                 linkWithRel("next-week").description("다음 주 식단표 링크"),
-                                linkWithRel("prev-week").description("이전 주 식단표 링크")
+                                linkWithRel("prev-week").description("이전 주 식단표 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         requestParameters(
                                 parameterWithName("year").description("식단표 년도"),
@@ -127,7 +128,8 @@ public class MealControllerTest {
                                 fieldWithPath("meals[]._links.self.href").description("식단 self 링크"),
                                 fieldWithPath("_links.self.href").description("self 링크"),
                                 fieldWithPath("_links.next-week.href").description("다음 주 식단표 링크"),
-                                fieldWithPath("_links.prev-week.href").description("이전 주 식단표 링크")
+                                fieldWithPath("_links.prev-week.href").description("이전 주 식단표 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;
@@ -176,7 +178,8 @@ public class MealControllerTest {
                 .andDo(document("query-meal",
                         links(
                                 linkWithRel("self").description("식단 self 링크"),
-                                linkWithRel("meals").description("주별 식단표 링크")
+                                linkWithRel("meals").description("주별 식단표 링크"),
+                                linkWithRel("profile").description("profile 링크")
                         ),
                         pathParameters(
                                 parameterWithName("id").description("식단 식별 번호")
@@ -191,7 +194,8 @@ public class MealControllerTest {
                                 fieldWithPath("menus[].like").description("메뉴 좋아요"),
                                 fieldWithPath("menus[]._links.self.href").description("메뉴 self 링크"),
                                 fieldWithPath("_links.self.href").description("식단 self 링크"),
-                                fieldWithPath("_links.meals.href").description("주별 식단표 링크")
+                                fieldWithPath("_links.meals.href").description("주별 식단표 링크"),
+                                fieldWithPath("_links.profile.href").description("profile 링크")
                         )
                 ))
         ;

@@ -2,12 +2,20 @@ package military.menu.review.ui.meal;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import java.time.LocalDate;
 
 @Component
-public class WeekValidator {
-    public void validate(WeekRequest weekRequest, Errors errors) {
+public class WeekValidator implements Validator {
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return clazz.isAssignableFrom(WeekRequest.class);
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        WeekRequest weekRequest = (WeekRequest)target;
         LocalDate firstDate = weekRequest.firstDate();
 
         if(firstDate.getMonthValue() != weekRequest.getMonth()){

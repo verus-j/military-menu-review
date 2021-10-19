@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,7 @@ public class MenuController {
         List<MenuDto> menuDtoList = queryForList(pageable, member);
         Page<MenuDto> dtoPage = new PageImpl<>(menuDtoList, pageable, menuRepository.count());
         PagedModel<MenuResponse> result = dtoAssembler.toModel(dtoPage, MenuResponse::new);
+        result.add(Link.of("http://localhost:8080/docs/index.html#resources-query-menus").withRel("profile"));
         return ResponseEntity.ok(result);
     }
 
@@ -41,7 +44,9 @@ public class MenuController {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(new MenuResponse(optional.get()));
+        MenuResponse menuResponse = new MenuResponse(optional.get());
+        menuResponse.add(Link.of("http://localhost:8080/docs/index.html#resources-query-menu").withRel("profile"));
+        return ResponseEntity.ok(menuResponse);
     }
 
     private Optional<MenuDto> queryByOptional(Member member, Long id) {

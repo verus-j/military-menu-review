@@ -66,6 +66,9 @@ public class MemberControllerTest {
                 .andExpect(jsonPath("name").value("정진혁"))
                 .andExpect(jsonPath("type").value("SOLDIER"))
                 .andDo(document("login-member",
+                        links(
+                                linkWithRel("profile").description("profile URI")
+                        ),
                         requestFields(
                                 fieldWithPath("username").description("사용자 아이디"),
                                 fieldWithPath("password").description("사용자 비밀번호")
@@ -77,7 +80,8 @@ public class MemberControllerTest {
                                 fieldWithPath("id").description("사용자 번호"),
                                 fieldWithPath("username").description("사용자 아이디"),
                                 fieldWithPath("name").description("사용자 이름"),
-                                fieldWithPath("type").description("사용자 유형(군인[SOLDIER])")
+                                fieldWithPath("type").description("사용자 유형(군인[SOLDIER])"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
@@ -101,7 +105,8 @@ public class MemberControllerTest {
                 .andDo(print())
                 .andDo(document("join-member",
                         links(
-                                linkWithRel("login").description("로그인 URI")
+                                linkWithRel("login").description("로그인 URI"),
+                                linkWithRel("profile").description("profile URI")
                         ),
                         requestFields(
                                 fieldWithPath("username").description("사용자 아이디"),
@@ -114,7 +119,8 @@ public class MemberControllerTest {
                                 fieldWithPath("username").description("사용자 아이디"),
                                 fieldWithPath("name").description("사용자 이름"),
                                 fieldWithPath("type").description("사용자 유형(군인[SOLDIER])"),
-                                fieldWithPath("_links.login.href").description("로그인 URI")
+                                fieldWithPath("_links.login.href").description("로그인 URI"),
+                                fieldWithPath("_links.profile.href").description("profile URI")
                         )
                 ))
         ;
