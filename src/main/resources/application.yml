@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: dev
+
+mnd:
+  baseUrl: https://openapi.mnd.go.kr/3635313637353930393731343232313435/json/DS_TB_MNDT_DATEBYMLSVC_ATC/
+
+jwt:
+  secret: secretKey
+  lifeTime: 3000
